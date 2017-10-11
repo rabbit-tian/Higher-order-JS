@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title></title>
+<style>
+*{
+	margin: 0;
+	padding: 0;
+	font-family: "微软雅黑";
+}
+body{
+	background: #2f2a78;
+	overflow: hidden;
+}	
+.warp{
+	width:101px;
+	height: 387px;
+	background: #fff;
+	margin: 200px auto;
+}
+#box{
+	width:88px;
+	height: 387px;
+	float:left;
+	overflow: hidden;
+	position: relative;
+}
+#div1{
+	width:13px;
+	height: 387px;
+	float: right;
+	position:relative;
+	background: #ccc;
+}
+#div3{
+	width:9px;
+	height:72px;
+	background:url(bg.png) 0px -12px no-repeat;
+	position: absolute;
+	top:0;
+	left: 2px;
+}
+#div2{
+	width:13px;
+	height: 367px;
+	margin-top: 10px;
+	position: relative;
+}
+#top{
+	width:11px;
+	height: 10px;
+	background:url(bg.png) 0 0 no-repeat;
+	position: absolute;
+	top:0;
+	left:1px;
+}
+#bottom{
+	width:11px;
+	height: 10px;
+	background:url(bg.png) -12px 0 no-repeat;
+	position: absolute;
+	bottom:0;
+	left:1px;
+}
+#ul{
+	list-style: none;
+	width:88px;
+	position: absolute;
+	top:0;
+}
+li{
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+}
+</style>
+</head>
+<body>
+	<section class="warp">
+		<div id="box">
+			<ul id="ul">
+				<!-- <li>北京</li>
+				<li>北京</li>
+				<li>北京</li>
+				<li>北京</li>
+				<li>北京</li> -->
+			</ul>
+		</div>
+		<div id="div1">
+			<div id="top"></div>
+			<div id="div2">
+				<div id="div3"></div>
+			</div>
+			<div id="bottom"></div>
+		</div>
+	</section>
+<script src="data.js" type="text/javascript" charset="utf-8"></script>
+<script>
+	var ul = document.getElementById('ul');
+	var div1 = document.getElementById('div1');
+	var div2 = document.getElementById('div2');
+	var div3 = document.getElementById('div3');
+
+	// 循环arrCity 添加 数据
+	arrCity.forEach(function(e,i){ // e：当前值  i：索引
+		if(i != 0){ // 从第一个开始添加
+			ul.innerHTML += '<li>'+e.name+'</li>';
+		}
+	});
+
+	// 滚动条的拖拽
+	div3.onmousedown = function(ev){
+		var disY = ev.clientY - div3.offsetTop; // 计算鼠标和滚动条的距离
+		document.onmousemove = function(ev){
+			var t = ev.clientY - disY; // 计算鼠标拖拽滚动条的距离
+			move(t); // 根据这个距离计算 滚动条的位置 和 内容显示的位置
+		};
+		// 鼠标抬起时，清除move和up事件
+		document.onmouseup = function(){
+			document.onmouseup = document.onmousemove = null;
+		};
+		return false; // 阻止默认事件
+	};
+
+	//滚轮
+	addWeel(box,function(o){
+		var t = div3.offsetTop; // 获取滚动条的top值
+		if(o){
+			//-- 向上运动
+			t -= 5;
+			move(t);
+		}else{
+			//++ 向下运动
+			t += 5;
+			move(t);
+		}
+	});
+
+	//点击
+	var timer = null; // 定时器id
+	// 由于top键和bottom键，滚动轨道都有相同的mousedown事件，因此将事件加在 div1上
+	div1.onmousedown = function(ev){
+		timer = setInterval(function(){
+			var t = div3.offsetTop; // 获取滚动条的初始位置
+			// 如果鼠标点在滚动条上方，滚动条就向上运动
+			if(ev.clientY < div3.getBoundingClientRect().top){
+				t -= 5;
+				move(t);
+			}else if(ev.clientY > div3.getBoundingClientRect().bottom){// 如果鼠标点在滚动条下方，滚动条就向下运动
+				t += 5;
+				move(t);
+			}else{ // 当鼠标点击在滚动条上时，就停止运动
+				clearInterval(timer);
+			}
+		},30);
+	};
+	// 鼠标抬起时，停止运动
+	div1.onmouseup = function(ev){
+		clearInterval(timer);
+	};
+
+	 // 上下滚动时，滚动条和内容的 位置设置以及边界处理
+	function move(t){
+	    // 边界处理 0：最小值  div2.offsetHeight - div3.offsetHeight：最大值
+		if(t < 0){
+			t = 0;
+		}else if(t > div2.offsetHeight - div3.offsetHeight){
+			t = div2.offsetHeight - div3.offsetHeight;
+		}
+		var scale = t/(div2.offsetHeight - div3.offsetHeight); // 根据滚动条的距离 和可以滚动的轨道距离计算比例
+		ul.style.top = scale * (box.offsetHeight - ul.scrollHeight) + 'px'; // 根据比例 计算内容的滚动位置
+		div3.style.top = t + 'px'; // 设置滚动条的位置
+	}
+
+
+
+	// 兼容chrome和FF的 滚轮函数封装
+	function addWeel(obj,fn){ // obj: 滚动的对象   fn：滚动需要做的事
+        //FF
+        if(obj.onmousewheel === undefined){ // onmousewheel是 chrome，FF下获取的是 undefined
+            obj.addEventListener('DOMMouseScroll',fn1);
+        }else{
+        //Chrome
+            obj.addEventListener('mousewheel',fn1);
+        }
+
+        function fn1(ev){
+            var o = true; // true：向上   false: 向下
+            if(ev.wheelDelta){ // chrome 上下滚轮操作
+                o = ev.wheelDelta>0 ? true : false;
+            }else{
+                o = ev.detail < 0?true : false;
+            }
+            
+            fn && fn(o); // 滚轮执行的事件 o是实参
+        }
+    }
+
+
+
+</script>
+</body>
+</html>
