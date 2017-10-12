@@ -64,3 +64,75 @@
 
          注：如果说git log找不到历史ID，可以通过git reflog去查看操作过的历史记录
 
+   5. 同步到远程仓库
+
+      1. 查看远程仓库名：git remote  (默认origin)
+      2. 查看上传地址和下载地址是否为一个地址 ：git remote -v
+      3. 创建远程仓库 ：git remote add 名字 github的地址
+      4. 上传远程仓库： git push origin(默认) master
+
+   6. 协作
+
+      1. 需要创建项目者给协作者权限
+
+         进入项目 -> settings -> 最左边 Collaborators -> 添加协作者名字
+
+      2. 等待协作者确定
+
+      3. 协作者：
+
+         - 确定协作
+         - clone项目
+         - 参与项目开发
+         - 提交上传
+
+      4. 有可能会遇到冲突:
+
+         1. git pull (直接把远程的代码覆盖到本地)（不太推荐）
+
+         2. git fetch (把远程仓库的代码拉取下来不覆盖)
+
+         3. 查看哪里有冲突
+
+            git diff master origin/master
+
+         4. 合并冲突
+
+            1. git merge origin/master  (你会发现master变成了matser|MERGEING)
+            2. 人为判断冲突，把冲突内容删除
+            3. 删除完成之后（代码被修改了，需要重新提交）
+            4. 保存到版本区之后，继续push （matser|MERGEING就变成了master）
+
+   7. 自己要求协作
+
+      1. 找到想参与的项目fork
+      2. 把项目克隆到本地 -> 修改 -> 提交
+      3. 点击 Pull requests
+      4. 点击 new pull request
+      5. 点击 Create pull request
+      6. 对话点击Create pull request ，向协作方申请协作，等待
+      7. 协作方查看消息后，点击files changed（查看修改内容），merge pull request(可以回复别人)
+
+   8. 分支和合并分支
+
+      1. 新建分支： git branch 分支名
+
+      2. 查看分支： git branch
+
+      3. 切换分支： git checkout 分支名
+
+      4. 快速创建分支和切换：git checkout -b 分支名
+
+      5. 合并分支：git merge 分支名
+
+         可能会出现冲突：认为修改后，提交
+
+      6. 删除已经合并的分支 ：git branch -d 分支名
+
+      7. 删除未合并的分支 ：git branch -D 分支名
+
+      8. 查看已经合并的分支：git branch --merged
+
+      9. 查看未合并的分支：git branch —no-merged
+
+
