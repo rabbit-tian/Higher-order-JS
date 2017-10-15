@@ -184,8 +184,54 @@
      console.log(/1[89]|[2-9][0-9]|10[0-8]/.test('1008')); // true  没有上限 只要是18以上都可以
 
      解决方法： 加上 开头和结尾  ^ $
-
      console.log(/^1[89]$|^[2-9][0-9]$|^10[0-8]$/.test('108')); // true 18-108
+     ```
+
+8. 小尖尖  ^ 
+
+   - 第一个意思： 开头，小栗子，查找精确范围
+
+     ```Javascript
+     // 要求：查找18-108中任意一个数字
+     console.log(/^1[89]$|^[2-9][0-9]$|^10[0-8]$/.test('108')); // false 
+     console.log(/1[89]|[2-9][0-9]|10[0-8]/.test('1008')); // true
+     ```
+
+     ​
+
+   - 第二个意思 ：排除，见一下小栗子(如果小尖尖在中括号中，就是排除的意思。)
+
+     ```javascript
+     // 要求： 排除a2ca3c
+     var str = 'a1ca22ca3cabcafcayc';
+     console.log(str.match(/a[^23y]c/g)); //["a1c", "abc", "afc"];
+
+     // 要求：匹配除了 a12c 的四位数
+     console.log(str.match(/a[^1]2c/g));  // ["a22c"]
+     ```
+
+   - 第三个排除例子 ：过滤标签
+
+     ```Javascript
+     <body>
+         <textarea name="" id="txt1" cols="30" rows="10">
+             <div class="item">
+                 <span>数据类型</span>
+                 <em>03</em>
+                 <div class="line"></div>
+             </div>
+         </textarea>
+         <hr>
+         <textarea name="" id="txt2" cols="30" rows="10"></textarea>
+         <button id="btn">过滤标签</button>
+     <script>
+         btn.onclick = function(){
+             var str = txt1.value.replace(/<[^>]+>/g,''); // 匹配 < 到除了>的内容 再合上>
+
+             txt2.innerHTML = str.replace(/\s+/g,''); // 去除空格  ”数据类型03“
+         }; 
+     </script>    
+     </body>
      ```
 
      ​
