@@ -1,18 +1,22 @@
 1. ##### 正则表达式
 
    - 是检索(模糊范围)字符串的一种规则
-   - 简写： //
-   - 全写：new RegExp(可以为字符串||正则,'i')
+   - 简写： //   里面不可以用变量
+   - 全写：new RegExp(可以为字符串||正则,'i')    此处正则可以写变量
 
 2. ##### 转义符
 
-   | 写法   | 含义              |
-   | :--- | --------------- |
-   | \d   | 一个数字            |
-   | \D   | 一个非数字           |
-   | \w   | 一个字符(字母，数字，下划线) |
-   | \s   | 一个空格            |
-   |      |                 |
+   | 写法    | 含义                  |
+   | :---- | ------------------- |
+   | \d    | 一个数字                |
+   | \D    | 一个非数字               |
+   | \w    | 一个字符(字母，数字，下划线)     |
+   | \W    | 一个非空字符              |
+   | \s    | 一个空格                |
+   | \S    | 一个非空空格              |
+   | \b    | 边界符                 |
+   | .   点 | 任意字符（除了制表符(tab)和空格） |
+   |       |                     |
 
 3. ##### 修饰符
 
@@ -23,11 +27,12 @@
 
 4. #####  量词
 
-   | 写法   | 含义    |
-   | ---- | ----- |
-   | +    | 一次或多次 |
-   | ？    | 0或1次  |
-   |      |       |
+   | 写法          | 含义    |
+   | ----------- | ----- |
+   | +           | 一次或多次 |
+   | ？/  {0,1}   | 0或1次  |
+   | {start,end} | 数量的范围 |
+   | * /  {0,}   | 任意次   |
 
    ​
 
@@ -235,3 +240,77 @@
      ```
 
      ​
+
+9. 面试题(计算字节)
+
+   ```javascript
+   // 要求：计算下面字符串中的字节总数是多少，假设一个汉字为2个字节，字母为1个字节
+   // 注：中文的区间范围   [\u4e00-\u9fa5]
+
+   var str = 'hello!欢迎大家来带妙味课程!';//27
+   var num = 0;
+   for(var i=0;i<str.length;i++){
+     if(/[\u4e00-\u9fa5]/.test(str[i])){
+       num += 2;
+     }else{
+       num ++;
+     }
+   }
+   console.log(num); // 27
+   ```
+
+   ​
+
+10. 边界符版 封装 兼容 className
+
+   ```javascript
+   /*
+           重点：
+               1.找规律
+               2.使用new RegExp()
+                   如果使用标准正则写法，那么第一个里面可以为字符串，
+                   这个时候就可以使用变量，如果规则中使用转义符，记得
+                   要转义。如 \\s   /|\都需要转换。
+               var s = '123';
+               /s/ -> 's'
+               new RegExp(s,'g') -> '123'
+   */
+
+   <body>
+       <ul>
+           <li>1</li>
+           <li class="li1     li">2</li>
+           <li>3</li>
+           <li class="li1 li2">4</li>
+           <li>5</li>
+       </ul>
+   <script>
+           function getByClass(sClass){
+                   var s = sClass.charAt();
+                   if(s === '#'){
+
+                       return document.getElementById(sClass.substring(1))
+                   }else if(s === '.'){
+                       if(document.getElementsByClassName){
+                           return document.getElementsByClassName(sClass.substring(1));
+                       }else{
+                           var arr = [];
+                           var aEle = document.getElementsByTagName('*');
+                           var re = new RegExp('\\b' + sClass.substring(1) + '\\b','g'); // \\b的含义: 转义\b
+                           for(var i=0;i<aEle.length;i++){
+                               if(re.test(aEle[i].className)){
+                                   arr.push(aEle[i]);
+                               }
+                           }
+                           return arr;
+                       }
+                   } 
+           }
+           
+           console.log(getByClass('.li1').length); // 2
+           
+   </script>
+   </body>
+   ```
+
+   ​
