@@ -263,57 +263,57 @@
 
 10. 边界符版 封装 兼容 className
 
-   ```javascript
-   /*
-           重点：
-               1.找规律
-               2.使用new RegExp()
-                   如果使用标准正则写法，那么第一个里面可以为字符串，
-                   这个时候就可以使用变量，如果规则中使用转义符，记得
-                   要转义。如 \\s   /|\都需要转换。
-               var s = '123';
-               /s/ -> 's'
-               new RegExp(s,'g') -> '123'
-   */
+  ```javascript
+  /*
+          重点：
+              1.找规律
+              2.使用new RegExp()
+                  如果使用标准正则写法，那么第一个里面可以为字符串，
+                  这个时候就可以使用变量，如果规则中使用转义符，记得
+                  要转义。如 \\s   /|\都需要转换。
+              var s = '123';
+              /s/ -> 's'
+              new RegExp(s,'g') -> '123'
+  */
 
-   <body>
-       <ul>
-           <li>1</li>
-           <li class="li1     li">2</li>
-           <li>3</li>
-           <li class="li1 li2">4</li>
-           <li>5</li>
-       </ul>
-   <script>
-           function getByClass(sClass){
-                   var s = sClass.charAt();
-                   if(s === '#'){
+  <body>
+      <ul>
+          <li>1</li>
+          <li class="li1     li">2</li>
+          <li>3</li>
+          <li class="li1 li2">4</li>
+          <li>5</li>
+      </ul>
+  <script>
+          function getByClass(sClass){
+                  var s = sClass.charAt();
+                  if(s === '#'){
 
-                       return document.getElementById(sClass.substring(1))
-                   }else if(s === '.'){
-                       if(document.getElementsByClassName){
-                           return document.getElementsByClassName(sClass.substring(1));
-                       }else{
-                           var arr = [];
-                           var aEle = document.getElementsByTagName('*');
-                           var re = new RegExp('\\b' + sClass.substring(1) + '\\b','g'); // \\b的含义: 转义\b
-                           for(var i=0;i<aEle.length;i++){
-                               if(re.test(aEle[i].className)){
-                                   arr.push(aEle[i]);
-                               }
-                           }
-                           return arr;
-                       }
-                   } 
-           }
-           
-           console.log(getByClass('.li1').length); // 2
-           
-   </script>
-   </body>
-   ```
+                      return document.getElementById(sClass.substring(1))
+                  }else if(s === '.'){
+                      if(document.getElementsByClassName){
+                          return document.getElementsByClassName(sClass.substring(1));
+                      }else{
+                          var arr = [];
+                          var aEle = document.getElementsByTagName('*');
+                          var re = new RegExp('\\b' + sClass.substring(1) + '\\b','g'); // \\b的含义: 转义\b
+                          for(var i=0;i<aEle.length;i++){
+                              if(re.test(aEle[i].className)){
+                                  arr.push(aEle[i]);
+                              }
+                          }
+                          return arr;
+                      }
+                  } 
+          }
+          
+          console.log(getByClass('.li1').length); // 2
+          
+  </script>
+  </body>
+  ```
 
-   ​
+  ​
 
 11. 重复子项
 
@@ -341,6 +341,84 @@
 
         console.log(str.match(/((((\d))i))\3\1\2\2\3\1/)); // 7i77i7i7i77i
         console.log(str.match(/\1((\d)i)\2\1/g)); //7i77i   重复子项不能放在前面
+    ```
+
+    ​
+
+12. 重复子项的面试题
+
+    ```javascript
+    // 找出下列字符串中数量最多的是谁？有多少个？
+    var str = 'sdfsdfmkkk33333333333333kdmmwwwwmm222222222222222948348594354444444000084884333333333';
+    方法一：正则的方法
+        var index = 0;
+        var most = '';
+        str = str.split('').sort().join(''); // 先将字符串进行排序
+        str.replace(/(\d)\1+/g,function ($0,$1){ // 匹配重复出现的项，然后进行对比，找出长度最大的项
+            if(index<$0.length){
+                index = $0.length;
+                most = $1;
+            }
+        });
+
+        console.log('出现次数最多的字符'+most,'出现了'+index); // 出现次数最多的字符3 出现了9
+
+
+     方法二：json的方法
+    	var min = -Infinity; // 定义一个最小值
+        var obj = ''; // 存放出现次数的 对象
+        var json = { // 定义一个空对象 ，存放 出现的字符和其出现的次数
+
+        };
+
+        // 循环str，如果里面没有这个字符，就计次字符出现1次，如果出现过，次数++
+        for (var i = 0; i < str.length; i++) {
+            if(!json[str[i]]){
+                json[str[i]] = 1;
+            }else{
+                json[str[i]]++;
+            }
+        }
+
+        // 循环json里的键值 ，找出最大值和对应的键
+        for(var attr in json){
+            if(json[attr]>min){
+                min = json[attr];
+                obj = attr;
+            }
+        }
+
+        console.log('出现次数最多的字符'+obj,'出现了'+min); // 出现次数最多的字符3 出现了9
+    ```
+
+
+13. 邮箱的验证
+
+    ```javascript
+    // 大概需要验证的邮箱
+    /*
+    23132132@qq.com          ^([1-9]\d{5,9})
+    13888888888@139.com      ^(1[34578]\d{9})
+    dsds_dsd@yeah.net
+    dsds_dsd@163.com
+    dsds@gmail.com
+    zhipeng@miaov.com
+    ndsd-dsdsd@hotmail.com   ^([A-Za-z][\w\-]{5,16})
+    */
+
+    var re = /^(1[34578]\d{9})|^([A-Za-z][\w\-]{5,16})|^([1-9]\d{5,9})@[A-Za-z0-9]{2,8}\.[A-Za-z]{2,3}$/;
+    ```
+
+14. 邮编和身份证验证
+
+    ```javascript
+    1. 邮编的验证
+     6位都是数字
+     /\d{6}/
+
+    2. 身份证的验证
+    例如：110281199308314310
+    var re = /^[1-8][1-9][0-8]\d{3}((1[8-9][0-9][0-9])|(200[0-9])|(201[0-7]))(0[1-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])(\d{4}$|\d{3}x$)/;
     ```
 
     ​
