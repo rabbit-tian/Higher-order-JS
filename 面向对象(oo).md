@@ -10,7 +10,7 @@
    - 继承
    - 多态
 
-3. 构造函数(又叫 工厂函数，类)
+3. ##### 构造函数(又叫 工厂函数，类)
 
    - 能 return 对象 的就是 构造函数
 
@@ -65,7 +65,7 @@
      console.log(f);
      ```
 
-4. 面向对象(new改写)
+4. ##### 面向对象(new改写)
 
    ```javascript
      /*
@@ -105,7 +105,7 @@
 
    ​
 
-5. 原型 (prototype)  与原型链 (_ _proto_ _)
+5. ##### 原型 (prototype)  与原型链 (_ _proto_ _)
 
    - 什么是原型
 
@@ -126,5 +126,165 @@
      - _ proto_ === 构造函数.prototype
      - _ proto _  原型链  只要是对象都有原型链，它是链接对象与构造函数的桥梁
      - 对象没有原型，只有原型链而函数既有原型也有原型链，__构造函数的原型只给它的实例化对象使用__
+
+   ​
+
+6. ##### 面向对象的 选项卡
+
+   ```javascript
+   <head>
+       <meta charset="UTF-8">
+       <title>Title</title>
+       <style>
+           .active{
+               background-color: yellowgreen;
+           }
+           .show{
+               display: block;
+               background-color: #ccc;
+           }
+           div{
+               width: 200px;
+               height: 200px;
+               display: none;
+           }
+           button{
+               outline: none;
+               cursor: pointer;
+           }
+
+       </style>
+   </head>
+   <body>
+   <button class="active">标题一</button>
+   <button>标题二</button>
+   <button>标题三</button>
+   <div class="show">11111111111</div>
+   <div>22222222222</div>
+   <div>33333333333</div>
+
+
+   <script>
+   	1. 面向过程的写法
+       var btns = document.querySelectorAll('button');
+       var content = document.querySelectorAll('div');
+
+       for (var i = 0; i < btns.length; i++) {
+           btns[i].index = i; // 记录索引
+           // 添加点击事件
+           btns[i].onclick = function (){
+               // 大清洗
+               for (var i = 0; i < btns.length; i++) {
+                   btns[i].className = '';
+                   content[i].className = '';
+               }
+               // 当前点击按钮添加样式
+               this.className = 'active';
+               content[this.index].className = 'show';
+           }
+       }
+   	/************************************************************************/
+   	2.面向对象的选项卡
+      	// 构造函数
+       function Tab(){
+           this.btns = document.querySelectorAll('button');    // 按钮
+           this.content = document.querySelectorAll('div'); // 内容框
+       }
+
+       Tab.prototype.event = function (){
+           var _this = this; // tab
+           // 循环按钮，添加点击事件
+           for (var i = 0; i < this.btns.length; i++) {
+               this.btns[i].index = i; // 记录索引值
+               this.btns[i].onclick = function (){
+                   _this.tabs(this); // 将当前点击的 按钮 作为参数传过去 ，此处是实参
+               }
+               
+           }
+       };
+
+       // 点击按钮需要做的事情
+       Tab.prototype.tabs = function (that){ // 此处that是形参
+           // 大清洗
+           for (var i = 0; i < this.btns.length; i++) {
+               this.btns[i].className = '';
+               this.content[i].className = '';
+           }
+
+           // 给当前添加样式
+           that.className = 'active';
+           this.content[that.index].className = 'show';
+       };
+
+
+       // 实例化对象
+       var p = new Tab;
+
+       p.event();
+
+   /************************************************************************/
+
+   	3.加自动播放的 选项卡
+       
+       // 构造函数
+       function Tab(){
+           this.btns = document.querySelectorAll('button');    // 按钮
+           this.content = document.querySelectorAll('div'); // 内容框
+           // 自动播放
+           this.num = 0;
+           this.timer = null;
+       }
+
+       Tab.prototype.event = function (){
+           var _this = this; // tab
+
+           // 循环按钮，添加点击事件
+
+           for (var i = 0; i < this.btns.length; i++) {
+               // 闭包
+               (function (index){ // 参数 index
+                   // 自执行函数内的this指向window
+                   _this.btns[index].onclick = function (){
+                       _this.tabs(index);
+                   }
+               })(i); // 实参 i
+           }
+       };
+
+       // 点击按钮需要做的事情
+       Tab.prototype.tabs = function (index){ // 此处that是形参
+           // 大清洗
+           for (var i = 0; i < this.btns.length; i++) {
+               this.btns[i].className = '';
+               this.content[i].className = '';
+           }
+
+           // 给当前添加样式
+           this.btns[index].className = 'active';
+           this.content[index].className = 'show';
+       };
+
+       // 自动播放
+       Tab.prototype.autoPlay = function (){
+           var _this = this;
+           this.timer = setInterval(function (){
+               _this.num ++;
+               if(_this.num>_this.btns.length-1){
+                   _this.num = 0;
+               }
+               _this.tabs(_this.num);
+           },1000)
+       };
+
+
+       // 实例化对象
+       var p = new Tab;
+
+       p.event();
+       p.autoPlay();
+
+   </script>
+
+   ```
 
    ​
