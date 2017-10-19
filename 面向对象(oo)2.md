@@ -341,6 +341,23 @@
    /*
       A:nizp  B:undefined C:'' D:null  E:报错
    */
+
+
+
+   function fn(){
+           var fn2 = function(){
+               console.log(this);//window
+               var fn3 = () => {
+                   console.log(this);//fn3{}
+                   function fn4(){
+                       console.log(this);
+                   }
+               }
+               new fn3(); //箭头函数不能new不然要报错。
+           }; 
+           return fn2;
+       }
+       fn()();
    ```
 
    ​
