@@ -274,6 +274,17 @@
 
    console.log(arr2); // [1,2,3,4,[9,5,6,{name:'tian'},0]]
    console.log(arr); // [1,2,3,4,[9,5,6,{name:'tian'}]]
+
+
+
+   方法二：
+   var arr = [1,2,3,4,[9,5,6,{name:'tian'}]];
+   var arr2 = JSON.parse(JSON.stringify(arr));
+   arr2[4].push(0);
+
+   console.log(arr2); // [1,2,3,4,[9,5,6,{name:'tian'},0]]
+   console.log(arr); // [1,2,3,4,[9,5,6,{name:'tian'}]]
+
    ```
 
    ​
