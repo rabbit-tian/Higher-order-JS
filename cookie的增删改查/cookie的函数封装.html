@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+
+    // 设置cookie的函数封装
+    function setCookie(key, val, time) {
+        // cookie的事件设置，可以设置保存多少天
+        if (time) {
+            var d = new Date();
+            d.setDate(d.getDate()+time);
+
+            document.cookie = key + '=' + val +';expires=' +d;
+        }else{
+            document.cookie = key + '=' + val;
+        }
+    }
+
+//    setCookie('name', 'tian',15);
+//    setCookie('name2', 'shen',15);
+
+//    console.log(document.cookie); //name=tian; name2=shen
+
+    // 获取cookie的函数封装
+
+    function getCookie(key){
+        let cookieArr = document.cookie.split('; ');
+//        console.log(cookieArr); // ["name=tian", "name2=shen"]
+
+        let val = '';
+        cookieArr.forEach(e =>{
+            let arr = e.split('=');
+            if(arr[0] === key){
+                val = arr[1];
+            }
+        });
+
+        return val?val:null;
+    }
+
+//    console.log(getCookie('name')); // 'tian'
+
+
+    // 删除cookie
+
+    function removeCookie(key,val){
+        setCookie(key,val,-1);
+    }
+
+//    setCookie('name','tian',-1);
+
+
+
+    setCookie('data',JSON.stringify({'name':'tian'}));
+//    setCookie('data',{'name':'tian'}); // [object Object]
+
+</script>
+
+</body>
+</html>

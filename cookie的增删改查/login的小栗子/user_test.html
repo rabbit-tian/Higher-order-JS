@@ -1,0 +1,157 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link type="text/css" rel="stylesheet" href="common.css">
+</head>
+<body>
+<!--注册-->
+<div class="loginBox">
+    <ul class="loginList clearfix">
+        <li class="hTxt">用户注册</li>
+        <li class="inputBox">
+            <input type="text" class="inputs" id="add_user">
+        </li>
+        <li class="inputBox">
+            <input type="password" class="inputs" id="add_pass">
+        </li>
+        <li class="btns">
+            <input id="add_btn" type="button" class="reg" value=""/>
+        </li>
+        <li class="look"><a href="user_view.php" target="_blank">查看已注册用户</a></li>
+    </ul>
+</div>
+<!--登录-->
+<div class="loginBox">
+    <ul class="loginList clearfix">
+        <li class="hTxt">用户登陆</li>
+        <li class="inputBox">
+            <input type="text" class="inputs" id="login_user">
+        </li>
+        <li class="inputBox">
+            <input type="password" class="inputs" id="login_pass">
+        </li>
+        <li class="btns">
+            <input id="login_btn" type="button" class="login" value=""/>
+        </li>
+    </ul>
+</div>
+<script src="cookie.js"></script>
+<script type="text/javascript">
+
+    // 用户注册
+    const add_user = document.getElementById('add_user');
+    const add_pass = document.getElementById('add_pass');
+    const add_btn = document.getElementById('add_btn');
+
+    // 点击注册按钮
+
+    add_btn.onclick = function () {
+        // 先获取用户名和密码框的内容，看是否有数据
+        let userName = add_user.value.trim();
+        let passWord = add_pass.value.trim();
+
+        if (!userName || !passWord) {
+            alert('请填写完整');
+        }
+
+        // 若填写完整，获取cookie内的数据和当前的 账户进行比较，看是否重复
+
+        // 获取cookie内容，如果内容为空就赋值为[],以保证代码执行
+        let sql = JSON.parse(getCookie('data')) || [];
+        let onOff = false;
+//        console.log(sql);
+
+        for (var i = 0; i < sql.length; i++) {
+            if (sql[i].name == userName) {
+                onOff = true;
+                alert('用户名已被注册');
+                break;
+            }
+        }
+
+        // 当用户名没有被被注册时，就往cookie内存入数据
+        if (!onOff) {
+            let obj = {
+                name: userName,
+                pass: passWord
+            };
+            sql.push(obj);
+            setCookie('data', JSON.stringify(sql));
+            alert('注册成功');
+        }
+    };
+
+    // 用户登录
+
+    const login_user = document.getElementById('login_user');
+    const login_pass = document.getElementById('login_pass');
+    const login_btn = document.getElementById('login_btn');
+
+    // 当点击登录按钮时，查看用户名存不存在，再查看用户名密码存不存在
+
+    login_btn.onclick = function () {
+// 先获取用户名和密码框的内容，看是否有数据
+        let userName = login_user.value.trim();
+        let passWord = login_pass.value.trim();
+
+        if (!userName || !passWord) {
+            alert('请填写完整');
+        }
+
+        // 获取cookie内容，如果内容为空就赋值为[],以保证代码执行
+        let sql = JSON.parse(getCookie('data')) || [];
+        let onOff = false;
+        let obj = {};
+
+        // 循环cookie数据sql，将其和输入的账户进行对比，如果存在，就将这条cookie数据放在对象obj中，已被下面的判断使用
+        for (var i = 0; i < sql.length; i++) {
+            if (sql[i].name == userName) {
+                obj = sql[i]; // 存在此账号
+                onOff = true;
+                break;
+            }
+        }
+
+        // 如果不存在此人，先注册
+        if (!onOff) {
+            alert('请注册');
+        } else {
+            // 否则，判断账号和密码是否都正确
+
+            if (userName == obj.name && passWord == obj.pass) {
+                alert('登录成功');
+            } else {
+                alert('用户名或密码错误');
+            }
+        }
+    };
+
+
+    // 输入注册框失 焦 验证
+
+    add_user.onblur = function () {
+        let userName = add_user.value.trim();
+        let sql = JSON.parse(getCookie('data')) || [];
+        let onOff = false;
+
+        // 如果账户存在cookie数据内，此用户就存在
+
+        sql.forEach(e => {
+            if (e.name == userName) {
+                onOff = true;
+            }
+        });
+
+        if (onOff) { // 用户不存在，变红色, 不存在，变红色
+            add_user.style.cssText = 'border:1px solid red;color: red;';
+        } else {
+            add_user.style.cssText = 'border:1px solid green;color: green;';
+        }
+    }
+
+
+</script>
+</body>
+</html>
