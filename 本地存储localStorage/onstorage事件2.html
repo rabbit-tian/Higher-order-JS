@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+
+    document.onclick = function (){
+        localStorage.setItem('num',2);
+    };
+
+    window.addEventListener('storage',function (){
+        console.log('第二个页面');
+    });
+
+</script>
+</body>
+</html>
