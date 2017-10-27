@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style>
+    	body{
+    		background:skyblue;
+    	}
+      *{
+        margin: 0;
+        padding: 0;
+      }
+      .pic{
+        width: 236px;
+        box-shadow:0 1px 3px rgba(0,0,0,.3);
+        overflow:hidden;
+        margin-top:10px;
+      }
+      img{
+        width:236px;
+        border: none;
+        display: block;
+      }
+      ul{
+        list-style: none;
+        margin: 0 auto;
+        /* border:1px solid #000; */
+        /* overflow: hidden; */
+        position: relative;
+      }
+      li{
+        position: absolute;
+        border: 1px solid #ccc;
+        /* float: left; */
+        /* margin: 8px; */
+        width:236px;
+        transition:.5s;
+      }
+      #loading{
+        height: 65px;
+        width:100%;
+        text-align: center;
+        background: #fff;
+        position: fixed;
+        bottom:0;
+        display: none;
+      }
+      #loading img{
+        display: inline-block;
+        height: 65px;
+        width:65px;
+      }
+    </style>
+  </head>
+  <body>
+    <ul id="ul">
+    	
+        <!-- <li>
+          <div class="pic">
+            <img src="http:\/\/www.wookmark.com\/images\/original\/638518_wookmark.jpg">
+          </div>
+        </li> -->
+         
+    </ul>
+    <div id="loading">
+      <img src="1.gif">
+    </div>
+  <script src="jsonp_1.0.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+
+    /*
+        findIndex:
+            Array.findIndex(function(e){
+                return e == ?
+            })
+        在数组中把条件成立的索引返回出来
+
+        http://www.wookmark.com/api/json/popular
+    
+    */
+    
+    let num = 0;
+    let onOff = true;
+    //可视区的宽度
+    const iW = document.documentElement.clientWidth;
+    //一个li的宽度
+    const iLW = 236;
+    const interval = 10; //间隔
+    const act = iLW + interval; //实际宽度
+    const ul = document.getElementById('ul');
+    let len = Math.floor(iW / act);//一个页面能放几个li
+    let arrL = [];
+    let arrT = [];
+    
+    ul.style.width = act * len - interval + 'px';
+
+    for(var i = 0;i < len; i++){
+        arrT.push(0); //[0,0,0,0,0]
+        arrL.push(i*act)//[0,246,492,738]
+    }
+
+    pbl(num);
+    function pbl(num){
+        onOff = false;
+        loading.style.display = 'block';
+        jsonp({
+            url:'http://www.wookmark.com/api/json/popular',
+            data:{
+                page:num
+            },
+            success:function(data){
+                if(data.length){
+                    data.forEach(e => {
+                        let li = document.createElement('li');
+                        let img = new Image();
+                        img.src = e.preview;
+                        img.onload = function(){
+                            let m = minIndex();
+                            let iLH = e.height * (iLW / e.width);
+                            img.style.height = iLH + 'px';
+                            li.style.cssText = `left:${arrL[m]}px;top:${arrT[m]}px;`;
+                            li.append(img);
+                            ul.append(li);
+                            arrT[m] += iLH + interval;//[140,150,90,120]
+                        }
+                    });
+                    onOff = true;
+                    loading.style.display = 'none';
+                }else{
+                    //没数据了
+
+                    loading.children[0].src = '2.jpg';
+
+                }
+            }
+        });
+    }
+
+    document.onscroll = function(){
+        let m = minIndex();
+        // console.log(arrT[m],window.innerHeight + document.body.scrollTop)
+        if(arrT[m] <= window.innerHeight + document.body.scrollTop){
+            if(onOff){
+                num ++;
+                pbl(num);
+            }
+        }
+    }
+
+    window.onresize = function(){
+        const iW = document.documentElement.clientWidth;
+        len = Math.floor(iW / act);
+        if(len > 7){
+            len = 7;
+        }else if(len < 3){
+            len = 3;
+        }
+        arrL.length = arrT.length = 0;
+        ul.style.width = act * len - interval + 'px';
+        for(var i = 0;i < len; i++){
+            arrT.push(0);
+            arrL.push(i*act);
+        }
+
+        let lis = Array.from(document.getElementsByTagName('li'));
+        lis.forEach(e=>{
+            let m = minIndex();
+            e.style.cssText = `left:${arrL[m]}px;top:${arrT[m]}px`;
+            arrT[m] += e.scrollHeight + interval;
+        });
+    }
+
+    //找最小值索引
+    function minIndex(){
+       let min = Math.min.apply('',arrT);
+       return arrT.findIndex(e=>e==min);
+    }
+
+    
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>
