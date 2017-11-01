@@ -40,3 +40,30 @@
 
    - 它的主要功能就是管理node包，包括：安装、卸载、更新、查看、搜索、发布
    - 便利，高效
+
+6. ES6的导出与引入
+
+   ```javascript
+   var a = 11;
+   var test = () =>{
+       console.log(12);
+   }
+   class Hello{
+       say(){
+           console.log(13);
+       }
+   }
+
+
+   // Module 模块化
+   1、引入：import tian from './component/myName'
+   1、导出：export default {a,test,Hello}
+
+   2、引入：import * as shen from './component/myName'
+   2、导出：export {a,test,Hello}
+
+   3、引入：import {a,test,Hello} from './component/myName'
+   3、导出：export {a,test,Hello}
+   ```
+
+   ​
