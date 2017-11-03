@@ -82,34 +82,52 @@
       3、导出：export {a,test,Hello}
 
 
-   // 举例
-   import 'f.js'
-   让这个模块运行, 但不需要接收它暴露的接口
+      // 举例
 
-   import a from './ds.js'
-   让a 的变量接收ds.js的默认导出
+      import 'f.js'
 
-   import a,{b,c} from './ds.js'
-   让a 的变量接收ds.js的默认导出
-   接收它的标准导出 b, c
+      让这个模块运行, 但不需要接收它暴露的接口
 
-   import a,{b as ccd,c} from './ds.js'
-   让a 的变量接收ds.js的默认导出
-   接收它的标准导出 b, c, 并且把 b 重命名成 ccd
+      import a from './ds.js'
 
-   //commonJS
-   require('./a.js')
+      让a 的变量接收ds.js的默认导出
 
+      import a,{b,c} from './ds.js'
 
-   //module.exports和exports
-   module.exports
-   模块接收的是 module.exports 的导出
+      让a 的变量接收ds.js的默认导出
 
-   exports
-   exports 初始默认指向 module.exports
-   如果这个指向被重新赋值, 就会断掉和module.exports的联系
-   不能直接给 exports 赋值
+      接收它的标准导出 b, c
+
+      import a,{b as ccd,c} from './ds.js'
+
+      让a 的变量接收ds.js的默认导出
+
+      接收它的标准导出 b, c, 并且把 b 重命名成 ccd
+
+      //commonJS
+
+      require('./a.js')
+
+      //module.exports和exports
+
+      module.exports
+
+      模块接收的是 module.exports 的导出
+
+      exports
+
+      exports 初始默认指向 module.exports
+
+      如果这个指向被重新赋值, 就会断掉和module.exports的联系
+
+      不能直接给 exports 赋值
+
    ```
 
 
-  
+
+
+7. webpack打包css
+   - 把css打包到 js 文件里    — 开发阶段
+     - 把css变成字符串放在   创建的style标签，插入到head里面
+   - 把css打包成一个单独的css文件，通过link引入(自动创建)  — 生产阶段
