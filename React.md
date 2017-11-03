@@ -73,77 +73,43 @@
    npm i -S react 
    npm i -S react-dom
 
+   1. 开发依赖
 
-   2. 开发依赖
+      npm i -D webpack               --webpack的cli(命令行界面)环境
 
+      npm i -D babel-core            --代码需要调用Babel的API进行转码
 
-   npm i -D webpack               --webpack的cli(命令行界面)环境
+      npm i -D babel-loader          --转化匹配的(ES6代码或图片等)内容
 
-   npm i -D babel-core            --代码需要调用Babel的API进行转码
+      npm i -D babel-preset-react    -- react预设(插件的集合)
 
-   npm i -D babel-loader          --转化匹配的(ES6代码或图片等)内容
+      npm i -D clean-webpack-plugin   --自动清理dist里的文件
 
-   npm i -D babel-preset-react    -- react预设(插件的集合)
+      npm i -D html-webpack-plugin    -- 自动生成html文件
 
-   npm i -D clean-webpack-plugin   --自动清理dist里的文件
-    
-   npm i -D html-webpack-plugin    -- 自动生成html文件
-
-   npm i -D css-loader             -- 开发阶段的打包css的 插件
-
+      npm i -D css-loader             -- 开发阶段的打包css的 插件
 
    ```
 
-6. ##### webpack.config.js 文件的配置
-
-   ```javascript
-   const path = require('path'); // 路径模块
-
-   const HtmlWebpackPlugin = require('html-webpack-plugin');   // 自动生成html
-   const CleanWebpackPlugin = require('clean-webpack-plugin'); // 每次打包前，自动清理dist里面文件
-
-   const rv = (...a) => path.resolve(__dirname,...a);  // 封装函数rv，得到dist文件夹的绝对路径
-
-   // 预处理模块之间的内容
-   module.exports = {
-       entry: './src/app.js',  // 入口文件，该文件依赖于其他模块
-       output: {               // 输出一个打包好的文件放在dist文件中，起名为app.js
-           path: rv('dist'), // 绝对路径
-           filename: 'app.js'  // 存放打包内容的文件名字
-       },
-
-       module:{
-           rules:[ // 规则
-               {
-                   test: /\.js$/, // 匹配引入的模块是不是以 .js结尾的模块
-                   use: ["babel-loader"], // 把代码编译成es5代码（h还有其他很多转译功能）  ，要想转es代码，要用.babelrc里的预设 （presets）react预设处理es5代码
-                   exclude: [   // 排除 node_modules文件夹
-                       rv("node_modules")
-                   ]
-               },
-               { // 匹配 css
-                   test: /\.css$/,
-                   // css-loader先变成字符串，再style-loader处理，新建style标签，插入到head里面
-                   use: ["style-loader","css-loader"]
-               },
-               { // 匹配 图片
-                   test: /\.(jpg|png|jpeg|gif)$/,
-                   use: ["file-loader"]
-               }
-           ]
-       },
-     
-       // 插件：
-       plugins:[
-           new HtmlWebpackPlugin({  // webpack的插件，自动创建html文件
-               filename:'index.html', // 创建好的文件的名字
-               template:'./src/index.html'  // 以这个文件文件为模板
-           }),
-           new CleanWebpackPlugin(['dist']) // webpack的插件，每次打包前，先把dist文件内容删除
-       ]
-   }
-
-   ```
 
    ​
 
+6. 关于css-loader
+   - 引入css文件的时候，使用css-loader处理它，遇到url或 @import ’filename‘，帮你去引入里面的资源，引入里面的资源中，根据资源的类型再使用相应的loader去处理
+
+
+7. 关于file-loader
+   - 处理资源（字体，图片，视频）
+   - 转换出一个路径，把资源搬到输出目录
+8. webpack打包css
+   - 把css打包到 js 文件里    — 开发阶段
+     - 把css变成字符串放在   创建的style标签，插入到head里面
+   - 把css打包成一个单独的css文件，通过link引入(自动创建)  — 生产阶段
+9. ***  props : react的属性
+   - 传递属性：< Content  a="8">< /Content >
+   - 拿到： let {a} = this.props
+10. *************   state
+   - 组件有内部状态  this.state = {}
+   - 通过 this.setState(),来改变组件的内部状态，这个时候页面会更新，因为组件的 render执行了，得到了一份新的jsx的结构
+   - 父组件的 render 执行了，子组件的 render 也会执行
+   - 页面状态应该根据  this.setState()   更新
