@@ -4,9 +4,18 @@
 
 2. ##### React的原理
 
+   - 声明 react 的组件
+
+       继承了 React.Component 的类就是一个组件
+       至少有一个 render 方法(  这个方法应该 return 一份 jsx 的对象,
+       这就是这个组件的样子)
+
    - 输出一份 virtual DOM （虚拟DOM）
+
    - react拿到这份虚拟DOM渲染页面
+
    - 当你要改变页面的状态，会重新得到一份virtual DOM去渲染（更新页面状态）
+
    - 旧的整个页面和新的整个页面去比较，比较哪里不同，就改变相应不同的部分
 
 3. ##### react类式组件
@@ -108,7 +117,7 @@
 9. ***  props : react的属性
    - 传递属性：< Content  a="8">< /Content >
    - 拿到： let {a} = this.props
-10. *************   state
+10. ​*************   state
    - 组件有内部状态  this.state = {}
    - 通过 this.setState(),来改变组件的内部状态，这个时候页面会更新，因为组件的 render执行了，得到了一份新的jsx的结构
    - 父组件的 render 执行了，子组件的 render 也会执行
