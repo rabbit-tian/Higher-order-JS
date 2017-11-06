@@ -114,11 +114,16 @@
    - 把css打包到 js 文件里    — 开发阶段
      - 把css变成字符串放在   创建的style标签，插入到head里面
    - 把css打包成一个单独的css文件，通过link引入(自动创建)  — 生产阶段
-9. ***  props : react的属性
+9. ***   props : react的属性
    - 传递属性：< Content  a="8">< /Content >
    - 拿到： let {a} = this.props
 10. ​*************   state
-   - 组件有内部状态  this.state = {}
-   - 通过 this.setState(),来改变组件的内部状态，这个时候页面会更新，因为组件的 render执行了，得到了一份新的jsx的结构
-   - 父组件的 render 执行了，子组件的 render 也会执行
-   - 页面状态应该根据  this.setState()   更新
+  - 组件有内部状态  this.state = {}
+  - 通过 this.setState(),来改变组件的内部状态，这个时候页面会更新，因为组件的 render执行了，得到了一份新的jsx的结构
+  - 父组件的 render 执行了，子组件的 render 也会执行
+  - 页面状态应该根据  this.setState()   更新
+  - this.setState  可以接受对象作为参数，也可以接受一个回调函数
+11. 关于setState  ：异步执行的问题
+   - setState: 更新状态是异步更新的，放在一般函数里，(render在state合并之后 执行)
+   - 但是如果把setState放在异步函数(如定时器或是请求)里面执行，它是同步更新的，(render马上执行，马上更新视图)
+
