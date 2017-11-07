@@ -110,20 +110,52 @@
 7. 关于file-loader
    - 处理资源（字体，图片，视频）
    - 转换出一个路径，把资源搬到输出目录
+
 8. webpack打包css
    - 把css打包到 js 文件里    — 开发阶段
      - 把css变成字符串放在   创建的style标签，插入到head里面
    - 把css打包成一个单独的css文件，通过link引入(自动创建)  — 生产阶段
+
 9. ***   props : react的属性
    - 传递属性：< Content  a="8">< /Content >
    - 拿到： let {a} = this.props
+
 10. ​*************   state
   - 组件有内部状态  this.state = {}
   - 通过 this.setState(),来改变组件的内部状态，这个时候页面会更新，因为组件的 render执行了，得到了一份新的jsx的结构
   - 父组件的 render 执行了，子组件的 render 也会执行
   - 页面状态应该根据  this.setState()   更新
   - this.setState  可以接受对象作为参数，也可以接受一个回调函数
+
 11. 关于setState  ：异步执行的问题
    - setState: 更新状态是异步更新的，放在一般函数里，(render在state合并之后 执行)
    - 但是如果把setState放在异步函数(如定时器或是请求)里面执行，它是同步更新的，(render马上执行，马上更新视图)
+
+12. #### 组件受控
+
+   - 某些组件有自己的行为，比如input，你输入东西的时候，页面状态就会变化，这是组件的本身的行为，
+   - 如果给input一个value值，这样就收到了react的控制，这样就可以通过onChange来 ，setState 来改变 input 的  value
+   - 非受控组件 = > 受控组件
+
+13. 合成的事件对象 ev
+   - ev.nativeEvent:访问浏览器dom元素的事件对象
+   - preventDefault:
+   - stopPropagation
+   - Target :拿到真实的dom元素
+
+14. react里面的事件
+
+15. map方法
+   - 数组下的一个方法
+   - 接收一个回调函数，回调函数里面接收的参数是：{元素，索引，数组}
+   - 回调函数的返回值会：替换掉原来的元素，返回一个新数组
+   - 原来被遍历的数组没有变化
+
+16. 当把数组写在jsx里面，React会自动展开
+
+17. Key：在数组里面的jsx元素，应该在最外层的结构有一个key，应该保证相应数据的key是唯一的，同一份结构，永远保证不管如何视图变化，相同的数据对应同一个key值
+
+18. 组件之间的交流
+
+   - 数据传递，组件之间通过props进行数据传递，数据从顶层流向底层，永远是这样，**不能修改props
 
