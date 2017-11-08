@@ -102,40 +102,86 @@
    var [b,a] = [a,b];
    console.log(a,b); // 20,10
 
-
    2. 获取元素的 getComputedStyle 值
-   let {width,height,left} = getComputedStyle(box);
-   console.log(height);
-
+      let {width,height,left} = getComputedStyle(box);
+         console.log(height);
    3. 数组的解构
       1.数组的解构，右边是数组，左边一定要是数组
         let [a,[[b]],c] = [1,[[2]],3]
       2.报错
       	 let [foo] = 1;
-        let [foo] = false;
-        let [foo] = NaN;
-        let [foo] = undefined;
-        let [foo] = null;
-        let [foo] = {};
-     
-      3. 举例
-     	let [x=40,y] = [10,20];
-   	console.log(x); // 10
-   	
-   	let [x=y , y = 1] = [,2];
-   	console.log(y); // 报错 let不会预解析  y没有定义
-   	console.log(x); // 报错 let不会预解析  y没有定义
+   	 let [foo] = false;
 
-   4.对象解构
-   左边是对象右边也要是对象
-   let {foo:ff,bar:[a,b,c,{kk}]} = {foo:1,bar:[3,4,5,{kk:'mm'}]};
+     	let [foo] = NaN;
 
-   let {foo} = {foo:1}  -> foo=1
-   let {foo:f} = {foo:1}; ->给foo取了个别名叫f，foo就没了，访问foo就报错，要访问f
+     	let [foo] = undefined;
 
+     	let [foo] = null;
+
+     	let [foo] = {};
+
+   5. 举例
+      let [x=40,y] = [10,20];
+      console.log(x); // 10
+      let [x=y , y = 1] = [,2];
+      console.log(y); // 报错 let不会预解析  y没有定义
+      console.log(x); // 报错 let不会预解析  y没有定义
+
+      1.对象解构
+
+      左边是对象右边也要是对象
+
+      let {foo:ff,bar:[a,b,c,{kk}]} = {foo:1,bar:[3,4,5,{kk:'mm'}]};
+
+      let {foo} = {foo:1}  -> foo=1
+
+      let {foo:f} = {foo:1}; ->给foo取了个别名叫f，foo就没了，访问foo就报错，要访问f
 
 
 
    ```
 
-   ​
+
+
+
+4. promise
+
+   - 异步问题，解决回调函数的噩梦
+
+   - ```javascript
+     export default function req(url) {
+
+         return new Promise( (resolve, reject)=>{
+
+             if(url==="todos"){
+                 setTimeout( ()=> {
+                     resolve(data);
+                 }, 2000 )
+             }else{
+                 reject({
+                     code: 2,
+                     data: 'url 写错了'
+                 })
+             }
+
+         });
+     }
+
+     let promise = req("http://localhost:80/todo"); // 实例化对象
+
+     // promise 的then方法和 catch 方法
+     promise
+         .then(
+             (fdjhk)=>{
+                 console.log(fdjhk);
+             }
+         )
+         .catch( (err)=>{
+             if(err.code===2){
+                 console.log(err.data);
+             }
+         } )
+     ;
+     ```
+
+     ​
