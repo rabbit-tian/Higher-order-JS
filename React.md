@@ -159,3 +159,67 @@
 
    - 数据传递，组件之间通过props进行数据传递，数据从顶层流向底层，永远是这样，**不能修改props
 
+19. ### 拿到真实dom元素
+
+   - 以前方法：在元素上声明一个自定义属性 ref = ‘sec’    ，在事件中通过  this.refs.sec拿到真实的dom
+   - 现在方法：ref = { (el) = { this.cont = el } } ,通过 this.cont 就可以拿到真实的dom元素了
+
+20. （类声明的）组件的声明周期
+
+   - mounting阶段：组件被挂载阶段：出生阶段，只能被出生一次
+   - updating 阶段：更新阶段：存活阶段，
+   - unmounting 阶段: 卸载，死亡阶段
+
+21. 声明周期的函数
+
+   - mounting：
+     - 组件被构造  ** constructor
+     - 组件将要被挂载   componentWillMount
+     - 组件 ***render 执行   渲染那一刻，虚拟dom  =>  真实dom
+     - 组件挂载完成   **componentDidMount
+       - 在函数里面发起请求
+     - 在挂载完成之前，所有的组件都应该render，所有组件render之后，开始依次挂载，同层级的组件从先往后挂载；
+     - 父子级组件，先挂载子组件；
+     - 如果要拿到真实的dom，必须在组件挂载完成之后
+   - updating
+     - *componentWillReceiveProps() 奇葩，不会在自身setState后执行，在父组件的render执行后执行
+     - showComponentUpdate()  特殊，返回true或false，react永远返回true；决定组件会不会更新，默认返回true，表示永远都可以被更新是，如果返回false，会阻断render的执行，拦截这一次更新
+     - componentWillUpdate()  更新之前
+     - ***render  就是那一刻
+     - componentDidUpdate()  更新之后
+     - 注意事项：更新阶段不要setState，除了那个时刻
+   - unmounting
+     - componentWillUnmount  卸载之前
+
+22. promise  异步问题，解决回调函数的噩梦
+
+23. router 路由
+
+   - Router 
+     - browserHistory
+     - hashHistory
+   - BrowserRouter
+   - HashRouter
+
+24. BrowserRouter
+
+   - 使用browserHistory
+   - 放到最顶层  ReactDom ，把其他组件作为children
+
+25. route
+
+   - path的属性：如果地址匹配到了这个路径，就会显示
+   - component属性： 接收一个组件变量，会往组件里面传入三个 props： history，location，match
+   - 不能嵌套元素
+
+26. Link
+
+   - 最后会被渲染成a标签
+   - to的属性：跳转到哪里
+
+27. 关于浏览器的history
+
+   - push  一个新的 entry 到 history stack
+   - 所有的浏览记录都存放在  history  stack  中,它就相当于一个数组
+   - entry：每一个访问的页面（访问过的路径）
+   - 点击一下a链接，就是往历史堆中存放一个地址
