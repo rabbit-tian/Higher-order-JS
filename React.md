@@ -209,13 +209,28 @@
 25. route
 
    - path的属性：如果地址匹配到了这个路径，就会显示
-   - component属性： 接收一个组件变量，会往组件里面传入三个 props： history，location，match
+   - exact：只会在path 匹配 loacation.pathname 时才匹配
+   - component属性：（渲染组件）
+     -  接收一个组件变量，会往组件里面传入三个 props： history，location，match
+     -  可以接受一个回调函数，会往回调函数传入一个参数。这个对象里面有：history，location，match，回调函数需要你返回的   jsx  结构
+   - render: 接受一个回调函数，和component的第二点一样
+   - children：接受一个回调函数，和render一样，不过他无论如何都会被匹配到
    - 不能嵌套元素
 
 26. Link
 
    - 最后会被渲染成a标签
+
    - to的属性：跳转到哪里
+
+     - 接受字符串： '/rus', 一个url地址
+
+   - replace:boolean值
+
+     - true：跳转视图的时候，替换掉浏览器的 history stack 里面的entry
+     - false： 跳转视图的时候，往history stack 里面 push  一个新的 entry
+
+     ​
 
 27. 关于浏览器的history
 
@@ -223,3 +238,32 @@
    - 所有的浏览记录都存放在  history  stack  中,它就相当于一个数组
    - entry：每一个访问的页面（访问过的路径）
    - 点击一下a链接，就是往历史堆中存放一个地址
+
+28. 传入的三个属性
+
+   - history是稳定的           this.props.history.location 是可变的，不稳定的
+   - this.props.location
+     - history 的location 是可变的，是实时的，是不稳定的，如果你想要location，直接拿此loaction
+   - match
+
+29. NavLink  组件
+
+   - activeStyle = {style}
+   - activeClassName
+   - exact
+   - 其他的和Link一样
+
+30. Redirect   组件
+
+   -  重定项    例如：页面不存在时，跳转到一个404页面
+   - to 的属性，如果他被渲染的时候，会重定向到其他的地方
+
+31. Switch   组件
+
+   - 一旦匹配到一个，不再继续往下匹配
+
+32. withRouter    
+
+   - 一个高阶组件，接收一个组件作为参数(App)，导出一个组件(Acc)，这个时候App的组件props  就有了history，location，match 属性
+
+   ​
