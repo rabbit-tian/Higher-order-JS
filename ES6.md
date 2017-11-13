@@ -205,6 +205,48 @@
      }
      ```
 
+   - entries,拿key和value进行遍历
+
+     ```javascript
+     1.entries,拿key和value进行遍历
+     2.只有拥有遍历接口(Symbol.iterator)才能使用for of循环
+     3. 这个遍历接口可以返回对象，对象中有一个叫做next的函数，这个函 数需要返回对象
+
+     let obj = {name:'hehe',age:18};
+
+     //添加遍历器
+         obj[Symbol.iterator] = function(){
+             let arr = Object.keys(obj); //拿到对象key值[name,age]
+             let index = 0;
+             return {
+                 next(){
+                     //如果添加成立就停止遍历
+                     if(index >= arr.length){
+                         return {
+                             value:1,
+                             done:true
+                         }
+                     }else{
+                        //继续遍历
+                         return {
+                             value:{
+                                 val:obj[arr[index]],//obj[arr[0]] -> obj.name
+                                 key:arr[index++] //arr[0++]  name
+                             },
+                             done:false
+                         }
+                     }
+                 }
+             }
+         }
+
+         
+         for(let {val,key} of obj){
+             console.log(val,key) // hehe name   18 "age"
+         }
+
+     ```
+
      ​
 
    ​
