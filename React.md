@@ -193,7 +193,7 @@
 
 22. promise  异步问题，解决回调函数的噩梦
 
-23. router 路由
+23. #### router 路由
 
    - Router 
      - browserHistory

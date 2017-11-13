@@ -136,12 +136,7 @@
       let {foo} = {foo:1}  -> foo=1
 
       let {foo:f} = {foo:1}; ->给foo取了个别名叫f，foo就没了，访问foo就报错，要访问f
-
-
-
    ```
-
-
 
 
 4. promise
@@ -184,4 +179,34 @@
      ;
      ```
 
+5. 字符串扩展
+
+   - includes() : 字符串中是否包含某个(段)字符，返回布尔值
+   - 'tian'.startswidth('t'): 字符串是否以 't' 开头，返回布尔值
+   - 'tian'.endwidth('n'): 字符串是否以 'n' 结尾，返回布尔值
+
+6. 数值扩展
+
+   - Number.parseInt('12.2px')   :  12   数字取整
+   - Number.parseInt('')  ： NaN  
+   - Number.parseInt('110'，2)   : 二进制转  十进制   6
+   - Number.isNaN('a')   :  这个不会经过  number转 =>  false
+   - isNaN('')  ： false   （0不是NaN）
+   - Number.isInteger(): 用来判断是否是一个正数
+
+7. 数组扩展
+
+   - for of 循环
+
+     ```javascript
+     let arr = [1,2,3,4,5]
+     for(var i of arr.keys()){
+       	console.log(arr[i]) // 1,2,3,4,5
+     }
+     ```
+
      ​
+
+   ​
+
+   ​
