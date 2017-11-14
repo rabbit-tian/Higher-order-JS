@@ -249,6 +249,61 @@
 
      ​
 
-   ​
+8. Object.is():判断2个值是否相等
 
-   ​
+   ```javascript
+   NaN === NaN  //false
+   Object.is(NaN, NaN)   //true
+   Object.is({},{})  //flase
+   Object.is(+0,-0); //flase
+   ```
+
+9. assign:从右往左赋值,浅拷贝
+
+   ```javascript
+   let obj = Object.assign({name:'ee'},{name:'hh',age:13},{job:'web'});
+   ```
+
+10. 对象的   keys, values, entries
+
+   ```javascript
+   let {keys, values, entries} = Object;
+   let obj = { a: 1, b: 2, c: 3 };
+
+   console.log(entries(obj)); // [["a":1],["b":2],["c":3]]
+   console.log(keys(obj));   // ["a", "b", "c"]
+   console.log(values(obj)); // [1, 2, 3]
+   ```
+
+11. Set(): 里面的内容不能有重复的
+
+    ```javascript
+    // 数组去重
+    let arr = [1,2,2,3,3,4,54,32,2,3,4,6,2,1,2,1];
+
+    1. 方法一：
+    for(var i=0;i<arr.length;i++){
+      for(var j=i+1;j<arr.length;j++){
+        if(arr[i] == arr[j]){
+          arr.splice(j,1);
+          j--;
+        }
+      }
+    }
+
+    2. 方法二： 可以去重，包括字符串去重
+
+    let obj = {};
+      let arr2 = [];
+      for(var i=0;i<arr.length;i++){
+        if(!obj[typeof arr[i] + arr[i]]){
+          obj[typeof arr[i] + arr[i]] = 1;
+          arr2.push(arr[i]);
+        }
+    }
+
+    3. ES6方法去重：Set
+    [... new Set(arr)] 
+    ```
+
+    ​

@@ -1,0 +1,178 @@
+1. 什么是jQuery
+
+   - jQuery是一个快速的、小的、功能丰富的JavaScript库。它使HTML文档遍历和操作、事件处理、动画和Ajax等操作更加简单，易于使用的API在许多浏览器中起作用。
+
+2. 选择器
+
+   - id选择器   $('#box')
+   - class选择器   $('.box')
+     - $('li[class^="li1"]')   以li1开头
+     - $('li[class$="li1"]')   以li1结果
+   - 属性选择器 ： $('input[type="button"]')
+   - 过滤选择器 ： $('input[type!="button"]')
+   - 伪类选择器
+     - $("span:nth-of-type(2)") : 选择同属于一个父元素之下，并且标签名相同的子元素中的第n个
+     - :odd 奇数： $('li:odd')
+     - :even  偶数：$('li:even')
+     - :eq(index) 匹配一个给定索引值的元素： $('li:eq(2)')
+     - :gt(index) 匹配索引值大于index的元素(不包含index) ：$('li:gt(2)')
+     - :lt(index) 匹配索引值小于index的元素(不包含index) ：$('li:lt(2)')
+
+3. 属性操作
+
+   - css样式：style.css/cssText    ->  css()
+
+     ```javascript
+       /*
+         css:
+           一个参数
+             (1)字符串是获取
+             (2)对象（批量设置）
+
+           两个参数是设置
+       */
+
+     $('#box').css({
+       width: 100,
+       height: 100,
+       background: 'red'
+     })
+
+     $('#box').css('background','red')
+     ```
+
+   - innerHTML   ->  html()
+
+   - innerText   ->  text()
+
+   - value  ->  val()
+
+   - attr 属性 -> getAttribute + setAttribute
+
+   - removeAttr 删除行间属性
+
+4. jQ获取 ajax 数据
+
+   ```javascript
+   $(document).click(()=>{
+           $.ajax({
+               							url:'https://api.douban.com/v2/movie/search',
+             data:{
+               start:0,
+               q:'雷神'
+             },
+             dataType:'jsonp',
+             success:function(data){
+               console.log(data);
+             }
+           })
+   })
+   ```
+
+   ​
+
+5. checked
+
+   ```javascript
+   注： 如果你要使用jq的方法，那么必须保证，前面那个对象是JQ对象
+   	JQ对象转原生对象使用下标即可，原生对象转JQ对象用$()包一下即可
+       
+    let arr = [];
+    $('input[type=button]').click(() => {
+         for (var i = 0; i < $('input:checked').length; i++) {
+            arr.push($('input:checked').next().html())
+         }
+
+         console.log(arr) // 获取到input被选中状态时 下个标签的内容集合
+    })  
+
+   let input = document.getElementsByTagName('input')[1];
+   console.log($(input).next().html()) // '001'
+   ```
+
+   ​
+
+6. 事件
+
+   ##### 注： prop： 专门用来操作表单元素属性的（比如:checked），因为直接使用attr('checked')为undefined
+
+   - 点击事件
+
+     ```javascript
+       <input type="button" value="按钮">
+       <input type="checkbox">
+       <input type="checkbox">
+       <input type="checkbox">
+       <input type="checkbox">
+         
+     $('input[type=button]').click(()=>{
+         let inps = $('input[type=checkbox]');
+
+         for(var i=0;i<inps.length;i++){
+             if(inps.eq(i).prop('checked')){
+                 inps.eq(i).prop('checked',false)
+             }else{
+                 inps.eq(i).prop('checked',true)
+             }
+         }
+
+     })    
+         
+     ```
+
+     ​
+
+7. 循环：JQ.each(): 
+
+   注：JQ的循环,里面有个回调函数，function (i,e){}  ,i->index  e->element
+
+   ```javascript
+     <ul>
+       <li>1</li>
+       <li>2</li>
+       <li>3</li>
+       <li>4</li>
+     </ul>
+
+   $('li').each((i,e) =>{
+       $(e).click(function (){
+           // $(this).css({
+           //     background: 'red'
+           // })
+
+           $('li').eq(i).css({
+               background: 'red'
+           })
+       })
+     })
+   ```
+
+   ​
+
+8. DOM
+
+   - 文档对象模型:根据document提供的API，赋予开发者操作页面的能力。
+
+   - 第一个元素  first()
+
+     ```javascript
+     $('li').first().css('background','red')
+     ```
+
+   - 最后一个元素  last()
+
+     ```javascript
+     $('li').last().css('background','red')
+     ```
+
+   - 兄弟元素 next    prev  siblings
+
+     ```javascript
+     $('li').eq(0).next().css('background','red')
+     $('li').last().prev().css('background','green')
+     $('li').eq(0).siblings().css('background','yellow') // 除了自己的其他所有
+     ```
+
+   - 增、删、改、查
+
+9. ​
