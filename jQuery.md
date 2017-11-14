@@ -173,7 +173,47 @@
      $('li').eq(0).siblings().css('background','yellow') // 除了自己的其他所有
      ```
 
+   - 父级   parent() -> parentNode
+
+   - 孩子   children()  -> chilren;
+
+   - hide:隐藏  -> display:none
+
+   - show:显示  -> display:block
+
    - 增、删、改、查
+
+     ```javascript
+     /*
+             创建元素：
+                 $('标签')
+
+             插入元素：
+                 append()  最后添加
+
+                 插入什么东西.insertBefore.要插入到哪个前面
+
+                 父级.prepend(插入的元素) -> 结果添加到第一个上
+
+             删除：
+                 $(xx).remove();
+         */
+     $('#txt').keyup(function (ev){
+             if(ev.keyCode == 13){
+                 let $li = $(`<li>${$('#txt').val()}</li>`)
+
+                 $('ul').prepend($li);
+                 $('#txt').val('')
+             }
+         })
+
+         $('ul').on('click','li',function (){
+             $(this).remove()
+         })
+
+     ```
+
+     ​
 
 9. 找到当前元素所在的位置（在父级同级兄弟元素中的位置）,JQ.index(可以选填范围)
 
@@ -222,13 +262,41 @@
 
        // 方法三：
 
-       $btns.each((i,e)=>{
-           $(e).click(function (){
-               $(this).addClass('active').siblings('input').removeClass('active')
-               $divs.eq(i).addClass('show').siblings('div').removeClass('show');
+   $btns.each((i,e)=>{$(e).click(function (){
+               	$(this).addClass('active').siblings('input').removeClass('active')
+               	$divs.eq(i).addClass('show').siblings('div').removeClass('show');
            })
-       })
+   })
 
    ```
 
    ​
+
+10. closest():
+
+   - closest会首先检查当前元素是否匹配，如果匹配则直接返回元素本身
+
+     如果不匹配则向上查找父元素，一层一层往上，直到找到匹配选择器的元素。 如果什么都没找到则返回一个空的jQuery对象。
+
+     ```javascript
+     $('#p2').closest('.a').css('background','red');
+     ```
+
+     ​
+
+11. find(): 
+
+    - 获取元素的方式，会先找li再去找#ul2，那么性能会差很多
+
+      ```javascript
+      $('#ul2 li').css('background','red'); 
+      ```
+
+    - 代码缓存：先使用find把大模块缓存起来，然后从这个代码块下去获取，节省性能
+
+      ```javascript
+      let $ul2 = $('#ul2');
+      $ul2.find('p').css('background','red')
+      ```
+
+      ​
