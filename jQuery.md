@@ -175,4 +175,60 @@
 
    - 增、删、改、查
 
-9. ​
+9. 找到当前元素所在的位置（在父级同级兄弟元素中的位置）,JQ.index(可以选填范围)
+
+   ```Javascript
+   // 选项卡
+
+       <style>
+           .active{
+               background: yellow;
+           }
+           div{
+               width: 100px;
+               height: 100px;
+               border: 1px solid #000;
+               display: none;
+           }
+           div.show{
+               display: block;
+           }
+       </style>
+
+       <input type="button" value="按钮一" class="active">
+       <input type="button" value="按钮二">
+       <input type="button" value="按钮三">
+       <div class="show">111</div>
+       <div>2222</div>
+       <div>3333</div>
+
+   let $btns = $('input');
+       let $divs = $('div');
+
+       // 方法一：
+       $btns.click(function (){
+           $btns.removeClass('active')
+           $divs.removeClass('show')
+           $(this).addClass('active')
+
+           $divs.eq($(this).index('input')).addClass('show')
+       })
+
+       // 方法二：
+   $btns.click(function (){
+           $(this).addClass('active').siblings('input').removeClass('active');
+           $divs.eq($(this).index('input').addClass('show').siblings('div').removeClass('show'))
+       })
+
+       // 方法三：
+
+       $btns.each((i,e)=>{
+           $(e).click(function (){
+               $(this).addClass('active').siblings('input').removeClass('active')
+               $divs.eq(i).addClass('show').siblings('div').removeClass('show');
+           })
+       })
+
+   ```
+
+   ​
