@@ -1,8 +1,8 @@
-1. 什么是jQuery
+什么是jQuery
 
-   - jQuery是一个快速的、小的、功能丰富的JavaScript库。它使HTML文档遍历和操作、事件处理、动画和Ajax等操作更加简单，易于使用的API在许多浏览器中起作用。
+- jQuery是一个快速的、小的、功能丰富的JavaScript库。它使HTML文档遍历和操作、事件处理、动画和Ajax等操作更加简单，易于使用的API在许多浏览器中起作用。
 
-2. 选择器
+1. 选择器
 
    - id选择器   $('#box')
    - class选择器   $('.box')
@@ -18,7 +18,7 @@
      - :gt(index) 匹配索引值大于index的元素(不包含index) ：$('li:gt(2)')
      - :lt(index) 匹配索引值小于index的元素(不包含index) ：$('li:lt(2)')
 
-3. 属性操作
+2. 属性操作
 
    - css样式：style.css/cssText    ->  css()
 
@@ -51,7 +51,7 @@
 
    - removeAttr 删除行间属性
 
-4. jQ获取 ajax 数据
+3. jQ获取 ajax 数据
 
    ```javascript
    $(document).click(()=>{
@@ -71,7 +71,7 @@
 
    ​
 
-5. checked
+4. checked
 
    ```javascript
    注： 如果你要使用jq的方法，那么必须保证，前面那个对象是JQ对象
@@ -92,7 +92,7 @@
 
    ​
 
-6. 事件
+5. 事件
 
    ##### 注： prop： 专门用来操作表单元素属性的（比如:checked），因为直接使用attr('checked')为undefined
 
@@ -122,7 +122,7 @@
 
      ​
 
-7. 循环：JQ.each(): 
+6. 循环：JQ.each(): 
 
    注：JQ的循环,里面有个回调函数，function (i,e){}  ,i->index  e->element
 
@@ -149,7 +149,7 @@
 
    ​
 
-8. DOM
+7. DOM
 
    - 文档对象模型:根据document提供的API，赋予开发者操作页面的能力。
 
@@ -215,7 +215,7 @@
 
      ​
 
-9. 找到当前元素所在的位置（在父级同级兄弟元素中的位置）,JQ.index(可以选填范围)
+8. 找到当前元素所在的位置（在父级同级兄弟元素中的位置）,JQ.index(可以选填范围)
 
    ```Javascript
    // 选项卡
@@ -272,7 +272,7 @@
 
    ​
 
-10. closest():
+9. closest():
 
   - closest会首先检查当前元素是否匹配，如果匹配则直接返回元素本身
 
@@ -284,34 +284,34 @@
 
     ​
 
-11. find(): 
+10. find(): 
 
-    - 获取元素的方式，会先找li再去找#ul2，那么性能会差很多
+   - 获取元素的方式，会先找li再去找#ul2，那么性能会差很多
 
-      ```javascript
-      $('#ul2 li').css('background','red'); 
-      ```
+     ```javascript
+     $('#ul2 li').css('background','red'); 
+     ```
 
-    - 代码缓存：先使用find把大模块缓存起来，然后从这个代码块下去获取，节省性能
+   - 代码缓存：先使用find把大模块缓存起来，然后从这个代码块下去获取，节省性能
 
-      ```javascript
-      let $ul2 = $('#ul2');
-      $ul2.find('p').css('background','red')
-      ```
+     ```javascript
+     let $ul2 = $('#ul2');
+     $ul2.find('p').css('background','red')
+     ```
 
-      ​
+     ​
 
-12. sizzle
+11. sizzle
 
     - sizzle 是选择器，JQ中 集成了它，（JQ中总结了它）
 
-13. JQ 架构
+12. JQ 架构
 
     - 无new化操作：因为打算在使用jQuery的时候不在外面new，我们使用了在jQuery函数内部new，但是出现了一个问题，递归！
     - 问题：如何才能做到既能够在内部new，又不递归？，如何才能做到在内部new还能使用jQuery实例化对象的方法？
     - 回答：只要不new jQuery本身就不会递归,那么找一个炮灰来new,只要让炮灰拥有jQuery的属性或者方法，是不是new 炮灰就等同于new jQuery
 
-14. 函数覆盖问题
+13. 函数覆盖问题
 
     ```javascript
     alert(c);  // 函数
@@ -323,11 +323,11 @@
     alert(c)  // 20 ,不会是函数
     ```
 
-15. undefined 问题
+14. undefined 问题
 
     - 在低版本浏览器中undefined是可以为变量的，如果需要使用到undefined，并且undefined之前已经被赋值了，那么undefined无效。
 
-16. 宽高
+15. 宽高
 
     ```javascript
     1. $('#box').width()
@@ -341,7 +341,7 @@
     	outerWidth可以支持margin 在第二个参数上加true
     ```
 
-17. 距离
+16. 距离
 
     ```javascript
     1. 滚动的距离
@@ -356,7 +356,7 @@
     	$('#box').position().left
     ```
 
-18. 事件
+17. 事件
 
     - jQ中的事件都是事件绑定，所有的事件都是基于on()
 
@@ -377,7 +377,7 @@
     解决：off() 解除绑定,在哪个元素上解除就在那个元素后添加。
     ```
 
-19. 事件-data数据
+18. 事件-data数据
 
     ```javascript
     <div id="div1"></div>
@@ -405,7 +405,7 @@
 
     ```
 
-20. 选项卡
+19. 选项卡
 
     ```javascript
     <style>
@@ -437,7 +437,7 @@
 
     ​
 
-21. 事件委托
+20. 事件委托
 
     ```javascript
     <input type="text">
@@ -455,7 +455,7 @@
     })
     ```
 
-22. 阻止冒泡和默认事件
+21. 阻止冒泡和默认事件
 
     ```javascript
     <style>
@@ -492,7 +492,7 @@
     })
     ```
 
-23. jQ的拖拽
+22. jQ的拖拽
 
     ```javascript
      #div1{
@@ -525,7 +525,7 @@
     });
     ```
 
-24. 运动
+23. 运动
 
     ```javascript
     1. 隐藏div1
@@ -546,11 +546,27 @@
         })
     ```
 
-25. 运动问题
+24. 运动问题
 
     - 队列： JQ中的运动都是按照队列来排列的
     - 小技巧：如果会多次触发运动，那么在运动前加stop(true,true)，2个true的时候，立即完成上次一次任务，然后开始本次任务
     - $('#div1').stop(true,true).toggle(300)
 
-    ​
+25. values
+
+    - 将对象转化为数组
+
+      ```javascript
+      var obj = {
+        a:1,
+        b:2,
+        c:3
+      }
+
+      var arr = Object.values(obj);
+
+      console.log(arr);  // [1,2,3]
+      ```
+
+      ​
 
