@@ -225,3 +225,229 @@
        - getItem(key)   没有取到返回null
        - removeItem(key)
 
+    15. vue的组件
+
+       - 语法： Vue.component(组件名字,组件的选项)
+
+       - 组件的名字命名规则
+
+         - 不能使用html规定的标签名  如：div   span等
+
+         - 可使用烤串命名法（new-list）驼峰命名法  （newList）
+
+         - 但是在模板中使用时，必须使用烤串命名法
+
+         - ```javascript
+           // 模板
+
+           <div id="app">
+               <news-list></news-list> // 烤串命名法
+           	<news-list></news-list>
+           	<custom-hello-miaov></custom-hello-miaov>
+           </div>
+
+           // js
+
+           // 子组件一：
+           Vue.component('custom-hello-miaov', {
+             template: `<div>hello</div>`
+           })
+
+           // 子组件二：
+           Vue.component('newsList', {
+             template: `<div>
+                         <h2>新闻</h2>
+                         <ul>
+                         <li>天气很好</li>
+                         <li>雾霾很少</li>
+                         <li>可以畅呼吸</li>
+                         </ul>
+                         </div>`
+           })
+
+           // 根实例   父级组件
+           new Vue({
+             el: '#app'
+           })   
+           ```
+
+    16. vue组件的嵌套
+
+       ```javascript
+           Vue.component('custom-hello-miaov', {
+                      template: `<div>hello</div>`
+                    })
+                    Vue.component('newsList', {
+                      template: `<div>
+                                <h2>新闻</h2>
+                                <ul>
+                                <li>天气很好</li>
+                                <li>雾霾很少</li>
+                                <li>可以畅呼吸</li>
+                                </ul>
+                                	// 此处，直接在子组件的 模板中具体的位置插入
+                                <custom-hello-miaov></custom-hello-miaov>
+                                </div>`
+                    })
+
+                    new Vue({
+                      el: '#app'
+                    })
+       ```
+
+    17. 定制组件的数据   props
+
+       - 使用props传递数据
+       - 父组件的数据需要通过 **prop** 才能下发到子组件中
+
+       ```javascript
+         <div id="app">
+            	// 通过v-bind 绑定自定义属性title ，将数据传递到  自定义属性 title上，再通过props传递给子组件，供子组件使用
+                <news-list :title = 'newsTilte' :list ="newsList"></news-list>
+            </div>
+
+            Vue.component('newsList', {
+              props:['title','list'],  //显式的写出要接收的key的名字
+              template: `<div>
+                        <h2>{{title}}</h2>
+                        <ul>
+                        <li v-for="item in list">{{item}}</li>
+                        </ul>	
+                        </div>`
+            })
+
+            let newsTilte = '新闻';
+            let newsList = ['1',2,3,4,5,6]
+
+            // 根实例
+            new Vue({
+              el: '#app',
+              data:{
+                newsTilte,
+                newsList
+              }
+            })
+       ```
+
+    18. 子组件和父组件的通信    通过  emit  和  props
+
+       - props ：  父组件把数据传给 子组件
+       - emit：子组件通过  emit 发给父组件，父组件再进行监听
+
+
+
+```javascript
+
+     举例说明：
+
+     /*
+     				定义一些 props
+     					title 弹框标题     必填项
+     					okValue 确定文案
+     					cancleValue 取消文案
+     				父组件 -> 子组件 props
+     				子组件 -> 父组件 custom-event
+     				每一个组件都是独立的
+     */
+     
+     
+
+     /*
+     	1. 父组件通过  props  将数据传给 子组件，并且定义一些规则
+     	2. 子组件通过emit 将信息传递出去  ，父组件再进行监听
+     */
+     
+     
+     
+       // html结构
+         <div id="app">
+         <custom-dialog
+           title='登录'
+           ok-value="登录"
+
+           @ok="parentOk"
+         ></custom-dialog>
+
+         <div v-show="isLogin">我是登录的用户名：tian</div>
+     </div>
+
+     // 具体的js实现
+
+     Vue.component('custom-dialog', {
+       //props: ['title','okValue', 'cancleValue']
+       props: {
+         title: { 
+           type: String,   // 类型为字符串
+           required: true  // 必填项
+         },
+         okValue: {
+           type: String,
+           default: '确定'   // 选填项
+         },
+         cancleValue: {
+           type: String,
+           default: '取消'
+         }
+       },
+       
+       template: `
+               <div class="dialog">
+               <h2>{{title}}</h2>
+               <div class="content">
+               这是内容
+               </div>
+               <div class="footer">
+               <button @click="okHandle">{{okValue}}</button>
+               <button>{{cancleValue}}</button>
+               </div>
+               </div>
+       `,
+       
+       methods: {
+         okHandle (){
+           // 子组件发布一个事件
+           //console.log(this);  // 当前所在组件的实例
+           this.$emit('ok'); // 内部发布事件
+         }
+       }
+     })
+
+     // 根实例
+     new Vue({
+       el: '#app',
+       data:{
+         isLogin: false,
+         isLogin123: true
+       },
+       methods: { // 父组件对子组件的  发布  做出具体的响应
+         parentOk () {
+           console.log('触发了这个事件处理函数');
+           this.isLogin = true
+         }
+       }
+     })
+       
+```
+
+
+
+19. 插槽
+
+    - 单插槽：<slot> 插口   最初在 <slot> 标签中的任何内容都被视为备用内容，当子组件模板只有一个没有属性的插槽时，父组件传入的整个内容片段将插入到插槽所在的 DOM 位置，并替换掉插槽标签本身
+    - 多插槽：要使用 name  
+      -  子组件模板中： 放在标签h2中   <slot name="h2"> {{title}} </slot>
+      -  父组件的结构中：加一个em标签  <em slot="h2">我才是标题</em>
+    - 作用域插槽：用作一个 (能被传递数据的) 可重用模板，来代替已经渲染好的元素
+      - 改变footer里的内容
+      - 把要改变的内容  用<slot name="footer"></slot> 包起来
+      - 再把要替换的内容用<template slot="footer"></template>包起来
+      - template标签在结构上不会被显示
+    - 当定制内容的时候，作用域是父组件的，但是定制的内容需要渲染子组件中的数据，需要用slot标签传到定制的内容上，定制内容使用slot-scope来接受
+      - <slot :title="title"><span>{{title}}</span></slot>
+      - <template slot-scope="abc">{{abc.title}}</template>
+20. 编写组件
+    - 在编写组件时，最好考虑好以后是否要进行复用。一次性组件间有紧密的耦合没关系，但是可复用组件应当定义一个清晰的公开接口，同时也不要对其使用的外层数据作出任何假设。
+    - Vue 组件的 API 来自三部分——prop、事件和插槽：
+      - Prop 允许外部环境传递数据给组件；
+      - 事件允许从组件内触发外部环境的副作用；
+      - 插槽允许外部环境将额外的内容组合在组件中。
