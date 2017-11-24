@@ -445,9 +445,88 @@
     - 当定制内容的时候，作用域是父组件的，但是定制的内容需要渲染子组件中的数据，需要用slot标签传到定制的内容上，定制内容使用slot-scope来接受
       - <slot :title="title"><span>{{title}}</span></slot>
       - <template slot-scope="abc">{{abc.title}}</template>
+
 20. 编写组件
     - 在编写组件时，最好考虑好以后是否要进行复用。一次性组件间有紧密的耦合没关系，但是可复用组件应当定义一个清晰的公开接口，同时也不要对其使用的外层数据作出任何假设。
     - Vue 组件的 API 来自三部分——prop、事件和插槽：
       - Prop 允许外部环境传递数据给组件；
       - 事件允许从组件内触发外部环境的副作用；
       - 插槽允许外部环境将额外的内容组合在组件中。
+
+21. Vue-cli
+    - 安装过程
+      - 工具：npm i vue-cli -g
+      - 命令行中 vue -v   出现版本号安装成功
+      - vue init webpack project(项目名称)
+      - cd进入project
+      - 先安装模块 npm i
+      - 启动项目 npm run dev
+    - 项目介绍
+      - main.js :    入口文件
+      - App.vue:    根组件  
+      - components:  在里面创建   子组件
+      - assets：在里面放 css文件，在入口文件main.js里面引入  css文件
+
+22. vuex
+
+    - 状态管理器
+
+    - 具体使用步骤
+
+      - 安装vuex     npm i vue -S
+
+      - 引入vuex    import Vuex from 'vuex'
+
+      - 使用vuex     Vue.use(Vuex)   ： 在每个子组件中都可以使用了
+
+      - 创建一个store实例
+
+        ```javascript
+        let store = new Vuex.Store({
+            state: { // 数据
+                n:0
+            },
+            mutations: {
+                // 定义改变n的函数
+                changeStateN (state,num){
+                    state.n = num
+                }
+            }
+        })
+
+        // 在根实例中使用store
+
+        new Vue({
+          el: '#app',
+          store,   // 实例中插入 store
+          template: '<App/>',
+          components: { App }
+        })
+
+        ```
+
+      - 如何在子组件中获取和改变数据n
+
+        ```javascript
+        export default {
+            // 在计算属性中 使用 store 里面的变量
+          computed: {
+              getState () {
+                  return this.$store.state.n
+              }
+          },
+          // 通过计算属性  改变 store 里面的变量n
+          methods: {
+              setState () {
+                  this.$store.commit('changeStateN',30)
+              }
+          },
+          components: {
+              HelloWorld
+          }
+        }
+        ```
+
+        ​
+
+    ​
