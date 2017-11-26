@@ -529,4 +529,62 @@
 
         ​
 
-    ​
+23. 用Cli 来写todos例子
+
+    - cli 脚手架文件介绍
+      - main.js ：入口js文件
+      - App.vue:  根组件，在这引入其他组件
+        - import headerList from './components/header';
+        - import contentList from './components/content';
+        - import footerList from './components/footer';
+      - assets： 存放组件的资源，图片，css文件等
+      - components:  存放子组件的地方，header.vue，content.vue,footer.vue
+    - 如何引入多个css文件 
+      - 将项目css都放在 assets 文件中
+      - 新建一个入口的app.css文件
+      - 将项目css文件都引入 入口的app.css文件中      
+
+
+    ```css
+    @import './base.css';
+    @import './index.css';
+    ```
+
+    - 根组件和子组件之间的引入与导出
+      - App.vue:  根组件
+        ```javascript
+        import headerList from './components/header'
+        import contentList from './components/content'
+        import footerList from './components/footer'
+        ```
+
+      - components： 存放子组件
+        - header.vue 头部
+        - content.vue 内容
+        - footer.vue 尾部
+
+    - 模板数据的渲染
+
+      - 根组件 App.vue中要使用数据list      在content标签上加上属性  :list="list"
+      - 数据使用地：content.vue,  props中继承根组件的数据 props=["list"] ,然后在需要使用数据的地方  v-for 循环生成数据结构
+
+    - 添加
+
+      - 操作的是头部 header 里面的input标签，将input里面的value值添加到content中
+        - 实现input的双向绑定：在header数据结构中 定义一个变量message，再在input标签内 写上 v-model=“message”
+        - 给header的input标签一个鼠标enter事件 addList,事件中使用emit，将需要添加数据之一动作发布给根组件，暗号是addList
+        - 根组件根据暗号@addList = “addListHandel”，触发一个addListHandel事件，来添加数据
+        - 删除修改与添加类同
+
+    - 单选和全选
+
+      - 依赖计算属性 computed : {isAllChecked: {get(){},set(newValue){}}}
+      - 全选input 标签 v-model=“isAllChecked”    单选input 标签  v-model="item.checked"   item.checked:list的变量
+      - 获取属性 get 事件逻辑： 单选都选中返回true，只要有一个没选中返回false
+      - 设置属性 set 事件逻辑：用变量newValue存放 get返回出来的布尔值 ，再把这信息发布给 根组件 App.vue  ,根组件接收后，根据newValue设置list的变量 checked
+
+      ​
+
+      ​
+
+      ​  
