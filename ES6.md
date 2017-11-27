@@ -140,44 +140,59 @@
 
 
 4. promise
-
-   - 异步问题，解决回调函数的噩梦
-
-   - ```javascript
-     export default function req(url) {
-
-         return new Promise( (resolve, reject)=>{
-
-             if(url==="todos"){
-                 setTimeout( ()=> {
-                     resolve(data);
-                 }, 2000 )
-             }else{
-                 reject({
-                     code: 2,
-                     data: 'url 写错了'
-                 })
-             }
-
-         });
-     }
-
-     let promise = req("http://localhost:80/todo"); // 实例化对象
-
-     // promise 的then方法和 catch 方法
-     promise
-         .then(
-             (fdjhk)=>{
-                 console.log(fdjhk);
-             }
-         )
-         .catch( (err)=>{
-             if(err.code===2){
-                 console.log(err.data);
-             }
-         } )
-     ;
-     ```
+   - Promise 是异步编程的一种解决方案
+   - 语法：
+   
+        ```javascript
+        new Promise(function (){
+					// 异步操作
+			})
+        ```
+    - 三种状态：
+        - pending（进行中）
+        - fulfilled（已成功）
+        - rejected（已失败）
+    - promise对象下有一个方法 then
+        - promise对象.then(resolvedFn,rejectedFn)
+        - 当promise对象的状态变为resolved，那么执行resolvedFn，如果是rejected，执行rejectedFn
+    - 举例说明
+        
+      ```javascript
+    	function ajax1(){
+			return new Promise(function (reslove,reject){
+				$.ajax({
+					url: 'http://192.168.2.75:3001/user',
+					success:reslove,
+					error: reject
+				})
+			})
+		}
+		
+		function ajax2(){
+				return new Promise(function (reslove,reject){
+					$.ajax({
+						url: 'http://192.168.2.75:3001/adress',
+						success:reslove,
+						error: reject
+					})
+				})
+			}
+			
+		ajax1()
+			.then(function(data) {
+				console.log(data);
+				return ajax2()
+				// 如果手动的return 一个promise对象，
+               // 那么下一个then就是这个promise下的方法
+			})
+			.then(function(data) {
+				console.log(data);
+			})
+			.catch(function (err){  //  捕获错误的
+				console.log(err);
+			})
+      ```
+    
 
 5. 字符串扩展
 
@@ -307,3 +322,4 @@
     ```
 
     ​
+
