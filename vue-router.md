@@ -260,6 +260,111 @@ export default new Router({
             ```
         - 你可以 在 beforeRouteLeave 中直接访问 this。这个离开守卫通常用来禁止用户在还未保存修改前突然离开。可以通过 next(false) 来取消导航。
 
-12. 
+12. 路由元信息 (鉴权)
+    - 定义路由的时候可以配置 meta 字段
+        
+        ```javascript
+        {
+            path: '/backend/workbench',
+            name: 'workbench',
+            component: workbench,
+            //把要验证登录的组件  加一个标识  meta，true表明需要登录，false不需要
+            meta: {
+                login: true
+            }
+        }
+        ```
+    - 如何访问这个 meta 字段：一个路由匹配到的所有路由记录会暴露为 `$route` 对象（还有在导航守卫中的路有对象）的 `$route.matched` 数组。因此，我们需要遍历`$route.matched`来检查路由记录中的 `meta` 字段
+        
+        ```javascript
+    router.beforeEach((to,from,next) => {
+            // console.log('此处拦截')
+            // console.log(to)
+            // 根据to中的  matched信息，some遍历，只要有一项的login为true，就需要验证 登录
+            if(to.matched.some(item => item.meta.login)  ){
+        
+                let o = JSON.parse(localStorage.getItem('isLogin')) || {}
+                if(o.login){
+                    // console.log(2)
+                    next()
+                }else{
+                    console.log(to)
+                    // if(to.path === '/backend/workbench' ){
+                    //     path = 'work'
+                    // }
+                    next({
+                        path: '/login',
+                        query: {
+                            r: to.name  // workend
+                            // r: to.path
+                        }
+                    })
+                }
+            }else{
+                next()
+            }
+    })
+        ```
+    - 如何拿query的值
+        
+        ```javascript
+        
+        // JSON的key值必须是双引号
+        // '{"login":true}' 等同于  JSON.stringify({login:true})
+        // 在localStorage中存一个标识，登录成功
+        localStorage.setItem('isLogin','{"login":true}')
+        console.log(this.$route)
+        // 去除query里面的字段r，判断是否存在
+        let r = this.$route.query.r
+        if(r){
+            this.$router.replace({
+                path: '/backend/' + r
+            })
+        }else{
+            this.$router.replace({
+                path: '/'
+            })
+        }
+        ```
+
+13. 过渡动效
+    - <router-view> 是基本的动态组件，所以我们可以用 <transition> 组件给它添加一些过渡效果,`<transition>` 的所有功能 在这里同样适用
+        
+        ```javascript
+        // name: 给不同的元素添加动画效果
+        // made=“out-in" : 切换页面时，先让当前页out，再让要显示的页面显示
+        <transition name="fade" mode="out-in">
+          <router-view></router-view>
+        </transition>
+        ```
+    - 具体的css样式写法
+        
+        ```css
+        <style>
+            <!--  .v-enter:默认写法  -->
+            .fade-enter{
+                opacity: 0;
+            }
+            .fade-enter-to{
+                opacity: 1;
+            }
+            .fade-enter-active{
+                transition: 1s
+            }
+            
+            
+            .fade-leave{
+                opacity: 1;
+            }
+            .fade-leave-to{
+                opacity: 0;
+            }
+            .fade-leave-active{
+                opacity: 0;
+                transition: 1s
+            }        
+    
+        </style>
+        ```
 
 
