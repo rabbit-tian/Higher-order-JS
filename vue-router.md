@@ -367,4 +367,45 @@ export default new Router({
         </style>
         ```
 
+14. 懒加载（按需加载）
+    - 原理: 结合 Vue 的异步组件和 Webpack 的代码分割功能，轻松实现路由组件的懒加载
+    - 首先，可以将异步组件定义为返回一个 Promise 的工厂函数 (该函数返回的 Promise 应该 resolve 组件本身)
+    - 第二，在 Webpack 2 中，我们可以使用动态 import语法来定义代码分块点 (split point)：`import('./Foo.vue') // 返回 Promise`
+    - 结合这两者，这就是如何定义一个能够被 Webpack 自动代码分割的异步组件。
+    - 在路由配置中什么都不需要改变，只需要像往常一样使用 `Home`：
+    
+        ```javascript
+        import Home from '@/components/home'
+        
+        =>
+        
+        let Home = () => {
+            return import('@/components/home')
+        }
+        ```
+    - 把组件按组分块
+
+15. 数据接口
+    - html5中天生支持跨域： `img`、`img`、`script`、`a`
+    - `jsonp`=`json` +`padding`：利用jsonp和script解决跨域问题
+    - 使用script请求地址时，拿到数据，会被js的解析器解析为js语句，在请求回来的数据中有一个函数执行  fn({)
+    - 在页面上写一个函数fn，再拿数据
+        
+        ```javascript
+        function fn(){
+            console.log(data) // 拿数据
+        }
+        
+        
+        function jsonp (){
+            let script= document.getElementByTagName('script')
+            script.src="路径"
+            document.body.appendChild(script)
+        }
+        document.onclick = function (){
+            jsonp ()
+        }
+        ```
+    - 服务器代理拿数据（ajax拿数据）
+        
 
