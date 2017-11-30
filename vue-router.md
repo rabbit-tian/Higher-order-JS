@@ -398,7 +398,7 @@ export default new Router({
         
         
         function jsonp (){
-            let script= document.getElementByTagName('script')
+            let script = document.createElement('script')
             script.src="路径"
             document.body.appendChild(script)
         }
