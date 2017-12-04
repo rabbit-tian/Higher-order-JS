@@ -1,0 +1,480 @@
+// 20171204155405
+// http://www.localhost:5000/api//shop_list
+
+{
+  "code": 1,
+  "data": {
+    "list": [
+      {
+        "id": 1000378,
+        "name": "Smartisan 蓝牙运动耳机",
+        "price": 299,
+        "image_pre": "http://img01.smartisanos.cn/",
+        "sku_list": [
+          {
+            "direct_to_cart": true,
+            "ali_image": "https://resource.smartisan.com/resource/6ac979a77402f1d0652df480e8c9adb0.jpg",
+            "sku_id": "100037801",
+            "sub_title": "IPX5 级防水设计、佩戴舒适",
+            "title": "Smartisan 蓝牙运动耳机",
+            "price": "299.00",
+            "image": "https://resource.smartisan.com/resource/95d245fec446f1598c3c8ab48d9ec824.jpg",
+            "color_id": "35"
+          }
+        ]
+      },
+      {
+        "id": 1000360,
+        "name": "坚果 Pro 2 文青保护套",
+        "price": 99,
+        "image_pre": "http://img01.smartisanos.cn/",
+        "sku_list": [
+          {
+            "direct_to_cart": true,
+            "ali_image": "https://resource.smartisan.com/resource/9016fefd6b03dab8c7fc0ac70734f277.jpg",
+            "sku_id": "100036001",
+            "sub_title": "文青配色、质感精良",
+            "title": "坚果 Pro 2 文青保护套",
+            "price": "99.00",
+            "image": "https://resource.smartisan.com/resource/276b4c4b293304efb9aa452cdc6e37e1.jpg",
+            "color_id": "43"
+          },
+          {
+            "direct_to_cart": true,
+            "ali_image": "https://resource.smartisan.com/resource/c5d7b2def8ebc143f0a04add1bfb74a3.jpg",
+            "sku_id": "100036002",
+            "sub_title": "文青配色、质感精良",
+            "title": "坚果 Pro 2 文青保护套",
+            "price": "99.00",
+            "image": "https://resource.smartisan.com/resource/8b317ee0e992548e1024fea6cc254e1d.jpg",
+            "color_id": "48"
+          },
+          {
+            "direct_to_cart": true,
+            "ali_image": "https://resource.smartisan.com/resource/ca332140775bb0646f65e516942d3adc.jpg",
+            "sku_id": "100036003",
+            "sub_title": "文青配色、质感精良",
+            "title": "坚果 Pro 2 文青保护套",
+            "price": "99.00",
+            "image": "https://resource.smartisan.com/resource/6b4710f703b23a87da14657b1e899b1e.jpg",
+            "color_id": "45"
+          }
+        ]
+      },
+      {
+        "id": 1000352,
+        "name": "坚果 Pro 2 软胶保护套",
+        "price": 49,
+        "image_pre": "http://img01.smartisanos.cn/",
+        "sku_list": [
+          {
+            "direct_to_cart": true,
+            "ali_image": "https://resource.smartisan.com/resource/59d599832c7e7f5237b98c6e935fd84b.png",
+            "sku_id": "100035201",
+            "sub_title": "TPU 环保材质、完美贴合",
+            "title": "坚果 Pro 2 软胶保护套",
+            "price": "49.00",
+            "image": "https://resource.smartisan.com/resource/6b25e0df3d6d8a2a074de73a75ae496e.jpg",
+            "color_id": "36"
+          },
+          {
+            "direct_to_cart": true,
+            "ali_image": "https://resource.smartisan.com/resource/d71d4ee7e874d1bbe26f6a0ca0d44272.png",
+            "sku_id": "100035202",
+            "sub_title": "TPU 环保材质、完美贴合",
+            "title": "坚果 Pro 2 软胶保护套",
+            "price": "49.00",
+            "image": "https://resource.smartisan.com/resource/8c7e2c761e53da0588194d80e1a2cf7a.jpg",
+            "color_id": "35"
+          },
+          {
+            "direct_to_cart": true,
+            "ali_image": "https://resource.smartisan.com/resource/58d413bad20714798d8e241dda76e798.png",
+            "sku_id": "100035203",
+            "sub_title": "TPU 环保材质、完美贴合",
+            "title": "坚果 Pro 2 软胶保护套",
+            "price": "49.00",
+            "image": "https://resource.smartisan.com/resource/1ff6e51c26fb355069e7c1f8ce99b5e0.jpg",
+            "color_id": "40"
+          }
+        ]
+      },
+      {
+        "id": 1000372,
+        "name": "坚果 Pro 2 “足迹系列”保护套 微波炉面世",
+        "price": 99,
+        "image_pre": "http://img01.smartisanos.cn/",
+        "sku_list": [
+          {
+            "direct_to_cart": true,
+            "ali_image": "https://resource.smartisan.com/resource/ac97e3bb5dbc95a7008b3adf24d7cb93.png",
+            "sku_id": "100037201",
+            "sub_title": "",
+            "title": "“足迹系列”保护套 微波炉面世",
+            "price": "99.00",
+            "image": "https://resource.smartisan.com/resource/8d52c5e5d67ecac2ebc5260c4f3af6e9.jpg",
+            "color_id": ""
+          }
+        ]
+      },
+      {
+        "id": 1000358,
+        "name": "Smartisan 半入耳式耳机心动版",
+        "price": 99,
+        "image_pre": "http://img01.smartisanos.cn/",
+        "sku_list": [
+          {
+            "direct_to_cart": true,
+            "ali_image": "https://resource.smartisan.com/resource/e9a27b0fa0e6bc3b81db28d891ec9468.jpg",
+            "sku_id": "100035801",
+            "sub_title": "哑光表面、专业级调音",
+            "title": "Smartisan 半入耳式耳机 心动版",
+            "price": "99.00",
+            "image": "https://resource.smartisan.com/resource/dddd334ee9e667503425b40cc9c0320b.jpg",
+            "color_id": "36"
+          },
+          {
+            "direct_to_cart": true,
+            "ali_image": "https://resource.smartisan.com/resource/d9a4019f575264674c7826645ca7d33a.jpg",
+            "sku_id": "100035802",
+            "sub_title": "哑光表面、专业级调音",
+            "title": "Smartisan 半入耳式耳机 心动版",
+            "price": "99.00",
+            "image": "https://resource.smartisan.com/resource/2759ecdbac0e68a9e145637aa58d0c58.jpg",
+            "color_id": "35"
+          },
+          {
+            "direct_to_cart": true,
+            "ali_image": "https://resource.smartisan.com/resource/90be7779c2454407ee5f4b6184c929ed.jpg",
+            "sku_id": "100035803",
+            "sub_title": "哑光表面、专业级调音",
+            "title": "Smartisan 半入耳式耳机 心动版",
+            "price": "99.00",
+            "image": "https://resource.smartisan.com/resource/57c95c4cb5d5facf2bd9ad03f1cee0da.jpg",
+            "color_id": "30"
+          }
+        ]
+      },
+      {
+        "id": 1000235,
+        "name": "Smartisan 双口 & 快充车载充电器",
+        "price": 99,
+        "image_pre": "http://img01.smartisanos.cn/",
+        "sku_list": [
+          {
+            "direct_to_cart": true,
+            "ali_image": "https://resource.smartisan.com/resource/d4480234a2f24b0ff5acd98288fd902d.jpg",
+            "sku_id": "100023501",
+            "sub_title": "铝合金机身、双口 & 快充、智能调节",
+            "title": "Smartisan 双口 & 快充车载充电器",
+            "price": "99.00",
+            "image": "https://resource.smartisan.com/resource/564764d54698cc05d028cecc5bd9a3c9.jpg",
+            "color_id": "7"
+          }
+        ]
+      },
+      {
+        "id": 1000371,
+        "name": "坚果 Pro 2 “足迹系列”保护套 伍迪.艾伦出生",
+        "price": 99,
+        "image_pre": "http://img01.smartisanos.cn/",
+        "sku_list": [
+          {
+            "direct_to_cart": true,
+            "ali_image": "https://resource.smartisan.com/resource/99663428c11329ec293bf185320c526b.png",
+            "sku_id": "100037101",
+            "sub_title": "",
+            "title": "“足迹系列”保护套 伍迪·艾伦出生",
+            "price": "99.00",
+            "image": "https://resource.smartisan.com/resource/e285f00390253f843a0e311dce9f5547.jpg",
+            "color_id": ""
+          }
+        ]
+      },
+      {
+        "id": 1000370,
+        "name": "坚果 Pro 2 “足迹系列”保护套 爱迪生发明留声机",
+        "price": 99,
+        "image_pre": "http://img01.smartisanos.cn/",
+        "sku_list": [
+          {
+            "direct_to_cart": true,
+            "ali_image": "https://resource.smartisan.com/resource/4853ca6abce9a93eb045cdbcd2e6fb68.png",
+            "sku_id": "100037001",
+            "sub_title": "",
+            "title": "“足迹系列”保护套 爱迪生宣布发明留声机",
+            "price": "99.00",
+            "image": "https://resource.smartisan.com/resource/2b8062559e36a2ed4645c2f645d4e931.jpg",
+            "color_id": ""
+          }
+        ]
+      },
+      {
+        "id": 1000369,
+        "name": "坚果 Pro 2 “足迹系列”保护套 照相机发明者达盖尔出生",
+        "price": 99,
+        "image_pre": "http://img01.smartisanos.cn/",
+        "sku_list": [
+          {
+            "direct_to_cart": true,
+            "ali_image": "https://resource.smartisan.com/resource/a31af6371f478ef77b26500b9863f59a.png",
+            "sku_id": "100036901",
+            "sub_title": "",
+            "title": "“足迹系列”保护套 照相机发明者达盖尔出生",
+            "price": "99.00",
+            "image": "https://resource.smartisan.com/resource/836aecdec0afeb436cc0731c8e50f2e8.jpg",
+            "color_id": ""
+          }
+        ]
+      },
+      {
+        "id": 1000368,
+        "name": "坚果 Pro 2 “足迹系列”保护套 首次发现 X 射线",
+        "price": 99,
+        "image_pre": "http://img01.smartisanos.cn/",
+        "sku_list": [
+          {
+            "direct_to_cart": true,
+            "ali_image": "https://resource.smartisan.com/resource/f0c777eb2120c0fb54fb2b39aa9ee699.png",
+            "sku_id": "100036801",
+            "sub_title": "",
+            "title": "“足迹系列”保护套 首次发现 X 射线",
+            "price": "99.00",
+            "image": null,
+            "color_id": ""
+          }
+        ]
+      },
+      {
+        "id": 1000299,
+        "name": "Smartisan 快充移动电源 10000mAh",
+        "price": 199,
+        "image_pre": "http://img01.smartisanos.cn/",
+        "sku_list": [
+          {
+            "direct_to_cart": true,
+            "ali_image": "https://resource.smartisan.com/resource/0540778097a009364f2dcbb8c5286451.jpg",
+            "sku_id": "100029901",
+            "sub_title": "10000mAh 双向快充、轻盈便携、高标准安全保护",
+            "title": "Smartisan 快充移动电源 10000mAh",
+            "price": "199.00",
+            "image": "https://resource.smartisan.com/resource/b37f37544921114cef1ec01ed4df44e4.jpg",
+            "color_id": "70"
+          },
+          {
+            "direct_to_cart": true,
+            "ali_image": "https://resource.smartisan.com/resource/648a3e3f350c2f214e2d68e037ef11b6.jpg",
+            "sku_id": "100029902",
+            "sub_title": "10000mAh 双向快充、轻盈便携、高标准安全保护",
+            "title": "Smartisan 快充移动电源 10000mAh",
+            "price": "199.00",
+            "image": "https://resource.smartisan.com/resource/77371d7b0986061e35c89d55932667df.jpg",
+            "color_id": "30"
+          }
+        ]
+      },
+      {
+        "id": 1000298,
+        "name": "坚果Pro 钢化玻璃手感膜 无孔 (后壳用)",
+        "price": 49,
+        "image_pre": "http://img01.smartisanos.cn/",
+        "sku_list": [
+          {
+            "direct_to_cart": true,
+            "ali_image": "https://resource.smartisan.com/resource/f6f081615fdd6f92206c3d127501843a.jpg",
+            "sku_id": "100029801",
+            "sub_title": "仅适用于坚果 Pro （酒红色版、浅金色版、巧克力色版和 32G 碳黑色版）",
+            "title": "坚果 Pro 钢化玻璃手感膜 无孔 （后壳用）",
+            "price": "49.00",
+            "image": "https://resource.smartisan.com/resource/3555af9d0704a3ae3ecb7dc7c6866775.jpg",
+            "color_id": "211"
+          }
+        ]
+      },
+      {
+        "id": 1000275,
+        "name": "坚果 Pro 钢化玻璃手感膜 开孔 (后壳用)",
+        "price": 49,
+        "image_pre": "http://img01.smartisanos.cn/",
+        "sku_list": [
+          {
+            "direct_to_cart": true,
+            "ali_image": "https://resource.smartisan.com/resource/3802197aa7e78f9429eb5f6048a25047.jpg",
+            "sku_id": "100027501",
+            "sub_title": "9H 超强硬度、超 4 小时钢化时长、2.5D 弧边设计",
+            "title": "坚果 Pro 钢化玻璃手感膜 开孔 （后壳用）",
+            "price": "49.00",
+            "image": "https://resource.smartisan.com/resource/649ad35e36a9703bacbe1555aeb6d266.jpg",
+            "color_id": "36"
+          }
+        ]
+      },
+      {
+        "id": 1000274,
+        "name": "坚果 Pro 钢化玻璃保护膜 (前屏用)",
+        "price": 49,
+        "image_pre": "http://img01.smartisanos.cn/",
+        "sku_list": [
+          {
+            "direct_to_cart": true,
+            "ali_image": "https://resource.smartisan.com/resource/30cacf4088f7105d16452c661afd9299.jpg",
+            "sku_id": "100027401",
+            "sub_title": "高达 92% 的超强透光率、耐刮花、防指纹",
+            "title": "坚果 Pro 钢化玻璃保护膜（前屏用）",
+            "price": "49.00",
+            "image": "https://resource.smartisan.com/resource/3555af9d0704a3ae3ecb7dc7c6866775.jpg",
+            "color_id": "211"
+          }
+        ]
+      },
+      {
+        "id": 1000271,
+        "name": "坚果 Pro 软胶保护套",
+        "price": 49,
+        "image_pre": "http://img01.smartisanos.cn/",
+        "sku_list": [
+          {
+            "direct_to_cart": true,
+            "ali_image": "https://resource.smartisan.com/resource/902befd5f32a8caf4ca79b55d39ee25a.jpg",
+            "sku_id": "100027101",
+            "sub_title": "TPU 环保材质、耐磨、耐油、耐久性强",
+            "title": "坚果 Pro 软胶保护套",
+            "price": "49.00",
+            "image": "https://resource.smartisan.com/resource/948f029dcf134ef23267994487994da5.jpg",
+            "color_id": "35"
+          },
+          {
+            "direct_to_cart": true,
+            "ali_image": "https://resource.smartisan.com/resource/554da94d8e4f84f03e0015fd1c997f46.jpg",
+            "sku_id": "100027102",
+            "sub_title": "TPU 环保材质、耐磨、耐油、耐久性强",
+            "title": "坚果 Pro 软胶保护套",
+            "price": "49.00",
+            "image": "https://resource.smartisan.com/resource/649ad35e36a9703bacbe1555aeb6d266.jpg",
+            "color_id": "36"
+          },
+          {
+            "direct_to_cart": true,
+            "ali_image": "https://resource.smartisan.com/resource/6d39130f5ad4bfe1241c0c17211472c2.jpg",
+            "sku_id": "100027103",
+            "sub_title": "TPU 环保材质、耐磨、耐油、耐久性强",
+            "title": "坚果 Pro 软胶保护套",
+            "price": "49.00",
+            "image": "https://resource.smartisan.com/resource/07baf8c0ef046224a84b593deebc869e.jpg",
+            "color_id": "41"
+          },
+          {
+            "direct_to_cart": true,
+            "ali_image": "https://resource.smartisan.com/resource/46d4b1cc072c7daa0c69756ac62ab46e.jpg",
+            "sku_id": "100027104",
+            "sub_title": "TPU 环保材质、耐磨、耐油、耐久性强",
+            "title": "坚果 Pro 软胶保护套",
+            "price": "49.00",
+            "image": "https://resource.smartisan.com/resource/52317e0c067c97fc6ce9376a2432cfff.jpg",
+            "color_id": "207"
+          }
+        ]
+      },
+      {
+        "id": 1000270,
+        "name": "Smartisan S-1001 圈铁线控耳机",
+        "price": 199,
+        "image_pre": "http://img01.smartisanos.cn/",
+        "sku_list": [
+          {
+            "direct_to_cart": false,
+            "ali_image": "https://resource.smartisan.com/resource/74b7284f703535111c46f1e34b0b1132.jpg",
+            "sku_id": "100027001",
+            "sub_title": "极简造型、复合振膜、专业级调音",
+            "title": "Smartisan S-1001 圈铁线控耳机",
+            "price": "199.00",
+            "image": "https://resource.smartisan.com/resource/88df40ec05f4f2f3f7e8568aea6a9a8f.jpg",
+            "color_id": "86"
+          },
+          {
+            "direct_to_cart": false,
+            "ali_image": "https://resource.smartisan.com/resource/b6855ee1e4657e0270332158fb047ab9.jpg",
+            "sku_id": "100027004",
+            "sub_title": "极简造型、复合振膜、专业级调音",
+            "title": "Smartisan S-1001 圈铁线控耳机",
+            "price": "199.00",
+            "image": "https://resource.smartisan.com/resource/5d360536ee512d99aaa2d95a7f045317.jpg",
+            "color_id": "35"
+          }
+        ]
+      },
+      {
+        "id": 1000267,
+        "name": "Smartisan 原装快充充电器 18W",
+        "price": 59,
+        "image_pre": "http://img01.smartisanos.cn/",
+        "sku_list": [
+          {
+            "direct_to_cart": true,
+            "ali_image": "https://resource.smartisan.com/resource/dc53bd870ee64d2053ecc51750ece43a.jpg",
+            "sku_id": "100026701",
+            "sub_title": "18W 安全快充",
+            "title": "Smartisan 原装快充充电器 18W",
+            "price": "59.00",
+            "image": "https://resource.smartisan.com/resource/e647e77234f9ed0fde9dd4084d35ff57.jpg",
+            "color_id": "37"
+          }
+        ]
+      },
+      {
+        "id": 1000266,
+        "name": "Smartisan 原装 Type-C 数据线",
+        "price": 39,
+        "image_pre": "http://img01.smartisanos.cn/",
+        "sku_list": [
+          {
+            "direct_to_cart": true,
+            "ali_image": "https://resource.smartisan.com/resource/c79a73ffc6f8e782160d978f49f543dc.jpg",
+            "sku_id": "100026601",
+            "sub_title": "PTC 过温保护、凹形设计、TPE 环保材质",
+            "title": "Smartisan 原装 Type-C 数据线",
+            "price": "39.00",
+            "image": "https://resource.smartisan.com/resource/e647e77234f9ed0fde9dd4084d35ff57.jpg",
+            "color_id": "37"
+          }
+        ]
+      },
+      {
+        "id": 1000228,
+        "name": "坚果自拍杆",
+        "price": 69,
+        "image_pre": "http://img01.smartisanos.cn/",
+        "sku_list": [
+          {
+            "direct_to_cart": false,
+            "ali_image": "https://resource.smartisan.com/resource/afe5728faa22f4b078b84d9c725c136d.jpg",
+            "sku_id": "100022801",
+            "sub_title": "航空铝合金伸缩杆、防过敏硅胶手柄",
+            "title": "Smartisan 坚果自拍杆",
+            "price": "69.00",
+            "image": "https://resource.smartisan.com/resource/e647e77234f9ed0fde9dd4084d35ff57.jpg",
+            "color_id": "37"
+          }
+        ]
+      },
+      {
+        "id": 1000227,
+        "name": "Smartisan 二合一数据线  0.2m/1.5m",
+        "price": 39,
+        "image_pre": "http://img01.smartisanos.cn/",
+        "sku_list": [
+          {
+            "direct_to_cart": false,
+            "ali_image": "https://resource.smartisan.com/resource/fe5d6ab15ed2fca6db8a23590cfcae8b.png",
+            "sku_id": "100022701",
+            "sub_title": "Type-C & Micro-USB 双接口、夜间微光灯",
+            "title": "Smartisan 二合一数据线  0.2m / 1.5m",
+            "price": "39.00",
+            "image": "https://resource.smartisan.com/resource/e647e77234f9ed0fde9dd4084d35ff57.jpg",
+            "color_id": "37"
+          }
+        ]
+      }
+    ]
+  }
+}
