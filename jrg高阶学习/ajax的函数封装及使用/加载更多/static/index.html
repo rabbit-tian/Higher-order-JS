@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+<ul id="contain">
+    <!-- <li>111</li>
+    <li>222</li> -->
+</ul>
+
+<a id="btn" href="javascript:;">加载更多</a>
+<script>
+
+/*
+    1. 接口：/loadMore
+    2. 参数： curIndex  ，len
+
+ */
+
+
+
+// ajax函数封装
+function ajax(opts){
+    var url = opts.url
+    var type = opts.type || 'GET'
+    var dataType = opts.dataType || 'json'
+    var onsuccess = opts.onsuccess || function(){}
+    var onerror = opts.onerror || function(){}
+    var data = opts.data || {}
+
+    var dataStr = []
+    for(var key in data){
+        dataStr.push(key + '=' + data[key])
+    }
+    dataStr = dataStr.join('&')
+
+    if(type === 'GET'){
+        url += '?' + dataStr
+    }
+
+    var xhr = new XMLHttpRequest()
+    xhr.open(type, url, true)
+    xhr.onload = function(){
+        if((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304){
+            //成功了
+            if(dataType === 'json'){
+                onsuccess( JSON.parse(xhr.responseText))
+            }else{
+                onsuccess( xhr.responseText)
+            }
+        } else {
+            onerror()
+        }
+    }
+    xhr.onerror = onerror
+    if(type === 'POST'){
+        xhr.send(dataStr)
+    }else{
+        xhr.send()
+    }
+}
+
+// 点击按钮，请求数据
+let isClick = false // 定义一个开关，可以解决题目三中的问题
+let curIndex = 0 // 从第几个开始加
+let len = 5 // 加载个数
+
+btn.addEventListener('click', () => {
+    if(isClick) return; // 如果数据没有请求回来，name点击里面的事件不执行
+    isClick = true // 数据没有回来前，改成true
+    ajax({
+        url: '/loadMore',
+        data: {
+            idx: curIndex,
+            len: len
+        },
+        onsuccess: function(data){
+            console.log(data)
+            // 将加载的数据放在页面上
+            for(var i = 0; i<data.length; i++){
+              var child = document.createElement('li')
+              child.innerHTML = data[i]
+              contain.appendChild(child)
+            }
+            isClick = false // 数据回来后，把开关打开
+            curIndex = curIndex + len  //修改序号，下次要数据就从新序号开始要
+            console.log(curIndex)
+        },
+        onerror: function(){
+            console.log('服务器异常')
+        }
+    })
+})
+
+
+
+
+
+
+</script>
+</body>
+</html>
