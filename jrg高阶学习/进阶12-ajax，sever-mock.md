@@ -12,9 +12,11 @@
 
 ### 题目三：点击按钮，使用 ajax 获取数据，如何在数据到来之前防止重复点击?
 1. 解决思路：设置一个开关，当点击后请求的数据没有响应前，做的操作都return掉，无效
-2. 具体代码见github [解决数据响应问题]()
+2. 具体代码见github [解决数据响应问题](https://github.com/rabbit-tian/Higher-order-JS/tree/master/jrg%E9%AB%98%E9%98%B6%E5%AD%A6%E4%B9%A0/ajax%E7%9A%84%E5%87%BD%E6%95%B0%E5%B0%81%E8%A3%85%E5%8F%8A%E4%BD%BF%E7%94%A8/%E5%8A%A0%E8%BD%BD%E6%9B%B4%E5%A4%9A)
 
 ### 题目四：实现加载更多的功能，代码提交到 github  
-1. 具体代码见github [加载更多]()
+1. 具体代码见github [加载更多](https://github.com/rabbit-tian/Higher-order-JS/tree/master/jrg%E9%AB%98%E9%98%B6%E5%AD%A6%E4%B9%A0/ajax%E7%9A%84%E5%87%BD%E6%95%B0%E5%B0%81%E8%A3%85%E5%8F%8A%E4%BD%BF%E7%94%A8/%E5%8A%A0%E8%BD%BD%E6%9B%B4%E5%A4%9A)
+
+
 
 
