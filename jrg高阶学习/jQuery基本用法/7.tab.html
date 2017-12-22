@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        ul,li{
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        .box{
+            margin-bottom: 30px;
+        }
+        .tab{
+            overflow: hidden;
+        }
+        .tab li{
+            float: left;
+            border: 1px solid;
+            padding: 4px 30px;
+            cursor: pointer;
+            margin-right: -1px;
+        }
+        .tab li.active{
+            background-color: pink;
+        }
+        .content{
+            width: 300px;
+            height: 100px;
+            border: 1px solid;
+            display: none;
+        }
+        .content.active{
+            display: block;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="box">
+        <ul class="tab">
+            <li class="active">title1</li>
+            <li>title2</li>
+            <li>title3</li>
+        </ul>
+        <div class='content active'>content1</div>
+        <div class='content'>content2</div>
+        <div class='content'>content3</div>
+    </div>
+    <div class="box">
+        <ul class="tab">
+            <li class="active">title1</li>
+            <li>title2</li>
+            <li>title3</li>
+        </ul>
+        <div class='content active'>content1</div>
+        <div class='content'>content2</div>
+        <div class='content'>content3</div>
+    </div>
+    <div class="box">
+        <ul class="tab">
+            <li class="active">title1</li>
+            <li>title2</li>
+            <li>title3</li>
+        </ul>
+        <div class='content active'>content1</div>
+        <div class='content'>content2</div>
+        <div class='content'>content3</div>
+    </div>
+
+<script src="jq/jquery.min.js"></script>
+<script>
+    // 给 li 添加点击事件
+    $('.tab li').on('click',function () {
+        let $this = $(this)
+        console.log($this.parent())
+        let index = $this.index()
+        $this.addClass('active')
+            .siblings().removeClass('active')
+
+        // 当页面有多组tab时，此时的index会错乱，要找到自己的父级，然后在下面找内容框
+        $this.parents('.box').find('.content').eq(index)
+            .addClass('active')
+            .siblings().removeClass('active')
+    })
+
+
+</script>
+</body>
+</html>

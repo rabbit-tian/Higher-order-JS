@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="container">
+        <ul class="wrap">
+            <li class="active">11</li>
+            <li>22</li>
+            <li>33</li>
+        </ul>
+    </div>
+
+<script src="jq/jquery.min.js"></script>
+<script>
+    // 增加元素
+
+    // 尾部添加
+    let $li = $('<li>44</li>')
+    $('.wrap').append($li)
+
+    let $lito = $('<li>55</li>')
+    $lito.appendTo($('.wrap'))
+
+    // 头部添加
+    let $lihead = $('<li>00</li>')
+    $('.wrap').prepend($lihead)
+
+    //前面添加   把66放在00的前面
+    $('#container .wrap').children().first().before($('<li>66</li>'))
+
+    // 删除元素
+
+    $('#container .wrap').children().last().remove()
+
+    // 清空ul里面所有的li
+    $('#container .wrap').empty()
+
+    // 获取修改元素内容
+
+    $('.wrap').html('<li>00</li><li>11</li>')
+
+    console.log($('li').last().html())
+</script>
+</body>
+</html>

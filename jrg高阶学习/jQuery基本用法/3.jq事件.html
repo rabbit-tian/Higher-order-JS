@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <ul class="box">
+        <li>11</li>
+        <li>22</li>
+        <li>33</li>
+        <li>44</li>
+    </ul>
+    <input id="inp" type="text">
+
+    <button id="btn">点击</button>
+
+    <div id="wrap"></div>
+
+    <script src="jq/jquery.min.js"></script>
+    <script>
+        //输入框输入内容后，点击添加到box列表内
+        // $('#btn').on('click',function () {
+        //     let valueInp = $('#inp').val()
+        //     $('.box').append('<li>'+valueInp+'</li>')
+        //     $('#inp').val('')
+        // })
+        // 简写
+        $('#btn').click(function () {
+            let valueInp = $('#inp').val()
+            $('.box').append('<li>'+valueInp+'</li>')
+            $('#inp').val('')
+        })
+
+
+        //点击 li，将内容添加到wrap中
+            // 问题：新添加的li不能添加到wrap中，解决： 事件代理
+        // $('.box li').on('click',function () {
+        //     $('#wrap').html($(this).html())
+        // })
+
+        // 事件代理
+        $('.box').on('click.hello','li',function () {
+            // $('#wrap').html($(this).html())
+            $('#wrap').html(this.innerHTML)
+            console.log(this)
+        })
+
+        // data 参数
+        $('.box').on('click','li',{name: 'tian'},function (e) {
+            console.log(e.data)
+        })
+
+        // trigger ： 触发器,触发点击事件
+        $('.box li').eq(0).trigger('click')
+
+        // 解绑事件
+        $('.box').off('click.hello')
+
+    </script>
+</body>
+</html>

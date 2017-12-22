@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="container">
+        <ul class="wrap">
+            <li class="active">11</li>
+            <li>22</li>
+            <li>33</li>
+        </ul>
+    </div>
+
+
+    <script src="jq/jquery.min.js"></script>
+    <script>
+        // 原生对象转jquery对象
+        console.log($(document.querySelector('#container')))
+
+        // jquery对象转原生
+        console.log($('#container')[0])
+
+        // jquery获取的是类数组，如何选择其中一个
+        console.log($('li').eq(0))
+        console.log($('li').first())
+        console.log($('li').last())
+
+        console.log($('.wrap').children())
+        console.log($('.wrap').has('li'))
+
+        console.log($('#container').find('ul'))
+
+    </script>
+</body>
+</html>
