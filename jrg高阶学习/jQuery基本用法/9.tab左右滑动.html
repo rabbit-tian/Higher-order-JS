@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        ul,li{
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        .box{
+            width: 300px;
+            border: 1px solid;
+            margin-bottom: 30px;
+        }
+        .tab{
+            overflow: hidden;
+        }
+        .tab li{
+            float: left;
+            text-align: center;
+            width: 33.3%;
+            border-right: 1px solid;
+            border-bottom: 1px solid;
+            cursor: pointer;
+            margin-right: -1px;
+        }
+        .tab li.active{
+            background-color: pink;
+        }
+        .contents>li{
+            width: 300px;
+            height: 100px;
+            float: left;
+        }
+
+        .contents>li:nth-child(1){
+            background-color: red;
+        }
+        .contents>li:nth-child(2){
+            background-color: pink;
+        }
+        .contents>li:nth-child(3){
+            background-color: yellow;
+        }
+        .wrap{
+            width: 300px;
+            position: relative;
+            height: 100px;
+            overflow: hidden;
+        }
+        .contents{
+            position: absolute;
+            width: 900px;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="box">
+        <ul class="tab">
+            <li class="active">title1</li>
+            <li>title2</li>
+            <li>title3</li>
+        </ul>
+
+        <div class="wrap">
+            <ul class="contents">
+                <li>content1</li>
+                <li>content2</li>
+                <li>content3</li>
+            </ul>
+        </div>
+    </div>
+
+<script src="jq/jquery.min.js"></script>
+<script>
+
+// 内容框的宽度
+let widthLi = $('.contents li').first().width()
+
+$('.tab li').on('click',function () {
+    let $this = $(this)
+    let index = $this.index()
+    console.log(widthLi)
+    $this.addClass('active')
+        .siblings().removeClass('active')
+    // console.log($this.parents('.box').find('.contents'))
+    $this.parents('.box').find('.contents')
+        .animate({
+            left: -widthLi*index
+        })
+})
+
+
+</script>
+</body>
+</html>

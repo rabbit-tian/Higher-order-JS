@@ -1,4 +1,6 @@
 ### 题目1： jQuery 能做什么？
+1. 
+
 ### 题目2： jQuery 对象和 DOM 原生对象有什么区别？如何转化？
 ### 题目3：jQuery中如何绑定事件？bind、unbind、delegate、live、on、off都有什么作用？推荐使用哪种？使用on绑定事件使用事件代理的写法？
 ### 题目4：jQuery 如何展示/隐藏元素？
