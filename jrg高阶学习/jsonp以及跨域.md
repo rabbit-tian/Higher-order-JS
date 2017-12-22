@@ -30,5 +30,5 @@
 3. 在服务器端，要设置Access-Control-Allow-Origin头部
 
 ### 题目5： 根据视频里的讲解演示三种以上跨域的解决方式 ，写成博客
-1. 
+1. 详见giuhub [跨域的几种方式](https://github.com/rabbit-tian/Higher-order-JS/tree/master/jrg%E9%AB%98%E9%98%B6%E5%AD%A6%E4%B9%A0/%E8%B7%A8%E5%9F%9F%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95)
 
