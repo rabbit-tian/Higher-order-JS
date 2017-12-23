@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="box">click me</div>
+    <script src="jq/jquery.min.js"></script>
+    <script>
+        $('#box').bind('click',{name: 'tian'},function (e) {
+            console.log(e.data.name)
+        })
+        // 解绑事件
+        $('#box').unbind('click')
+
+    </script>
+</body>
+</html>

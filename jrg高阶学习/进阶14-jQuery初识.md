@@ -152,7 +152,7 @@
 - 效果显示 [鼠标移入移出效果](http://js.jirengu.com/cewan/4/edit)
 
 ### 题目9：使用 jQuery 实现如下效果
-- 效果显示 [效果展示](http://js.jirengu.com/nimex/3/edit)
+- 效果显示 [效果展示](http://js.jirengu.com/nimex/4/edit?html,output)
 
 ### 题目10：实现如下效果 
 - 效果显示 [效果展示](http://js.jirengu.com/goqel/4/edit)

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        ul,li{
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        h3{
+            margin: 0;
+            padding: 0;
+        }
+        #wrap{
+            width: 100px;
+        }
+        #wrap .wrap-content{
+            width: 100px;
+            display: none;
+            position: absolute;
+            left: 100px;
+            top: 0;
+        }
+        #wrap .wrap-content.active{
+            display: block;
+        }
+        #wrap .wrap-content li{
+            width: 50%;
+            float: left;
+            background-color: #ccc;
+        }
+        #wrap li{
+            padding: 5px 0;
+            background-color: pink;
+            text-align: center;
+            cursor: pointer;
+            position: relative;
+        }
+        #wrap li h3{
+            color: #fff;
+        }
+
+    </style>
+</head>
+<body>
+    <ul id="wrap">
+        <li>
+            <h3>珠宝玉器</h3>
+            <ul class="wrap-content">
+                <li>翡翠</li>
+                <li>琥珀</li>
+                <li>玉石</li>
+                <li>翡翠</li>
+                <li>玛瑙</li>
+                <li>翡翠</li>
+                <li>和田</li>
+                <li>和田</li>
+            </ul>
+        </li>
+        <li>
+            <h3>珠宝玉器</h3>
+            <ul class="wrap-content">
+                <li>翡翠</li>
+                <li>琥珀</li>
+                <li>玉石</li>
+                <li>翡翠</li>
+            </ul>
+        </li>
+        <li>
+            <h3>珠宝玉器</h3>
+            <ul class="wrap-content">
+                <li>翡翠</li>
+                <li>琥珀</li>
+                <li>玉石</li>
+                <li>翡翠</li>
+                <li>玛瑙</li>
+                <li>玛瑙</li>
+            </ul>
+        </li>
+    </ul>
+
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script>
+
+        // 鼠标移入li，发生鼠标移入事件
+        $('#wrap>li').on('mouseover',function () {
+            $(this).find('.wrap-content').show()
+        })
+
+        // 鼠标移出li，发生鼠标移出事件
+        $('#wrap>li').on('mouseout',function () {
+            $(this).find('.wrap-content').hide()
+        })
+
+
+    </script>
+</body>
+</html>
