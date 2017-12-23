@@ -149,8 +149,7 @@
 
 ### 题目8： 使用 jQuery实现如下效果
 
-- 效果显示 
-
+- 效果显示 [鼠标移入移出效果](http://js.jirengu.com/cewan/4/edit)
 
 ### 题目9：使用 jQuery 实现如下效果
 
