@@ -199,12 +199,20 @@
 
 ### 题目7：用jQuery实现以下操作
 1. 当点击$btn 时，让 $btn 的背景色变为红色再变为蓝色
-    效果查看  [点击变色](http://js.jirengu.com/cemod/5/edit)
+    -  [点击变色](http://js.jirengu.com/cemod/5/edit)
+    - 注意：背景色不能直接用动画，不支持，需要用一个 jquery 插件才行，因为背景色的变化没法渐变，不像宽高，可以从0到100
 
 2. 当窗口滚动时，获取垂直滚动距离
+    -  [点击查看](http://js.jirengu.com/dugat/2/edit)
+    
 3. 当鼠标放置到$div 上，把$div 背景色改为红色，移出鼠标背景色变为白色
+    - [点击查看效果](http://js.jirengu.com/titum/11/edit)
+
 4. 当鼠标激活 input 输入框时让输入框边框变为蓝色，当输入框内容改变时把输入框里的文字小写变为大写，当输入框失去焦点时去掉边框蓝色，控制台展示输入框里的文字
+    - [点击查看](http://js.jirengu.com/wegay/58/edit)
+
 5. 当选择 select 后，获取用户选择的内容
+    - [点击查看](http://js.jirengu.com/suxat/8/edit)
 
 ### 题目8： 用 jQuery ajax 实现如下效果。当点击加载更多会加载数据展示到页面
 ### 题目9(选做)： 实现一个天气预报页面，UI 如下图所示(仅供参考，可自由发挥)。数据接口:
