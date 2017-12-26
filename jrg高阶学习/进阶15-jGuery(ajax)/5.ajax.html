@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script>
+        // 老方法
+        $.ajax({
+            url: '/hello',
+            method: 'get',
+            dataType: 'json',
+            data: {
+                a: 1,
+                b: 2
+            },
+            succsss: function (ret) {
+                console.log(ret)
+            },
+            error: function () {
+                console.log('error')
+            }
+        })
+
+
+        // 新方法
+
+        $.ajax({
+            url: '/hello',
+            method: 'post',
+            dataType: 'json',
+            data: {
+                a: 1,
+                b: 2
+            }
+        }).done(function (ret) {
+            console.log(ret)
+        }).error(function () {
+            console.log('error')
+        })
+
+        // 简易方法
+
+        $.get('/hello',{a:1,b:2})
+            .done(function (ret) {
+                console.log(ret)
+            }).error(function () {
+                console.log('error')
+            })
+        $.get('/hello',function (ret) {
+            console.log(ret)
+        })
+
+        $.post('/hello',{a:1,b:2})
+            .done(function (ret) {
+                console.log(ret)
+            }).error(function () {
+                console.log('error')
+            })
+    </script>
+</body>
+</html>

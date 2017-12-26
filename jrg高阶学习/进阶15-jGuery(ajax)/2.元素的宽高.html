@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        html,body{
+            margin: 0;
+            padding: 0;
+        }
+        button{
+            background-color: blue;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ct">
+        <div class="box">hello</div>
+    </div>
+
+
+    <script src="jq/jquery.min.js"></script>
+    <script>
+        $('.ct').css({
+            width: 500,
+            height: 500,
+            border: '1px solid'
+        })
+
+        $('.box').css({
+            width: 100,
+            height: 100,
+            background: 'red',
+            border: '10px solid',
+            margin: '20px',
+            padding: '20px'
+        })
+
+        console.log($('.box').height()) // 100 不包括边框 和 padding
+        console.log($('.box').innerHeight()) // 140  包括padding
+        console.log($('.box').outerHeight()) // 160  包括边框 和 padding
+
+
+    </script>
+</body>
+</html>

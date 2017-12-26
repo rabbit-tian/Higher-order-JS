@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div class="box">
+        <ul>
+            <li>1</li>
+            <li class="active">2</li>
+            <li>3</li>
+            <li>4</li>
+        </ul>
+    </div>
+
+    <div class="ct"></div>
+
+
+<script src="jq/jquery.min.js"></script>
+<script>
+
+    // each
+
+    $('.box>ul>li').each(function (index,node){
+        // var str = $(node).text()
+        // $(node).text(str+str)
+
+        let str = $(this).text()
+        $(node).text(str+str)
+    })
+
+
+    // .map
+
+    let arr = $('.box>ul>li').map(function () {
+        return $(this).text()
+    })
+    console.log(arr) //["11", "22", "33", "44", prevObject: m.fn.init(4), context: document]
+
+    // extend  扩展
+
+    let obj1 = {a:1}
+    let obj2 = {b:2,c:3}
+    let obj3 = {b:4,d:5}
+    let obj4 = {}
+
+    console.log($.extend(obj1,obj2)) // {a: 1, b: 2, c: 3}
+
+    console.log($.extend(obj1,obj2,obj3)) // {a: 1, b: 4, c: 3,d:5}
+
+    console.log($.extend(obj4,obj1,obj2,obj3)) //{a: 1, b: 4, c: 3,d:5}
+    console.log(obj1) // 还保留原来的值
+
+    let obj5 = $.extend({},obj1,obj2,obj3)
+    console.log(obj5)
+
+    // .index()
+    console.log($('.active').index()) // 1
+
+
+    $('.ct').html(`<div class="btn"></div>`)
+
+    let $node = $('.box>ul>li')
+    console.log($node.length)
+
+</script>
+</body>
+</html>

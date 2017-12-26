@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        html,body,h2,p,ul,li{
+            margin: 0;
+            padding: 0;
+        }
+        a{
+            color: #333;
+            text-decoration: none;
+        }
+        .container{
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .item {
+            margin-top: 20px;
+        }
+        .item:after{
+            content: '';
+            display: block;
+            clear: both;
+        }
+        .item .thumb{
+            float: left;
+        }
+        .item .thumb img{
+            width: 50px;
+            height: 50px;
+        }
+        .item h2{
+            margin-left: 60px;
+            font-size: 14px;
+        }
+        .item p{
+            margin-left: 60px;
+            font-size: 14px;
+            margin-top: 10px;
+            color: #ccc;
+        }
+        .load-more{
+            width: 100px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            border: 1px solid #ccc;
+            margin-top: 20px;
+            cursor:pointer;
+        }
+        .load-more img{
+            width: 40px;
+            height: 40px;
+            display: inline-block;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <ul class="news">
+            <li class="item">
+                <a href="http://view.inews.qq.com/a/20160830A02SEB00">
+                    <div class="thumb">
+                        <img src="http://inews.gtimg.com/newsapp_ls/0/2562290115_960495/0" alt="">
+                    </div>
+                    <h2>中国轰6k研发成功</h2>
+                    <p>近日，轰6k“战神...”</p>
+                </a>
+            </li>
+            <li class="item">
+                <a href="http://view.inews.qq.com/a/20160830A02SEB00">
+                    <div class="thumb">
+                        <img src="http://inews.gtimg.com/newsapp_ls/0/2562290115_960495/0" alt="">
+                    </div>
+                    <h2>22中国轰6k研发成功</h2>
+                    <p>22近日，轰6k“战神...”</p>
+                </a>
+            </li>
+        </ul>
+        <div class="load-more">加载更多</div>
+    </div>
+
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script>
+    let pageIndex = 0
+    let $loadMore = $('.load-more')
+    let isClick = false // 未请求时，为false状态
+
+    $loadMore.on('click',function (e) {
+        e.preventDefault() // 阻止默认事件
+
+        // 如果数据到来之前的操作都return掉
+        if(isClick) return // 请求状态直接return掉
+        isClick = true // 此时为请求状态
+
+        // 加载过程中，加一个loading标志
+        $loadMore.html('<img src="http://photocdn.sohu.com/20150912/mp31593361_1442037444350_2.gif" alt="" />')
+
+        $.get('https://www.easy-mock.com/mock/5a4116bd84b00d4350368840/getNews/getNews#!method=get',{page: pageIndex})
+            .done(function (ret) {
+                pageIndex++; // 获取下一页数据
+
+                console.log(ret.data)
+                appendHtml(ret.data)
+
+                // 请求结束后，开关打开
+                isClick = false
+                $loadMore.html('加载更多') // 恢复加载状态
+            }).fail(function () {
+                console.log('系统异常')
+            })
+    })
+
+    function appendHtml(news){
+        let html = ''
+        $.each(news,function (index,item) {
+            html += `
+                <li class="item">
+                    <a href="${this.link}">
+                        <div class="thumb">
+                            <img src="${this.img}" alt="">
+                        </div>
+                        <h2>${this.title}</h2>
+                        <p>${this.address}</p>
+                    </a>
+                </li>
+                `
+        })
+
+        console.log(html)
+        $('.news').append(html) // 将拼接的内容放到容器中，渲染到页面上
+    }
+
+</script>
+</body>
+</html>

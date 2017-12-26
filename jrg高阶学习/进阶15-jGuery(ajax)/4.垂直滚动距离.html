@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <button class="btn">click me</button>
+
+<script src="jq/jquery.min.js"></script>
+<script src="https://code.jquery.com/color/jquery.color-2.1.2.js"></script>
+<script>
+
+
+    $('.btn').on('click', function (){
+        console.log(111)
+
+        $(this).animate({backgroundColor:'red'}, 1000)
+                .animate({backgroundColor:'yellow'}, 1000)
+    })
+
+
+
+
+</script>
+</body>
+</html>
