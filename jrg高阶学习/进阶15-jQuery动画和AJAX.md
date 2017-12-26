@@ -50,14 +50,24 @@
     ```    
 
 ### 题目5： jQuery 中 data 函数的作用
-1. data：当一个事件被触发时，要传递给事件处理函数的event.data
-2. 代码展示
+1. ajax中的data：当一个事件被触发时，要传递给事件处理函数的event.data
+    代码展示:
     
     ```javascript
     $('.box').on('click', {name: 'hunger'}, function(e){
     console.log(e.data)
 })
     ```
+2. jQuery.data()的作用 
+    - 在匹配元素上存储任意相关数据 或 返回匹配的元素集合中的第一个元素的给定名称的数据存储的值
+    - 用法
+    
+        ```javascript
+        $("body").data("foo", 52)
+        $("body").data("foo"); // 52
+        
+        ```
+
 
 ### 题目6： 写出以下功能对应的 jQuery 方法：
 1. 给元素 $node 添加 class active，给元素 $noed 删除 class active
@@ -215,7 +225,8 @@
     - [点击查看](http://js.jirengu.com/suxat/8/edit)
 
 ### 题目8： 用 jQuery ajax 实现如下效果。当点击加载更多会加载数据展示到页面
-- 
+-   [效果展示](http://js.jirengu.com/warox/2/edit?html,output)
+- 使用工具： easy-mock
 
 ### 题目9(选做)： 实现一个天气预报页面，UI 如下图所示(仅供参考，可自由发挥)。数据接口:
 
