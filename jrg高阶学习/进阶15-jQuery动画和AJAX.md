@@ -226,7 +226,7 @@
 
 ### 题目8： 用 jQuery ajax 实现如下效果。当点击加载更多会加载数据展示到页面
 -   [效果展示](http://js.jirengu.com/warox/2/edit?html,output)
-- 使用工具： easy-mock
+- 使用工具： easy-mock 模拟后端
 
 ### 题目9(选做)： 实现一个天气预报页面，UI 如下图所示(仅供参考，可自由发挥)。数据接口:
 
