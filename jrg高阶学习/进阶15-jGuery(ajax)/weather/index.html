@@ -11,6 +11,7 @@
 </head>
 <body>
     <input type="text" placeholder="请输入城市" id="u-inp-city">
+
     <div class="local-info">
         <div id="location">
         </div>
@@ -35,36 +36,220 @@
             <div class="f-forecast">
                 <div class="f-date"></div>
                 <img class="f-img">
-                <div class="f-temp"></div>
+                <div class="f-temp-low"></div>
+                <div class="f-temp-high"></div>
             </div>
             <div class="f-forecast">
                 <div class="f-date"></div>
                 <img class="f-img">
-                <div class="f-temp"></div>
+                <div class="f-temp-low"></div>
+                <div class="f-temp-high"></div>
             </div>
             <div class="f-forecast">
                 <div class="f-date"></div>
                 <img class="f-img">
-                <div class="f-temp"></div>
+                <div class="f-temp-low"></div>
+                <div class="f-temp-high"></div>
             </div>
             <div class="f-forecast">
                 <div class="f-date"></div>
                 <img class="f-img">
-                <div class="f-temp"></div>
+                <div class="f-temp-low"></div>
+                <div class="f-temp-high"></div>
             </div>
             <div class="f-forecast">
                 <div class="f-date"></div>
                 <img class="f-img">
-                <div class="f-temp"></div>
+                <div class="f-temp-low"></div>
+                <div class="f-temp-high"></div>
             </div>
             <div class="f-forecast">
                 <div class="f-date"></div>
                 <img class="f-img">
-                <div class="f-temp"></div>
+                <div class="f-temp-low"></div>
+                <div class="f-temp-high"></div>
             </div>
         </div>
     </div>
-    <script src="node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="js/index.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <!-- <script src="js/index.js"></script> -->
+
+    <script>
+
+        /*
+            接口说明：
+            const HOST = 'http://weixin.jirengu.com'
+
+            1. 默认刷新获取所在地接口
+                'http://weixin.jirengu.com/weather/'
+
+            2. 获取天气的图片src路径 获取数据的code值，再拼接
+                http://weixin.jirengu.com/images/weather/code/${code}.png
+
+            3. 输入城市，获取城市的id接口  const HOST = 'http://weixin.jirengu.com'     userInput：用户输入的地址
+                `${HOST}/weather/cityid?location=${userInput}`
+
+            4. 根据cityId：id，拼接接口，获取 对应 地址的 天气数据
+                `${HOST}/weather/now?cityid=${cityId}`
+                
+        */
+
+
+
+
+
+
+
+        // 立即执行函数，可在里面写，不会暴露全局变量
+        (function () {
+            // 接口
+            const HOST = 'http://weixin.jirengu.com'
+            const datTime = 12 // 上下午间隔
+            let myLocation,
+                $location = $('#location'),
+                $time = $('#time')
+
+            // 将中文星期改成英文
+            const day_maps = {
+                "周一":"Mon",
+                "周二":"Tue",
+                "周三":"Wed",
+                "周四":"Thu",
+                "周五":"Fri",
+                "周六":"Sat",
+                "周日":"Sun",
+            }
+
+
+            setupTime ()
+
+            // 算出时间
+            function formatTime(date){
+
+                let currentHours = date.getHours()
+                let currentMinutes = date.getMinutes()
+                if(currentMinutes<10){
+                    currentMinutes = '0' + currentMinutes
+                }
+                let suffix = currentHours > datTime ? 'pm':'am'
+                return `${currentHours}:${currentMinutes} ${suffix}`
+            }
+
+            // 每隔一分钟获取最新时间
+            function setupTime () {
+                let currentTime = new Date()
+                $time.text(formatTime(currentTime))
+                setTimeout(function () {
+                    setupTime ()
+                },60000)
+            }
+
+            // 获取img的src路径
+            function getImgUrl(code){
+                return `http://weixin.jirengu.com/images/weather/code/${code}.png`
+            }
+
+
+
+            $.ajax('http://weixin.jirengu.com/weather/')
+                .done((info) => {
+                    if(info.status === 'OK' && info.weather && info.weather.length>0){
+                        // console.log(info)
+                        let weather = info.weather[0]
+                        // console.log(weather)
+
+                        // 地址的渲染
+                        myLocation = weather['city_name']
+                        $location.text(myLocation)
+
+                        //今天和未来的数据渲染
+                        showWeather(weather)
+                    }
+
+
+                })
+
+            function showWeather(weather) {
+                let todayInfo = weather.now
+                $('#t-temp').text(todayInfo.temperature)
+                $('#t-img').attr('src',getImgUrl(todayInfo.code))
+
+                // ~~ 取整数部分
+                $('#t-wind').text(~~todayInfo.wind_speed+'mph')
+
+                let future = weather.future
+                // console.log(future)
+
+                // 渲染星期
+                $('.f-date').each(function (index,item) {
+                    let perDay = future[index].day
+                    $(this).text(day_maps[perDay])
+                })
+                // 渲染温度
+                $('.f-temp-low').each(function (index,item) {
+                    let perTemp = future[index].low
+                    $(this).text(perTemp+'°')
+                })
+                $('.f-temp-high').each(function (index,item) {
+                    let perTemp = future[index].high
+                    $(this).text(perTemp+'°')
+                })
+
+                // 渲染天气图片
+                $('.f-img').each(function (index,item) {
+                    let perWea = future[index].code1
+                    $(this).attr('src',getImgUrl(perWea))
+                })
+            }
+
+
+            // 回车键 搜索天气
+
+            $(document).keydown(function (e) {
+                if(e.keyCode === 13){
+                    let userInput = $('#u-inp-city').val()
+                    $('#u-inp-city').val('')
+                    // 通过用户输入的 城市名称，拼接接口
+                    //https://weixin.jirengu.com/weather/cityid?location=beijing
+                    $.ajax(`${HOST}/weather/cityid?location=${userInput}`)
+                        .done(function (res) {
+                            // 数据判断
+                            if(res.status === 'error' || res.results.length === 0){
+                                console.log('输入有误,请重新输入地址：例如 beijing')
+                                return false
+                            }
+
+                            console.log(res)
+                            let matchedCity = res.results[0]
+                            console.log(matchedCity)
+
+                            let cityId = matchedCity.id
+
+                            // 通过id，拼接接口，获取当地天气的数据
+
+                            $.ajax(`${HOST}/weather/now?cityid=${cityId}`)
+                                .done(function (res) {
+                                    if(res.status === 'OK' && res.weather && res.weather.length > 0){
+
+                                        let weather = res.weather[0]
+
+                                        // 地址的渲染
+                                        myLocation = weather['city_name']
+                                        $location.text(myLocation)
+
+                                        console.log(weather)
+                                        // 今天和未来的数据渲染
+                                        showWeather(weather)
+                                    }
+
+
+                                })
+                        })
+                }
+            })
+
+        })();
+
+    </script>
 </body>
 </html>

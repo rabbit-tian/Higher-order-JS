@@ -92,7 +92,8 @@
     let isClick = false // 未请求时，为false状态
 
     $loadMore.on('click',function (e) {
-        e.preventDefault() // 阻止默认事件
+
+        e.preventDefault()
 
         // 如果数据到来之前的操作都return掉
         if(isClick) return // 请求状态直接return掉
@@ -103,16 +104,31 @@
 
         $.get('https://www.easy-mock.com/mock/5a4116bd84b00d4350368840/getNews/getNews#!method=get',{page: pageIndex})
             .done(function (ret) {
-                pageIndex++; // 获取下一页数据
+                console.log(11)
 
-                console.log(ret.data)
-                appendHtml(ret.data)
+                // 验证 数据类型为非空数组，只有ret.data为数组时，才有length；为对象时，没有length
+                //if(ret.data && ret.data.length>0) {
 
-                // 请求结束后，开关打开
-                isClick = false
-                $loadMore.html('加载更多') // 恢复加载状态
+                 // 和以上写法的区别：Array.isArray() 性能比上面的差一点
+                if(Array.isArray(ret.data) && ret.data.length>0){
+
+                  pageIndex++; // 获取下一页数据
+
+                  setTimeout(function () {
+                    appendHtml(ret.data)
+
+                     $loadMore.html('加载更多') // 恢复加载状态
+                     // 请求结束后，开关打开
+                    isClick = false
+                  },1000)
+                }
+
+
+
+
             }).fail(function () {
                 console.log('系统异常')
+                isClick = false
             })
     })
 
