@@ -42,11 +42,13 @@
 2. 代码展示
 
     ```javascript
+    
     // 链式调用
     $('.btn').on('click',function () {
         $('.box').animate({width: 200})
                 .animate({height: 200})
     })
+    
     ```    
 
 ### 题目5： jQuery 中 data 函数的作用
@@ -54,15 +56,18 @@
     代码展示:
     
     ```javascript
+    
     $('.box').on('click', {name: 'hunger'}, function(e){
-    console.log(e.data)
-})
+        console.log(e.data)
+    })
+    
     ```
 2. jQuery.data()的作用 
     - 在匹配元素上存储任意相关数据 或 返回匹配的元素集合中的第一个元素的给定名称的数据存储的值
     - 用法
     
         ```javascript
+        
         $("body").data("foo", 52)
         $("body").data("foo"); // 52
         
@@ -73,8 +78,10 @@
 1. 给元素 $node 添加 class active，给元素 $noed 删除 class active
         
     ```javascript
+    
     $node.addClass('active') // 添加
     $node.removeClass('active') // 删除
+    
     ```
 2. 展示元素$node, 隐藏元素$node
     1. 基础
@@ -95,6 +102,7 @@
 3. 获取元素$node 的 属性: id、src、title， 修改以上属性
     
     ```javascript
+    
     $node.val()
     $node.val('inp')
     
@@ -106,6 +114,7 @@
     
     $node.attr('title')
     $node.attr('title','hello')
+    
     ```
 4. 给$node 添加自定义属性data-src
     `$node.attr('data-src','www.baidu.com')`
@@ -152,8 +161,8 @@
 
 12. 获取$node 到根节点水平、垂直偏移距离
     
-    `$node.offset.left`
-    `$node.offset.top`
+    `$node.offset().left`
+    `$node.offset().top`
     
 13. 修改$node 的样式，字体颜色设置红色，字体大小设置14px
 
