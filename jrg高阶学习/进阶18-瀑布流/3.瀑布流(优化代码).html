@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .content{
+            position: relative;
+        }
+        .item{
+            position: absolute;
+            width: 200px;
+            margin-right: 10px;
+            margin-top: 10px;
+            transition: all 1s;
+        }
+
+        .h1{
+            height: 200px;
+            background-color: #f4b300;
+        }
+
+        .h2{
+            height: 300px;
+            background-color: #691BB8;
+        }
+        .h3{
+            height: 400px;
+            background-color: #006ac1;
+        }
+
+
+
+
+    </style>
+</head>
+<body>
+<div class="content">
+    <div class="item h1">1</div>
+    <div class="item h3">2</div>
+    <div class="item h2">3</div>
+    <div class="item h1">4</div>
+    <div class="item h1">5</div>
+    <div class="item h3">6</div>
+    <div class="item h3">7</div>
+    <div class="item h2">8</div>
+    <div class="item h1">9</div>
+    <div class="item h3">10</div>
+    <div class="item h3">12</div>
+    <div class="item h2">13</div>
+    <div class="item h2">14</div>
+</div>
+
+
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script>
+    /*
+     原理：
+        1. 根据容器宽度 和 图片宽度 计算一行存放图片的个数
+        2. 定义一个数组，存放每一列图片的总高度，初始值都为0
+        3. 遍历每一张图片，根据数组中最小的值和对应的小标设置图片的定位值
+        4. 数组对应项要加上图片高度
+
+    */
+
+
+
+    let waterFallObj = (function () {
+        function init(){
+            // 页面刷新时，调用一次
+            waterFall()
+            // 窗口变化时，再次调用
+            $(window).resize(function () {
+                waterFall()
+            })
+        }
+        function waterFall(){
+            // 每一行图片的个数
+            let totalNum = parseInt($('.content').width() / $('.item').width())
+            // 存放每一行的总高度
+            let itemArr = []
+            // 先默认值为0
+            for(var i = 0; i < totalNum;i++){
+                itemArr[i] = 0
+            }
+            $('.item').each(function () {
+                // 计算出 已经展示在页面图片的 最小高度和对应的下标
+                let minItem = Math.min.apply(null,itemArr)
+                let itemIndex = itemArr.indexOf(minItem)
+                // 设置left值和top值
+                $(this).css({
+                    top: itemArr[itemIndex],
+                    left: $(this).outerWidth(true) * itemIndex
+                })
+                // 数组对应项加上图片的高度作为下一次根据
+                itemArr[itemIndex] += $(this).outerHeight(true)
+            })
+
+        }
+
+        return {
+            init:init
+        }
+    })()
+
+    // 启动
+    waterFallObj.init()
+
+
+</script>
+</body>
+</html>

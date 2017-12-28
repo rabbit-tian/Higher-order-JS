@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        html,body,ul,li,p,div{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        ul,li{
+            list-style: none;
+        }
+
+        .wrap{
+        width: 900px;
+            margin: 0 auto;
+        }
+
+        .clearfix:after{
+            content: '';
+            display: block;
+            clear: both;
+        }
+        #pic-ct{
+            position: relative;
+        }
+        #pic-ct .item{
+            position: absolute;
+            padding: 0 0 10px 0;
+            width: 280px;
+            margin: 10px;
+            border: 1px solid #DFDFDF;
+            background: #FFF;
+            opacity: 0;
+            transition: all .8s;
+        }
+        #pic-ct .item img{
+            margin: 10px;
+            width: 260px;
+        }
+        #pic-ct .item .header{
+            height: 25px;
+            margin: 0 12px;
+            border-bottom: 1px solid #DBDBDB;
+        }
+        #pic-ct .desp{
+            font-size: 12px;
+            line-height: 1.8;
+          margin: 10px 15px 0;
+          color: #777371;
+        }
+        #load{
+            visibility: hidden;
+            height: 20px;
+        }
+        .hide{
+            display: none;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="ct-waterfall">
+            <ul id="pic-ct" class="clearfix">
+                <!-- <li class="item">
+                    <a href="#" class="link">
+                        <img src="http://s.img.mix.sina.com.cn/auto/resize?img=http%3A%2F%2Fwww.sinaimg.cn%2Fdy%2Fslidenews%2F5_img%2F2016_09%2F453_75615_657883.jpg&size=250_0" alt="">
+                    </a>
+                    <h4 class="header">标题</h4>
+                    <p class="desp">
+                        当地时间2016年3月1日，在东部和亲俄武装战斗中受伤首尾乌克兰士兵接受海豚治疗
+                    </p>
+                </li> -->
+                <!-- 用于计算 item 的宽度和列数，但不展示 -->
+                <li class="item hide"></li>
+            </ul>
+
+            <div id="load">我是看不见的</div>
+        </div>
+    </div>
+
+
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script>
+    // 获取数据
+    // 将数据变为DOM，瀑布流方式放到页面上
+    // 当页面滚动到底部时
+
+    let curPage = 1 // 第1页开始
+    let perPageCount = 10  // 请求10次数据
+
+    let itemArr = [] // 定义空数组存放 高度
+    // 计算一行存放几个item
+    let itemSum = parseInt($('#pic-ct').width() / $('.item').outerWidth(true))
+    for(var i = 0;i < itemSum;i++){
+        itemArr[i] = 0
+    }
+
+
+    start()
+
+    function start(){
+        // 获取数据以后，变成DOM结构，然后通过瀑布流的方式渲染到页面上
+        getData(function (newList) {
+            console.log(newList)
+            // 先获取一张图片进行渲染
+            $(newList).each(function (index,news) {
+                let $node = getNode(news)
+
+                // 图预加载后,将整个DOM放到节点内
+                $node.find('img').load(function () {
+                    $('#pic-ct').append($node)
+                    console.log($node,'load') // 10张图片加载了
+                    waterFallPlace($node)
+                })
+            })
+        })
+    }
+
+
+
+    // 页面滚动，当 被埋伏的load 显示出来时，就再一次加载数据
+    $(window).scroll(function () {
+        if(isVisible($('#load'))){
+            start()
+        }
+    })
+
+
+
+
+
+    // 获取数据
+    function getData(callback){
+        $.ajax({
+            url: 'http://platform.sina.com.cn/slide/album_tech',
+            dataType: 'jsonp',
+            jsonp: 'jsoncallback',
+            data:{
+                app_key: '1271687855',
+                num: perPageCount,
+                page: curPage
+            }
+        }).done(function (ret) {
+            // 判断数据是否正常
+
+            if(ret && ret.status && ret.status.code === "0"){
+                console.log(ret)
+                callback(ret.data)
+                curPage++ // 页数加一
+            }else{
+                console.log('error')
+            }
+        })
+    }
+
+
+    // DOM
+    function getNode(news){
+        let html = `
+                <li class="item">
+                    <a href="${news.url}" class="link">
+                        <img src="${news.img_url}" alt="">
+                    </a>
+                    <h4 class="header">${news.short_name}</h4>
+                    <p class="desp">${news.short_intro
+}</p>
+                </li>
+            `
+        return $(html)
+    }
+
+    // 瀑布流布局
+    function waterFallPlace($node){
+        // 拿到数组中最小的高度和其下标
+
+        let minItemHeight = Math.min.apply(null,itemArr)
+        let minItemIndex = itemArr.indexOf(minItemHeight)
+
+        $node.css({
+            left: $('.item').outerWidth(true) * minItemIndex,
+            top: minItemHeight,
+            opacity: 1
+        })
+
+        // 对应数组的那一项加上新来的item的高度，作为下次 item插入的根据
+        itemArr[minItemIndex] += $node.outerHeight(true)
+
+        // 手动设置ul的高度，根据itemArr中最大的值
+        $('#pic-ct').height(Math.max.apply(null,itemArr))
+    }
+
+    // 判断元素是否出现在窗口中
+    function isVisible($el){
+
+        // 当自己到定位父级的高度 小于 滚动高度+窗口高度
+        let elTop = $el.offset().top,
+            scrollTop = $(window).scrollTop(),
+            windowHeight = $(window).height()
+
+        if(elTop < scrollTop + windowHeight + 500){ // 不滚动到底就加载图片
+            return true
+        }else{
+            return false
+        }
+    }
+
+
+</script>
+</body>
+</html>
