@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        header{
+            padding: 40px 0;
+            text-align: center;
+        }
+        header input{
+            width: 220px;
+            height: 25px;
+            outline: none;
+        }
+        main{
+            margin: 10px;
+        }
+        main::after{
+            content: '';
+            display: block;
+            clear: both;
+        }
+        main>figure{
+            float: left;
+            padding: 5px;
+        }
+        main>figure img{
+            width: 100%;
+            height: 100%;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <input type="text" id="search-ipt" placeholder="enter picture name">
+    </header>
+    <main>
+        <!-- <figure>
+            <img src="" alt="">
+        </figure> -->
+    </main>
+
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script>
+
+    /*
+        原理：
+         1. 设置一个基准高度200
+         2. 在此基础上，等比例设置每张图片的宽度
+         3.
+
+
+
+    */
+
+    let baseHeight = 200 // 基准高度
+    let mainNodeWidth = $('main').width() // 容器宽度
+    let rowList = [] // 当前一行的图片集合
+    let rowTotalWidth = 0 // 数组rowList里图片的总宽度
+
+    // promise: 异步获取数据
+
+
+    $('body').resize(function () {
+        getData('nanjing')
+            .then(render)
+            .catch(function (err) {
+                console.log(err)
+            })
+    })
+    getData('nanjing')
+        .then(render)
+        .catch(function (err) {
+            console.log(err)
+        })
+
+
+    // 数据渲染
+    function render(data){
+        $(data.hits).each(function (index,imgInfo) {
+            // 计算新的高度 和 宽度
+            // 比例 newHeight/newWidth = webformatHeight/webformatWidth
+            imgInfo.newHeight = baseHeight
+            imgInfo.newWidth = baseHeight*imgInfo.webformatWidth/imgInfo.webformatHeight
+            // console.log(imgInfo)
+            // 如果当前图片的宽度和数组里面图片的和 小于 容器main的宽度，就把当前这张图片push到数组里面
+            if(imgInfo.newWidth + rowTotalWidth > mainNodeWidth){
+                // 把一行图片排好，绘制（等比拉伸）
+                layout(rowList,rowTotalWidth)
+                // imgInfo作为rowList的第一个内容，重新开始装图片
+                rowList = [imgInfo]
+                rowTotalWidth = imgInfo.newWidth
+            }else{
+                rowList.push(imgInfo)
+                rowTotalWidth += imgInfo.newWidth
+            }
+        })
+
+        // 遍历后再执行layout，让rowList剩余的几张也显示
+        layout(rowList,rowTotalWidth)
+        rowList = []
+        rowTotalWidth = 0
+    }
+
+    // 将rowList里面的图片放在页面上，绘制
+    function layout(list,rowTotalWidth){
+
+        $(list).each(function (index,imgInfo) {
+            console.log(imgInfo)
+
+            let nowHeight = parseInt( mainNodeWidth/rowTotalWidth*baseHeight)
+            let nowWidth = parseInt(imgInfo.webformatWidth/imgInfo.webformatHeight*nowHeight)
+            let html = `
+                    <figure sytle="height: ${nowHeight}px;width:${nowWidth}px">
+                        <img src="${imgInfo.userImageURL
+}" alt="">
+                    </figure>
+            `
+            $('main').append(html)
+        })
+    }
+
+    // 获取数据函数封装
+    // keyword: 输入的 城市名   callback：数据到来之后再取数据
+    function getData(keyword){
+
+        // promise 的异步操作
+        return new Promise(function (resolve,reject) {
+            $.ajax({
+                url: 'https://pixabay.com/api/?',
+                data: {
+                    key: '5856858-0ecb4651f10bff79efd6c1044',
+                    q: keyword,
+                    image_type: 'photo',
+                    per_page: 20
+                }
+            }).done(function (ret) {
+                if(ret.hits && ret.hits.length > 0){
+                    resolve(ret)
+                }
+            }).error(function () {
+                reject('ajax error')
+            })
+        })
+
+    }
+
+
+
+</script>
+</body>
+</html>

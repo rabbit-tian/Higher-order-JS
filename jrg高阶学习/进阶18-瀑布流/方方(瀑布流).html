@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * { margin: 0; padding: 0; }
+    #container {
+      display: flex;
+      justify-content: center;
+    }
+    #container > #col1,
+    #container > #col2,
+    #container > #col3 {
+      width: 250px;
+      min-height: 100px;
+      margin: 0 10px;
+      overflow: hidden;
+    }
+    #container img {
+      max-width: 100%;
+      vertical-align: top;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<div id="container">
+  <div id="col1"></div>
+  <div id="col2"></div>
+  <div id="col3"></div>
+</div>
+
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script>
+
+  let $container = $('#container')
+  let columns = [$('#col1'), $('#col2'), $('#col3')]
+  let totalHeights = [0, 0, 0]
+  let currentPage = 1
+
+
+  getOnePage(1, function () {
+    getOnePage(2, function () {
+      currentPage = 2
+    })
+  })
+
+  $(window).scroll(function () {
+    if (isBottom()) {
+      getOnePage(currentPage + 1, function(){
+        currentPage += 1
+      })
+    } else {
+      console.log('继续滚')
+    }
+  })
+
+  function isBottom () {
+    return $(window).scrollTop() + $(window).height() == $(document).height()
+  }
+
+  function getOnePage (page, success) {
+    let number = 0
+    let images = []
+    getNews(6, page).then(function (response) {
+      let data = response.data
+      data.forEach((item, index) => {
+        let img = new Image()
+        images.push(img)
+        img.onload = function () {
+          number += 1
+          if (number === 6) {
+            for (let i = 0; i < images.length; i++) {
+              let shortestColumnIndex = findIndexOfShortestColumn()
+              $(`#col${shortestColumnIndex + 1}`).append(images[i])
+              totalHeights[shortestColumnIndex] += images[i].height + 10
+            }
+            success && success()
+          }
+        }
+        img.src = randomImage()
+      })
+    })
+  }
+
+  function findIndexOfShortestColumn () {
+    let minIndex = 0
+    for (let i = 0; i < totalHeights.length; i++) {
+      if (totalHeights[i] < totalHeights[minIndex]) {
+        minIndex = i
+      }
+    }
+    return minIndex
+  }
+
+  // 生成随机图片
+  function randomImage () {
+    let height = parseInt(Math.random() * 200 + 100, 10) // 100~300
+    return `http://lorempixel.com/250/${height}/sports/Dummy-Text/`
+  }
+  // 不要看了
+  // 获取新闻
+  function getNews (number, page) {
+    page = page || 1 // 保底
+    number = number || 8
+    let url = `http://platform.sina.com.cn/slide/album_tech` +
+      `?app_key=1271687855&num=${number}&page=${page}`
+    return $.ajax({
+      url: url,
+      dataType: 'jsonp',
+      jsonp: 'jsoncallback'
+    })
+  }
+</script>
+</body>
+</html>
