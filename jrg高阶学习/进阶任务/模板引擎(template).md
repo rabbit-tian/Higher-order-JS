@@ -59,8 +59,37 @@
 3. 代码展示
 
     ```javascript
-    
+        let songs = [
+        {name: '刚刚好1',singer: '薛之谦1'},
+        {name: '刚刚好2',singer: '薛之谦2'},
+        {name: '刚刚好3',singer: '薛之谦3'},
+        {name: '刚刚好4',singer: '薛之谦4'},
+        {name: '刚刚好5',singer: '薛之谦5'}
+    ]
+
+    function stringFormat (string) {
+        // console.log(arguments)  // ["hi,{0}", "tian", callee: ƒ, Symbol(Symbol.iterator): ƒ]
+        // 拿到arguments 除了第一项的其他项
+        let parmas = [].slice.call(arguments,1)
+        console.log(parmas) // ["tian", "yang"]
+
+        // 将 string 中的 {n} 替换成 parmas{n}
+        let regex = /\{(\d+)\}/g // 正则匹配 {n}
+        string = string.replace(regex,function () {
+            console.log(arguments)
+            // 拿到 n 的下标
+            let index = arguments[1]
+            // 根据下标找到parmas里面的项
+            return parmas[index]
+        })
+
+        return string
+    }
+
+
+    console.log(stringFormat('hi,{0} and {1}', 'tian','yang')) // 替换结果：hi,tian and yang
     ```
+4. 优点：简化代码，易懂易写
 
 ### 4. 模板替换
 ### 5. 自制模板替换
