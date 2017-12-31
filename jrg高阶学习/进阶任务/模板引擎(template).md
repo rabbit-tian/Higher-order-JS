@@ -95,6 +95,11 @@
 ### 4. 自制模板替换
 1. 用到的知识
     - 将字符串变成JS代码：var func = new Function(...
+    
+    ```javascript
+    let fn3 = new Function ('x','y','console.log(x);console.log(y)')
+    fn3(1,2) // 1,2
+    ```
     - string.replace 替换字符串
     
     ```javascript
