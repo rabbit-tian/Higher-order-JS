@@ -167,5 +167,49 @@
 
     lines 是 自定义变量
     ```
+    
+3. 代码实现
 
+```javascript
+var TemplateEngine = function(html, options) {
+    var re = /<%([^%>]+)?%>/g, reExp = /(^( )?(if|for|else|switch|case|break|{|}))(.*)?/g, code = 'var r=[];\n', cursor = 0;
+    var add = function(line, js) {
+        js? (code += line.match(reExp) ? line + '\n' : 'r.push(' + line + ');\n') :
+            (code += line != '' ? 'r.push("' + line.replace(/"/g, '\\"') + '");\n' : '');
+        return add;
+    }
+    while(match = re.exec(html)) {
+        add(html.slice(cursor, match.index))(match[1], true);
+        cursor = match.index + match[0].length;
+    }
+    add(html.substr(cursor, html.length - cursor));
+    code += 'return r.join("");';
+    return new Function(code.replace(/[\r\t\n]/g, '')).apply(options);
+}
+
+
+// 使用
+
+// 模板
+let template = `
+    <div class="ct">
+        <h1>热歌榜</h1>
+        <ul>
+            <%if(this.showSkills){%>
+                <%for(let i = 0;i<this.data.length;i++){%>
+                    </this.data.length;i++){%>
+                    <li><%this.data[i].name%> - <%this.data[i].singer%></li>
+                <%}%>
+            <%}%>
+        </ul>
+    </div>
+`
+// 调用
+var string = TemplateEngine(template,{
+    data: songs,
+    showSkills: true
+})
+
+$('body').append(string)
+```
 
