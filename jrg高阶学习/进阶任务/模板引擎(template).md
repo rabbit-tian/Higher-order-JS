@@ -92,9 +92,75 @@
 4. 优点：简化代码，易懂易写
 5. 缺点：只能是一对一的替换
 
-### 4. 模板替换
-### 5. 自制模板替换
-### 6. 常见模板引擎介绍 
+### 4. 自制模板替换
+1. 用到的知识
+    - 将字符串变成JS代码：var func = new Function(...
+    - string.replace 替换字符串
+    
+    ```javascript
+    let string1 = 'tian1 , yang1 ,shen1,tian1'
+    let regex1 = /tian1/g
 
+    console.log(string1.replace(regex1,'xxx')) // 'xxx , yang1 ,shen1,xxx'
+    ```
+    
+    -  while  +  regex.exec
+    
+    ```javascript
+    // regex.exec 正则、遍历、匹配
+    let string = 'tian , yang ,shen,tian'
+    let regex = /tian/g
+
+    console.log(regex.exec(string)) // ["tian", index: 0, input: "tian , yang ,shen,tian"]
+    console.log(regex.exec(string)) // ["tian", index: 18, input: "tian , yang ,shen,tian"]
+    console.log(regex.exec(string)) // null
+    
+        // while  +  regex.exec
+    let string3 = 'tian3 , yang3 ,shen3,tian3'
+    let regex3 = /tian/g
+
+    let result
+    // 当 result = regex3.exec(string3时，再次进入循环
+    while(result = regex3.exec(string3)){
+        string3 = string3.replace(result,'xxx')
+    }
+
+    console.log(string3) // xxx3 , yang3 ,shen3,xxx3
+
+    ```
+2. 思路
+    - 利用正则方法：将带有<%%>的字符串变成纯JS
+    - 代码块一：变化前
+    
+    ```javascript
+        var template =
+        'My skills:' +
+        '<%if(this.showSkills) {%>' +
+            '<%for(var index in this.skills) {%>' +
+            '<a href="#">' +
+            '    <%this.skills[index]%>'+
+            '</a>' +
+            '<%}%>' +
+        '<%} else {%>' +
+            '<p>none</p>' +
+        '<%}%>';
+    ```
+    - 代码块二：变化成JS后
+    
+    ```javascript
+    var lines = ''
+    lines += 'My skills:'
+    if(this.showSkills) {
+        for(var index in this.skills) {
+        lines+= '<a href="#">'
+        lines+= this.skills[index]
+        lines+= '</a>'
+        }
+    else
+        lines+= '<p>none</p>'
+    }
+
+    lines 是 自定义变量
+    ```
 
 
