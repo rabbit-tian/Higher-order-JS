@@ -90,6 +90,7 @@
     console.log(stringFormat('hi,{0} and {1}', 'tian','yang')) // 替换结果：hi,tian and yang
     ```
 4. 优点：简化代码，易懂易写
+5. 缺点：只能是一对一的替换
 
 ### 4. 模板替换
 ### 5. 自制模板替换
