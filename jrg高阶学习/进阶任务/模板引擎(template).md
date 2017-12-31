@@ -52,7 +52,15 @@
 - 缺点：有点复杂
 
 ### 3. string formate
-1. 
+1. string formate - 字符串格式化
+2. 和之前方法对比
+    - before: `var li = '<li>' + songs[i].name + ' - ' + songs[i].singer + '</li>'`
+    - string formate: `var li = stringFormat('<li>{0} - {1}</li>', songs[i].name, songs[i].singer)`
+3. 代码展示
+
+    ```javascript
+    
+    ```
 
 ### 4. 模板替换
 ### 5. 自制模板替换
