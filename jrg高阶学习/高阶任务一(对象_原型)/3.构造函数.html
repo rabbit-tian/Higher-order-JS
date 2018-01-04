@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+<script>
+
+    function Peple(name){
+        // this指向：创建的实例化对象
+        this.name = name
+        this.sayName = function () {
+            console.log('myName:'+this.name)
+        }
+    }
+
+    let p1 = new Peple('tian') // 通过构造函数创造出一个实例化对象
+    /*
+        1. 创造一个空对象 p1 = {}
+        2. 赋值：  p1.name = 'tian'
+                  p1.sayName = function (){}
+        3.return p1对象
+    */
+    p1.sayName() // 调用里面的方法
+
+    let p2 = new Peple('杨')
+    p2.sayName() // 调用里面的方法
+
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+<script>
+    function Car(name,color,status) {
+        this.name = name
+        this.color = color
+        this.status = status
+    }
+
+    Car.prototype.run = function () {
+        console.log('run')
+    }
+    Car.prototype.stop = function () {
+        console.log('stop')
+    }
+    Car.prototype.getStatus = function () {
+        console.log(this.status)
+    }
+
+    let c1 = new Car('tian','red',true)
+
+    c1.run()
+    c1.stop()
+    c1.getStatus()
+
+</script>
+</body>
+</html>

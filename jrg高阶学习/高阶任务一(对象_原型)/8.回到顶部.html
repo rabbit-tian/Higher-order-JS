@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .ct{
+            height: 1200px;
+            background-color: skyblue;
+        }
+    </style>
+</head>
+<body>
+    <div class="ct">
+
+    </div>
+
+
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script>
+        // let $window = $(window)
+        // let $btn = $('<button>回到顶部</button>')
+        // $btn.css({
+        //     width: 100,
+        //     height: 30,
+        //     border: '1px solid #ccc',
+        //     position: 'fixed',
+        //     right: 50,
+        //     bottom: 50
+        // })
+        // $('.ct').append($btn)
+        // $window.scroll(function () {
+        //     if($window.scrollTop() === 0){
+        //         $btn.hide()
+        //     }else{
+        //         $btn.show()
+        //     }
+        // })
+        //
+        // $btn.click(function () {
+        //     $window.scrollTop(0)
+        // })
+
+
+
+        function GoTop(ct){
+            this.$target = $('<button>回到顶部</button>')
+            this.$target.css({
+                width: 100,
+                height: 30,
+                border: '1px solid #ccc',
+                position: 'fixed',
+                right: 50,
+                bottom: 50,
+                cursor: 'pointer'
+            })
+
+            this.createNode(ct)
+            this.bindEvent()
+            this.isShow()
+        }
+
+        GoTop.prototype.createNode = function (ct) {
+            ct.append(this.$target)
+        }
+        GoTop.prototype.bindEvent = function () {
+            this.$target.click(function () {
+                $(window).scrollTop(0)
+            })
+        }
+        GoTop.prototype.isShow = function () {
+            $(window).scroll(function () {
+                if($(window).scrollTop() === 0){
+                    $('button').hide()
+                }else{
+                    $('button').show()
+                }
+            })
+        }
+
+        $ct = $('.ct')
+        new GoTop($ct)
+
+
+
+    </script>
+</body>
+</html>

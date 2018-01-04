@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>照片墙</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .ct {
+            width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .ct>div {
+            width: 100%;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .ct>div>img:first-child {
+            margin-left: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="ct"></div>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script>
+        function Barrels($ct) {
+            this.$ct = $ct;
+            this.ctWidth = $ct.width();
+            this.baseHeight = 200;
+            this.ajaxImages()
+        }
+
+        Barrels.prototype = {
+            ajaxImages: function() {
+                var _this = this;
+                $.get(`https://pixabay.com/api/?key=6780567-38a0a54d8f260856f7f39e204&q='sky'&image_type=photo&per_page=40`)
+                    .done(function(data) {
+                        if(Array.isArray(data.hits) && data.hits.length>0){
+                            _this.render(data)
+                        }
+                    })
+            },
+
+            render: function(data) {
+                var _this = this;
+                var imgArray = [];
+                var rowTotalWidth = 0;
+                data.hits.forEach(function(imgInfo) {
+                    imgInfo.rate = imgInfo.webformatWidth / imgInfo.webformatHeight;
+                    var imgWidthBase = imgInfo.rate * _this.baseHeight;
+                    if ((rowTotalWidth + imgWidthBase) < _this.ctWidth) {
+                        rowTotalWidth = rowTotalWidth + imgWidthBase + 5;
+                        imgArray.push(imgInfo)
+                    } else {
+                        var figureHeight = (_this.ctWidth) / (rowTotalWidth) * _this.baseHeight;
+                        _this.layout(figureHeight, imgArray);
+                        imgArray = [imgInfo];
+                        rowTotalWidth = imgWidthBase;
+                    }
+                })
+
+            },
+
+            layout: function(figureHeight, imgArray) {
+                var $imgFigure = $('<div></div>');
+                imgArray.forEach(function(imgInfo) {
+                    var $img = $('<img>');
+                    $img.attr('src', imgInfo.webformatURL);
+                    $img.height(figureHeight + 'px');
+                    $imgFigure.append($img)
+                });
+
+                this.$ct.append($imgFigure)
+            }
+
+        };
+
+
+        var barrels = new Barrels($('.ct'));
+    </script>
+</body>
+
+</html>

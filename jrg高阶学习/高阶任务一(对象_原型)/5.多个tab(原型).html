@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        ul,li{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        *{
+            box-sizing: border-box;
+        }
+        .title{
+            overflow: hidden;
+        }
+        .title>li{
+            float: left;
+            width: 100px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            border: 1px solid #000;
+            border-right: none;
+            cursor: pointer;
+        }
+        .title>li:nth-child(3){
+            border-right: 1px solid #000;
+        }
+        .title>li.active{
+            background-color: #ccc;
+            color: #fff;
+        }
+        .content>li{
+            width: 300px;
+            height: 100px;
+            border: 1px solid #000;
+            border-top: none;
+            display: none;
+        }
+        .content>li.active{
+            display: block;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="box">
+        <ul class="title">
+            <li class="active">tab1</li>
+            <li>tab2</li>
+            <li>tab3</li>
+        </ul>
+        <ul class="content">
+            <li class="active">content1</li>
+            <li>content2</li>
+            <li>content3</li>
+        </ul>
+    </div>
+
+    <div class="box">
+        <ul class="title">
+            <li class="active">tab1</li>
+            <li>tab2</li>
+            <li>tab3</li>
+        </ul>
+        <ul class="content">
+            <li class="active">content1</li>
+            <li>content2</li>
+            <li>content3</li>
+        </ul>
+    </div>
+
+<script>
+
+    function Tab(tabCt){
+        // 执行
+        this.init(tabCt)
+        this.bind()
+    }
+
+    // 都放在 原型上，省内存
+    Tab.prototype.init = function (tabCt) {
+        this.titles = tabCt.querySelectorAll('.title>li')
+        this.contents = tabCt.querySelectorAll('.content>li')
+    }
+
+    Tab.prototype.bind = function () {
+        let self = this // 存放实例化对象
+        this.titles.forEach(function (item,index) {
+            item.addEventListener('click',function () {
+                self.titles.forEach(function (el) {
+                    el.classList.remove('active')
+                })
+                this.classList.add('active')
+
+                // 类数组通过数组方法查找索引值
+                let titleIndex = [].indexOf.call(self.titles,this)
+                self.contents.forEach(function (el) {
+                    el.classList.remove('active')
+                })
+                self.contents[titleIndex].classList.add('active')
+            })
+        })
+    }
+
+
+
+
+    let tabBox = document.querySelectorAll('.box')
+
+    let t1 = new Tab(tabBox[0])
+    let t2 = new Tab(tabBox[1])
+
+    console.log(t1,t2)
+
+</script>
+</body>
+</html>
