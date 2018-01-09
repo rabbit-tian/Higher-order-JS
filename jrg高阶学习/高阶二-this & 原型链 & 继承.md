@@ -72,5 +72,14 @@ function func() {
 
 ```
 
+### 问题4：下面代码输出什么
 
+```javascript   
+document.addEventListener('click', function(e){
+    console.log(this); // document
+    setTimeout(function(){
+        console.log(this); // window
+    }, 200);
+}, false);
+```
 
