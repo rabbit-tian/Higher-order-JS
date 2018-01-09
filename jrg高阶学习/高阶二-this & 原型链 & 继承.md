@@ -76,10 +76,43 @@ function func() {
 
 ```javascript   
 document.addEventListener('click', function(e){
-    console.log(this); // document
+    console.log(this); // document，DOM对象绑定事件
     setTimeout(function(){
-        console.log(this); // window
+        console.log(this); // window，setTimeout、setInterval 这两个方法执行的函数this也是全局对象
     }, 200);
 }, false);
 ```
+
+### 问题5：下面代码输出什么，why
+```javascript   
+var john = { 
+  firstName: "John" 
+}
+
+function func() { 
+  alert( this.firstName ) // "John"
+  // 通过call改变this的指向为john
+}
+func.call(john)
+```
+### 问题6： 以下代码有什么问题，如何修改
+
+```javascript
+var module= {
+  bind: function(){
+    $btn.on('click', function(){
+      console.log(this) //this指向 $btn
+      this.showMsg();
+    }).bind(this)
+  },
+
+  showMsg: function(){
+    console.log('饥人谷');
+  }
+}
+
+```
+
+
+
 
