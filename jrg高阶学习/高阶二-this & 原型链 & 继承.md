@@ -143,5 +143,136 @@ p.sayName();
 4. 图解：[原型图](https://upload-images.jianshu.io/upload_images/6828981-94042de4a64aacdb.png?imageMogr2/auto-orient/)
 5. 原型链：JS在创建对象（不论是普通对象还是函数对象）的时候，都有一个叫做proto的内置属性，用于指向创建它的函数对象的原型对象prototype。在访问一个对象属性的时候，如果对象本身没有找到这个属性，就会沿着原型链一层一层的寻找。
 
+### 问题9：对String做扩展，实现如下方式获取字符串中频率最高的字符
+
+```javascript
+String.prototype.getMostOften = function(){
+  var obj = {}
+  for(var i=0; i<this.length; i++){
+    var item = this.substr(i,1)
+    if(obj[item]){
+      obj[item]++
+    }else{
+      obj[item] = 1
+    }
+  }
+  var num =0,max = null
+  for(key in obj){
+    if(obj[key]>num){
+      num = obj[key]
+      max = key
+    }
+  }
+  return max
+}
+
+var str = 'ahbbccdeddddfg';
+var ch = str.getMostOften();
+console.log(ch); //d , 因为d 出现了5次
+
+```
+
+### 问题10： instanceOf有什么作用？内部逻辑是如何实现的？
+1. 作用:instanceof运算符返回一个布尔值，表示指定对象是否为某个构造函数的实例
+2. instanceof的原理是检查原型链，对于那些不存在原型链的对象，就无法判断。
+
+```javascript
+var arr = [1, 2, 3];
+arr instanceof Array; //true
+其实是判断arr.__proto__===Array.prototype
+arr instanceof Object; //true
+判断arr.__proto__.__proto__===Object.prototype
+```
+
+### 问题11：继承有什么作用?
+1. 继承是指一个对象直接使用另一对象的属性和方法。通过继承，可以使子类共享父类的属性和方法，可以覆盖(重写)和扩展父类的属性和方法，减少内存的使用，提高代码复用性。
+
+### 问题12： 下面两种写法有什么区别?
+
+```javascript
+//方法1
+function People(name, sex){
+    this.name = name;
+    this.sex = sex;
+    this.printName = function(){
+        console.log(this.name);
+    }
+}
+var p1 = new People('饥人谷', 2)
+
+//方法2
+function Person(name, sex){
+    this.name = name;
+    this.sex = sex;
+}
+
+Person.prototype.printName = function(){
+    console.log(this.name);
+}
+var p1 = new Person('若愚', 27);
+```
+
+- 区别
+    - 方法1中每个实例的printName方法实际上作用一样，但是每个实例要重复一遍，大量对象存在的时候是浪费内存；
+    - 方法2中把printName方法存放到Person.prototype里，每个实例对象的proto都指向Person.prototype能访问到，减少了对象的使用。
+
+### 问题13： Object.create 有什么作用？兼容性如何？
+1. 作用：Object.create() 方法使用指定的原型对象和其属性创建了一个新的对象，可以让另外一个构造函数的 prototype 的 _proto_ 等于这个创建的对象，实现继承
+2. 兼容性：各大浏览器的最新版本（包括IE9）都兼容了这个方法。
+### 问题14： hasOwnProperty有什么作用？ 如何使用？
+1. 作用:hasOwnPerperty是Object.prototype的一个方法，返回一个布尔值，用于判断某个属性定义在对象自身，还是定义在原型链上。
+2. 如何使用：obj.hasOwnProperty(prop)
+    - prop：要检测的属性 （字符串 名称或者 Symbol）
+    
+    ```javascript
+    o = new Object();
+    o.prop = 'exists';
+    o.hasOwnProperty('prop');// 返回 true
+    o.hasOwnProperty('toString');// 返回 false
+  o.hasOwnProperty('hasOwnProperty');// 返回 false
+    ```
+
+### 问题15：如下代码中call的作用是什么?
+
+```javascript
+function Person(name, sex){
+    this.name = name;
+    this.sex = sex;
+}
+function Male(name, sex, age){
+    Person.call(this, name, sex);    //这里的 call 有什么作用
+    this.age = age;
+}
+```
+- 作用：改变构造函数 Person 的this指向，指向Male，使Male的实例对象可以使用Person的属性
+
+### 问题16： 补全代码，实现继承
+
+```javascript
+function Person(name, sex){
+    this.name = name
+    this.sex = sex
+}
+
+Person.prototype.getName = function(){
+    console.log(this.name)
+};    
+
+function Male(name, sex, age){
+   Person.call(this,name,sex)
+   this.age = age
+}
+
+Male.prototype = Object.create(Person.prototype)
+Male.prototype.constructor = Male
+
+
+Male.prototype.getAge = function(){
+    console.log(this.age)
+};
+
+var ruoyu = new Male('若愚', '男', 27);
+ruoyu.printName();
+```
 
 
