@@ -272,7 +272,7 @@ Male.prototype.getAge = function(){
 };
 
 var ruoyu = new Male('若愚', '男', 27);
-ruoyu.printName();
+ruoyu.getName();
 ```
 
 
