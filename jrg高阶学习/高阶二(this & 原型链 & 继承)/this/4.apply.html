@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        // 和call基本相同，参数不同
+
+        var obj = {
+            value: 200
+        }
+
+        function fn(a, b) {
+            console.log(this.value + a + b) // 207
+        }
+
+        fn.apply(obj, [3, 4]) // call的第一个参数是this的指向
+
+        // 应用： 获取数组的最大最小值
+
+        var arr = [6,3,4,2,7,8,4]
+
+        // 借用apply第二个参数是数组的特性
+        console.log(Math.max.apply(null,arr))
+
+        // 类数组 arguments 借用数组的方法
+
+        function joinStr () {
+            console.log(arguments) // 类数组
+            // 方法一
+            // console.log([].join.call(arguments,'-'))
+            // 方法二
+            // console.log(Array.prototype.join.call(arguments,'-'))
+            // 方法三
+            console.log(Array.prototype.join.bind(arguments)('-')) // 得到一个新函数
+
+        }
+
+        joinStr ("a","b","c")
+
+
+    </script>
+</body>
+
+</html>

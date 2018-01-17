@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+            1. 指向全局 window
+
+            2. 事件对象
+
+            3. 构造函数，指向实例化对象
+
+            4. 作为对象方法调用
+
+            5. FUNCTION.prototype.bind(obj)  指向obj
+        */
+
+        // 1. 都是定义在 window 下的变量
+        var a = 1
+        var b = 2
+
+        console.log(this) // window
+
+        // 2. 函数里面
+        function fn() {
+            console.log(this) // window
+        }
+        fn()
+
+        // 3. 定时器里面的this
+
+        let timer = setTimeout(function () {
+            // console.log(this) // window
+        },1000)
+
+        // 4. 作为对象方法调用
+        var obj1 = {
+            name: 'Byron',
+            fn : function(){
+                console.log(this); // obj1
+            }
+        };
+        obj1.fn();
+
+        var obj2 = {
+            name: 'Byron',
+            obj3:{
+                fn : function(){
+                    console.log(this); // obj3
+                }
+            }
+        };
+        obj2.obj3.fn();
+
+
+        var obj4 = {
+            name: 'Byron',
+            fn : function(){
+                console.log(this); // window
+            }
+        };
+
+        var fn2 = obj4.fn;
+        fn2();
+
+
+        // 5.bind
+        var obj5 = {
+            name: 'Byron',
+            fn : function(){
+                console.log(this); // obj6
+            }
+        };
+
+        var obj6 = {a:6}
+
+        var fn3 = obj5.fn.bind(obj6);
+        fn3();
+
+    </script>
+
+</body>
+</html>

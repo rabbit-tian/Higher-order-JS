@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+
+//代码1
+function People(){}
+var p = new People()
+p.__proto__ === People.prototype
+People.__proto__ === Function.prototype
+People.prototype.__proto__ === Object.prototype
+
+//代码2
+Function.prototype === Function.__proto__
+Function.prototype === Object.__proto__
+Function.prototype.__proto__ === Object.prototype
+Function instanceof Object
+
+//代码3
+Object instanceof Function
+Function instanceof Object
+Function instanceof Function
+Object instanceof Object
+
+
+
+
+
+</script>
+</body>
+</html>

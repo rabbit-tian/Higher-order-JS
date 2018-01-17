@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+<script>
+    function Person(name,age){
+        this.name = name
+        this.age = age
+    }
+
+    Person.prototype.sayName = function () {
+        console.log(this.name)
+    }
+
+    let p = new Person ('tian',18)
+
+
+    function Student (name,age,sex) {
+        // 继承 对象 Person 的属性
+        Person.bind(this)(name,age)
+        // 自身的新属性
+        this.sex = sex
+    }
+    // 继承  Person原型
+    Student.prototype = Object.create(Person.prototype)
+    Student.prototype.constructor = Student
+
+    Student.prototype.doing = function () {
+        console.log('I am studing')
+    }
+
+    let s = new Student('yang',36,'boy')
+
+    s.sayName()
+    s.doing()
+
+
+    // hasOwnProperty
+
+    console.log(Student.prototype.hasOwnProperty('doing')) // true
+    console.log(Student.prototype.hasOwnProperty('sayName')) // false
+
+    console.log(s.hasOwnProperty('sex')) // true
+    console.log(s.hasOwnProperty('doing')) // false
+    console.log(s.hasOwnProperty('name')) // true
+
+</script>
+</body>
+</html>

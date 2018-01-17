@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <script>
+        document.addEventListener('click', function(e) {
+            console.log(this);
+            setTimeout(function() {
+                console.log(this);
+            }, 200);
+        }, false);
+
+
+        var john = {
+            firstName: "John"
+        }
+
+        function func() {
+            alert(this.firstName) // "John"
+        }
+        func.call(john)
+
+
+
+        var module = {
+            bind: function() {
+                $btn.on('click', function() {
+                    console.log(this) //this指什么
+                    this.showMsg();
+                })
+            },
+
+            showMsg: function() {
+                console.log('饥人谷');
+            }
+        }
+
+        String.prototype.getMostOften = function() {
+            var obj = {}
+            for (var i = 0; i < this.length; i++) {
+                var item = this.substr(i, 1)
+                if (obj[item]) {
+                    obj[item]++
+                } else {
+                    obj[item] = 1
+                }
+            }
+            var num = 0,
+                max = null
+            for (key in obj) {
+                if (obj[key] > num) {
+                    num = obj[key]
+                    max = key
+                }
+            }
+            return max
+        }
+
+        var str = 'ahbbccdeddddfg';
+        var ch = str.getMostOften();
+        console.log(ch); //d , 因为d 出现了5次
+    </script>
+
+</body>
+
+</html>
