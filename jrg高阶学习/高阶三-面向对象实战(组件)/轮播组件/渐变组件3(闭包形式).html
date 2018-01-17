@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .carousel {
+            position: relative;
+            overflow: hidden;
+            width: 320px;
+            height: 180px;
+        }
+
+        .carousel ul,
+        li {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .carousel .img-ct {
+            position: relative;
+            width: 320px;
+            height: 180px;
+        }
+
+        .carousel .img-ct>li {
+            position: absolute;
+            display: none;
+        }
+
+        .carousel .img-ct img {
+            width: 320px;
+            height: 180px;
+        }
+
+        .carousel .arrow {
+            position: absolute;
+            top: 50%;
+            margin-top: -15px;
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 30px;
+            border: 1px solid #fff;
+            color: #fff;
+            opacity: .5;
+            display: none;
+        }
+
+        .carousel .arrow:hover {
+            opacity: .8;
+        }
+
+        .carousel .pre {
+            left: 10px;
+        }
+
+        .carousel .next {
+            right: 10px;
+        }
+
+        .carousel .bullet {
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
+            text-align: center;
+            font-size: 0;
+        }
+
+        .carousel .bullet>li {
+            display: inline-block;
+            width: 20px;
+            height: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 0 3px;
+        }
+
+        .carousel .bullet>li.active {
+            background-color: #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="carousel">
+        <ul class="img-ct">
+            <li><a href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/2.jpg"></a></li>
+            <li><a href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/3.jpg"></a></li>
+            <li><a href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/4.jpg"></a></li>
+            <li><a href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/5.jpg"></a></li>
+        </ul>
+        <a class="pre arrow" href="#">
+            ＜</a>
+        <a class="next arrow" href="#">＞</a>
+        <ul class="bullet">
+            <li class="active"></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <div class="carousel">
+        <ul class="img-ct">
+            <li><a href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/2.jpg"></a></li>
+            <li><a href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/3.jpg"></a></li>
+            <li><a href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/4.jpg"></a></li>
+            <li><a href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/5.jpg"></a></li>
+        </ul>
+        <a class="pre arrow" href="#">
+            ＜</a>
+        <a class="next arrow" href="#">＞</a>
+        <ul class="bullet">
+            <li class="active"></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script>
+
+
+        let Caro = (function() {
+            // 这里可以写一些变量。。。
+
+            function Carousel($ct) {
+                this.$ct = $ct
+                this.init()
+                this.bind()
+            }
+
+            // 初始化
+            Carousel.prototype.init = function() {
+                this.$imgCt = this.$ct.find('.img-ct')
+                this.$imgs = this.$ct.find('.img-ct>li')
+                this.$pre = this.$ct.find('.pre')
+                this.$next = this.$ct.find('.next')
+                this.$bullets = this.$ct.find('.bullet>li')
+                this.$arrow = this.$ct.find('.arrow')
+                this.imgCount = this.$imgs.size()
+                this.timer = null
+                this.isFade = false // 定义一个开关
+
+                // 默认从第一张开始渐变
+                this.curIndex = 0
+                this.play(0) // 页面刷新显示第一张图片
+                this.autoPlay() // 自动播放
+
+            }
+
+            // 事件处理
+            Carousel.prototype.bind = function() {
+                let _this = this
+                // 点击下一张按钮，显示下一张图片
+                this.$next.click(function() {
+                    _this.nextPlay()
+                })
+                // 点击显示上一张图片
+                this.$pre.click(function() {
+                    _this.prePlay()
+                })
+
+                // 点击小图标所以选择图片
+                this.$bullets.click(function() {
+                    _this.index = $(this).index()
+                    _this.play(_this.index)
+                })
+
+                // 鼠标移入移出 carousel框，按钮出现隐藏
+                this.$ct.mouseenter(function() {
+                    _this.$arrow.fadeIn(500)
+                    _this.stopPlay()
+                })
+                this.$ct.mouseleave(function() {
+                    _this.$arrow.fadeOut(500)
+                    _this.autoPlay()
+                })
+            }
+
+            /******  函数封装  *****/
+
+            // 下一张函数封装
+            Carousel.prototype.nextPlay = function() {
+                this.play((this.curIndex + 1) % this.imgCount)
+            }
+
+            // 上一张图片
+            Carousel.prototype.prePlay = function() {
+                this.play((this.curIndex - 1 + this.imgCount) % this.imgCount)
+            }
+
+            // 渐变函数封装
+
+            Carousel.prototype.play = function(_index) {
+                // 注意传参数
+                let _this = this
+                if (this.isFade) return
+                this.isFade = true // 禁止点击按钮
+                this.$imgs.eq(_this.curIndex).fadeOut(500)
+
+                this.$imgs.eq(_index).fadeIn(500, function() {
+                    // 打开点击按钮
+                    _this.isFade = false
+                })
+                this.curIndex = _index // 改为当前要显示的值
+                this.setBullet(_index)
+            }
+
+            // 小图标 背景色变化
+            Carousel.prototype.setBullet = function(_index) {
+                this.$bullets.eq(_index).addClass('active')
+                    .siblings().removeClass('active')
+                this.$bullets.eq(_index).animate({
+                        height: 10
+                    })
+                    .siblings().animate({
+                        height: 5
+                    })
+            }
+
+            // 自动播放
+            Carousel.prototype.autoPlay = function() {
+                let _this = this
+                this.timer = setInterval(function() {
+                    _this.nextPlay()
+                }, 1500)
+            }
+            //停止自动播放
+            Carousel.prototype.stopPlay = function() {
+                clearInterval(this.timer)
+            }
+
+            return {
+                init: function($ct) {
+                    $ct.each(function(index, node) {
+                        new Carousel($(node))
+                    })
+                }
+            }
+        })()
+
+        Caro.init($('.carousel').eq(0))
+        Caro.init($('.carousel').eq(1))
+
+
+
+
+
+        // 创建实例化对象
+        // 注意：eq从0开始，多个组件要标明是哪个
+        // let c1 = new Carousel($('.carousel').eq(0))
+        // let c2 = new Carousel($('.carousel').eq(1))
+    </script>
+
+</body>
+
+</html>

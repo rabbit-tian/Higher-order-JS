@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        ul,
+        li {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .title {
+            overflow: hidden;
+        }
+
+        .title>li {
+            float: left;
+            width: 100px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            border: 1px solid #000;
+            border-right: none;
+            cursor: pointer;
+        }
+
+        .title>li:nth-child(3) {
+            border-right: 1px solid #000;
+        }
+
+        .title>li.active {
+            background-color: #ccc;
+            color: #fff;
+        }
+
+        .content>li {
+            width: 300px;
+            height: 100px;
+            border: 1px solid #000;
+            border-top: none;
+            display: none;
+        }
+
+        .content>li.active {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <ul class="title">
+            <li class="active">tab1</li>
+            <li>tab2</li>
+            <li>tab3</li>
+        </ul>
+        <ul class="content">
+            <li class="active">content1</li>
+            <li>content2</li>
+            <li>content3</li>
+        </ul>
+    </div>
+    <div class="box">
+        <ul class="title">
+            <li class="active">tab1</li>
+            <li>tab2</li>
+            <li>tab3</li>
+        </ul>
+        <ul class="content">
+            <li class="active">content1</li>
+            <li>content2</li>
+            <li>content3</li>
+        </ul>
+    </div>
+
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script>
+        $('.title>li').click(function () {
+            $(this).addClass('active')
+                    .siblings().removeClass('active')
+            $(this).parents('.box').find('.content>li').eq($(this).index()).addClass('active')
+                                                                .siblings().removeClass('active')
+        })
+    </script>
+</body>
+
+</html>

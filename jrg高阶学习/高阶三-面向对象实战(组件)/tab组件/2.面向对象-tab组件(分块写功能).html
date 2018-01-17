@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        ul,
+        li {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .title {
+            overflow: hidden;
+        }
+
+        .title>li {
+            float: left;
+            width: 100px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            border: 1px solid #000;
+            border-right: none;
+            cursor: pointer;
+        }
+
+        .title>li:nth-child(3) {
+            border-right: 1px solid #000;
+        }
+
+        .title>li.active {
+            background-color: #ccc;
+            color: #fff;
+        }
+
+        .content>li {
+            width: 300px;
+            height: 100px;
+            border: 1px solid #000;
+            border-top: none;
+            display: none;
+        }
+
+        .content>li.active {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <ul class="title">
+            <li class="active">tab1</li>
+            <li>tab2</li>
+            <li>tab3</li>
+        </ul>
+        <ul class="content">
+            <li class="active">content1</li>
+            <li>content2</li>
+            <li>content3</li>
+        </ul>
+    </div>
+    <div class="box">
+        <ul class="title">
+            <li class="active">tab1</li>
+            <li>tab2</li>
+            <li>tab3</li>
+        </ul>
+        <ul class="content">
+            <li class="active">content1</li>
+            <li>content2</li>
+            <li>content3</li>
+        </ul>
+    </div>
+
+    <!-- <script src="http://code.jquery.com/jquery-latest.js"></script> -->
+    <script>
+        function Tab(ct) {
+            this.ct = ct
+            this.init()
+            this.bind()
+        }
+
+        Tab.prototype.init = function () {
+            this.tabLis = this.ct.querySelectorAll('.title>li')
+            this.tabPanels = this.ct.querySelectorAll('.content>li')
+        }
+
+        Tab.prototype.bind = function () {
+            let _this = this
+            // 点击li
+            this.tabLis.forEach((item,index) => {
+                item.onclick = function (e) {
+                    let target = e.target
+                    // 1.类数组使用数组方法 2. indexOf：找到对应的下标值
+                    let index = [].indexOf.call(_this.tabLis,target)
+                    // 先清空所有li的class
+                    _this.tabLis.forEach((el,indx) => {
+                        el.classList.remove('active')
+                    })
+                    // 自身加class值
+                    target.classList.add('active')
+
+                    // 先清空所有面板的class
+                    _this.tabPanels.forEach((el,indx) => {
+                        el.classList.remove('active')
+                    })
+                    // 自身加class值
+                    _this.tabPanels[index].classList.add('active')
+                }
+            })
+        }
+
+        // 只考虑自己的容器
+        let tab1 = new Tab(document.querySelectorAll('.box')[0])
+        let tab2 = new Tab(document.querySelectorAll('.box')[1])
+    </script>
+</body>
+
+</html>

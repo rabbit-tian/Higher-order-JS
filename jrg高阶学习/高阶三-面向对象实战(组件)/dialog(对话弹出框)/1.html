@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .dialog{
+            min-width: 200px;
+            background-color: pink;
+        }
+        .dialog-mark{
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,.5);
+            justify-content: center;
+            align-items: center;
+            display: none;
+        }
+        .dialog-mark.active{
+            display: flex;
+        }
+
+
+
+    </style>
+</head>
+
+<body>
+    <button id="btn">点我</button>
+    <div id="output"></div>
+
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script>
+        /*
+            js尽量不操作css
+            原因： 我们这里用的display:flex
+            当用show和hide时，会解析成 display:block,会失去flex样式
+        */
+
+
+        $('#btn').click(function() {
+
+            let api = dialog({
+                title: '标题',
+                content: '这是一个对话框',
+                buttons: [{
+                        text: '确定',
+                        action: function() {
+                            $('#output').text('hi')
+                            return false
+                        }
+                    },
+                    {
+                        text: '取消'
+                    }
+                ]
+            })
+
+        })
+
+
+        window.dialog = function(options) {
+            // 解构赋值
+            let {title,content,buttons} = options
+            let $div = generateHtml()
+            let api = {
+                close: function () {
+                    $div.removeClass('active')
+                },
+                show: function () {
+                    $div.addClass('active')
+                },
+            }
+            $('body').append($div)
+            return api
+
+            function generateHtml() {
+                // 遮罩层
+                let $dialogMark = $('<div class="dialog-mark active"></div>')
+                // 对话弹出框
+                let $div = $('<div class="dialog"></div>')
+                    .appendTo($dialogMark)
+                //头部
+                let $title = $('<div class="title"></div>')
+                    .text(title).appendTo($div)
+                // 主体
+                let $content = $('<div class="content"></div>')
+                    .text(content).appendTo($div)
+                // 按钮
+                let $btns = $('<div class="btns"></div>')
+                for(let i = 0;i<buttons.length;i++) {
+                    let $b = $('<button></button>')
+                        .text(buttons[i].text)
+                        .appendTo($btns)
+                        .on('click',function () {
+
+                            let action = buttons[i].action
+                            let result
+                            // 有action走action，没有action，看返回的是true还是false，如果是true，点击确定关闭弹框，如果是false，不做任何处理
+                            if(action){result = action()}
+                            if(result !== false) {api.close()}
+
+                        })
+                }
+
+                $btns.appendTo($div)
+                return $dialogMark
+            }
+        }
+    </script>
+</body>
+
+</html>

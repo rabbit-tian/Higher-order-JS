@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .carousel{
+            position: relative;
+            overflow: hidden;
+            width: 320px;
+            height: 180px;
+        }
+        .carousel ul,li{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        .carousel .img-ct{
+            position: relative;
+            width: 320px;
+            height: 180px;
+        }
+        .carousel .img-ct>li{
+            position: absolute;
+            display: none;
+        }
+        .carousel .img-ct img{
+            width: 320px;
+            height: 180px;
+        }
+        .carousel .arrow{
+            position: absolute;
+            top: 50%;
+            margin-top: -15px;
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 30px;
+            border: 1px solid #fff;
+            color: #fff;
+            opacity: .5;
+            display: none;
+        }
+        .carousel .arrow:hover{
+            opacity: .8;
+        }
+        .carousel .pre{
+            left: 10px;
+        }
+        .carousel .next{
+            right: 10px;
+        }
+        .carousel .bullet{
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
+            text-align: center;
+            font-size: 0;
+        }
+        .carousel .bullet > li{
+            display: inline-block;
+            width: 20px;
+            height: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 0 3px;
+        }
+        .carousel .bullet > li.active{
+            background-color: #ccc;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="carousel">
+		<ul class="img-ct">
+			<li data-id=0><a href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/2.jpg"></a></li>
+			<li data-id=1><a href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/3.jpg"></a></li>
+			<li data-id=2><a href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/4.jpg"></a></li>
+			<li data-id=3><a href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/5.jpg"></a></li>
+		</ul>
+		<a class="pre arrow" href="#"><</a>
+		<a class="next arrow" href="#">></a>
+		<ul class="bullet">
+			<li class="active"></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+	</div>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script>
+    let $carousel = $('.carousel'),
+        $imgCt = $('.img-ct'),
+        $imgs = $('.img-ct>li')
+        $pre = $('.pre'),
+        $next = $('.next'),
+        $bullets = $('.bullet>li'),
+        imgCount = $imgs.size()
+        timer = null
+
+    let isFade = false // 定义一个开关
+
+    // 默认从第一张开始渐变
+    let curIndex = 0
+    play(0) // 页面刷新显示第一张图片
+    autoPlay() // 自动播放
+
+    // 点击下一张按钮，显示下一张图片
+    $next.click(function () {
+        nextPlay()
+    })
+    // 点击显示上一张图片
+    $pre.click(function () {
+        prePlay()
+    })
+
+    // 点击小图标所以选择图片
+    $bullets.click(function () {
+        let index = $(this).index()
+        play(index)
+    })
+
+    // 鼠标移入移出 carousel框，按钮出现隐藏
+    $carousel.mouseenter(function () {
+        $('.arrow').fadeIn(500)
+        stopPlay()
+    })
+    $carousel.mouseleave(function () {
+        $('.arrow').fadeOut(500)
+        autoPlay()
+    })
+
+
+
+
+
+    /****  函数封装区  ****************************/
+
+    // 下一张函数封装
+    function nextPlay () {
+        play((curIndex+1)%imgCount)
+    }
+    // 上一张图片
+    function prePlay(){
+        play((curIndex-1+imgCount)%imgCount)
+    }
+
+    // 渐变函数封装
+    function play(index){
+        if(isFade) return
+        isFade = true // 禁止点击按钮
+        $imgs.eq(curIndex).fadeOut(500)
+        $imgs.eq(index).fadeIn(500,function () {
+            // 打开点击按钮
+            isFade = false
+        })
+        curIndex = index // 改为当前要显示的值
+        setBullet(index)
+    }
+
+    // 小图标 背景色变化
+    function setBullet(index){
+        $bullets.eq(index).addClass('active')
+                .siblings().removeClass('active')
+        $bullets.eq(index).animate({height: 10})
+                .siblings().animate({height: 5})
+    }
+
+    // 自动播放
+    function autoPlay(){
+        timer = setInterval(function () {
+            nextPlay ()
+        },1500)
+    }
+    //停止自动播放
+    function stopPlay(){
+        clearInterval(timer)
+    }
+
+
+</script>
+
+</body>
+</html>
