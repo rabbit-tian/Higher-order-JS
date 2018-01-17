@@ -8,9 +8,46 @@
     <title>Document</title>
     <style>
         .dialog{
-            min-width: 200px;
-            background-color: pink;
+            position: relative;
+            min-width: 300px;
+            box-shadow: 0 0 10px #000;
+            background-color: #fff;
+            border-radius: 5px;
         }
+        .cancel{
+            position: absolute;
+            right: 10px;
+            top: 0;
+            font-size: 30px;
+            color: #666;
+            cursor: pointer;
+        }
+        .title{
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            border-bottom: 1px solid #ccc;
+        }
+        .content{
+            height: 100px;
+            line-height: 100px;
+            text-align: center;
+            border-bottom: 1px solid #ccc;
+        }
+        .btns{
+            padding: 5px;
+            text-align: center;
+        }
+        .btns button{
+            width: 80px;
+            height: 30px;
+            margin: 10px;
+            border-radius: 5px;
+            outline:none;
+            cursor: pointer;
+        }
+
+
         .dialog-mark{
             position: fixed;
             left: 0;
@@ -47,13 +84,13 @@
         $('#btn').click(function() {
 
             let api = dialog({
-                title: '标题',
+                title: '按确定回调',
                 content: '这是一个对话框',
                 buttons: [{
                         text: '确定',
                         action: function() {
                             $('#output').text('hi')
-                            return false
+                            // return false
                         }
                     },
                     {
@@ -75,7 +112,7 @@
                 },
                 show: function () {
                     $div.addClass('active')
-                },
+                }
             }
             $('body').append($div)
             return api
@@ -86,6 +123,9 @@
                 // 对话弹出框
                 let $div = $('<div class="dialog"></div>')
                     .appendTo($dialogMark)
+                // 叉叉
+                let $cancel = $('<div class="cancel">×</div>')
+                    .appendTo($div)
                 //头部
                 let $title = $('<div class="title"></div>')
                     .text(title).appendTo($div)
@@ -108,6 +148,11 @@
 
                         })
                 }
+
+                // 叉叉
+                $cancel.on('click',function () {
+                    api.close()
+                })
 
                 $btns.appendTo($div)
                 return $dialogMark

@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .ui-date-picker {
+            position: absolute;
+            width: 240px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            font-family: serif, cursive, fantasy
+        }
+
+        .ui-date-picker>.header {
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            background-color: #CA2B2B;
+            color: #fff;
+        }
+
+        .ui-date-picker .caret-left {
+            display: block;
+            float: left;
+            margin-left: 10px;
+            margin-top: 6px;
+            border-right: 7px solid #fff;
+            border-top: 7px solid transparent;
+            border-bottom: 7px solid transparent;
+            width: 0;
+            height: 0;
+            cursor: pointer;
+        }
+
+        .ui-date-picker .caret-right {
+            display: block;
+            float: right;
+            margin-right: 10px;
+            margin-top: 6px;
+            border-left: 7px solid #fff;
+            border-top: 7px solid transparent;
+            border-bottom: 7px solid transparent;
+            width: 0;
+            height: 0;
+            cursor: pointer;
+        }
+
+        .ui-date-picker .panel {
+            width: 100%;
+            text-align: center;
+            background-color: #fff;
+        }
+
+        .ui-date-picker .panel th {
+            line-height: 2;
+        }
+
+        .ui-date-picker .panel td {
+            line-height: 1.2;
+        }
+
+        .ui-date-picker .pre-month,
+        .ui-date-picker .next-month {
+            color: #eee;
+        }
+
+        .ui-date-picker .cur-month {
+            cursor: pointer;
+        }
+
+        .ui-date-picker .cur-month:hover {
+            background-color: #ccc;
+            color: #fff;
+        }
+
+        .ui-date-picker .cur-date {
+            color: #fff;
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <input class="date-ipt" type="text" placeholder="有初始值" date-init="2016/05/31" /> -->
+    <input id="date-start" type="text" placeholder="起始日期"/>
+
+    <!-- <div class="ui-date-picker">
+        <div class="header">
+            <span class="pre caret-left"></span>
+            <span class="cur">2018年1月</span>
+            <span class="next caret-right"></span>
+        </div>
+        <table class="panel">
+            <thead>
+                <tr>
+                    <th>日</th>
+                    <th>一</th>
+                    <th>二</th>
+                    <th>三</th>
+                    <th>四</th>
+                    <th>五</th>
+                    <th>六</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="pre-month">28</td>
+                    <td class="pre-month">29</td>
+                    <td class="pre-month">30</td>
+                    <td class="pre-month">31</td>
+                    <td class="cur-month cur-date">01</td>
+                    <td class="cur-month">02</td>
+                    <td class="cur-month">03</td>
+                </tr>
+                <tr>
+                    <td class="cur-month">04</td>
+                    <td class="cur-month">05</td>
+                    <td class="cur-month">06</td>
+                    <td class="cur-month">07</td>
+                    <td class="cur-month">08</td>
+                    <td class="cur-month">09</td>
+                    <td class="cur-month">10</td>
+                </tr>
+                <tr>
+                    <td class="cur-month">11</td>
+                    <td class="cur-month">12</td>
+                    <td class="cur-month">13</td>
+                    <td class="cur-month">14</td>
+                    <td class="cur-month">15</td>
+                    <td class="cur-month">16</td>
+                    <td class="cur-month">17</td>
+                </tr>
+                <tr>
+                    <td class="cur-month">18</td>
+                    <td class="cur-month">19</td>
+                    <td class="cur-month">20</td>
+                    <td class="cur-month">21</td>
+                    <td class="cur-month">22</td>
+                    <td class="cur-month">23</td>
+                    <td class="cur-month">24</td>
+                </tr>
+                <tr>
+                    <td class="cur-month">25</td>
+                    <td class="cur-month">26</td>
+                    <td class="cur-month">27</td>
+                    <td class="cur-month">28</td>
+                    <td class="cur-month">29</td>
+                    <td class="cur-month">30</td>
+                    <td class="next-month">01</td>
+                </tr>
+            </tbody>
+    </div> -->
+
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script>
+        // 构造函数
+        function DatePick($target) {
+            this.$target = $target
+            this.init() // 初始化
+            this.render() // 渲染结构
+            this.setData() // 渲染数据
+            this.bind() // 事件绑定
+        }
+        DatePick.prototype = {
+            init: function() {
+                this.date = new Date()
+            },
+            render: function() {
+                let tp =
+                    `
+                    <div class="ui-date-picker" style="display:none">
+                        <div class="header">
+                            <span class="pre caret-left"></span>
+                            <span class="header-date">2018年2月</span>
+                            <span class="next caret-right"></span>
+                        </div>
+                        <table class="panel">
+                            <thead>
+                                <tr>
+                                    <th>日</th>
+                                    <th>一</th>
+                                    <th>二</th>
+                                    <th>三</th>
+                                    <th>四</th>
+                                    <th>五</th>
+                                    <th>六</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                    </div>
+                `
+                this.$datePick = $(tp)
+                $('body').append(this.$datePick)
+            },
+            setData: function() {
+                // 获取本月的第一天和最后一天
+                let firstDay = this.getFirstDay(this.date),
+                    lastDay = this.getLastDay(this.date),
+                    dateArr = [];
+
+                // 将本月第一天(一月一日周一)前面的周日push到数组dateArr内
+                for (let i = firstDay.getDay(); i > 0; i--) {
+                    let d = new Date(firstDay.getTime() - i * 24 * 60 * 60 * 1000)
+                    dateArr.push({
+                        type: 'pre',
+                        date: d
+                    })
+                }
+
+                // 将本月的第一天到最后一天的日期 push 到数组内
+                for (let i = 0; i < lastDay.getDate(); i++) {
+                    let d = new Date(firstDay.getTime() + i * 24 * 60 * 60 * 1000)
+                    dateArr.push({
+                        type: 'cur',
+                        date: d
+                    })
+                }
+                // 将本月最后一天(一月31日周三)后面的周四-周六 push到数组dateArr内
+                for (let i = 1; i < 7 - lastDay.getDay(); i++) {
+                    let d = new Date(lastDay.getTime() + i * 24 * 60 * 60 * 1000)
+                    dateArr.push({
+                        type: 'next',
+                        date: d
+                    })
+                }
+
+                console.log(dateArr)
+
+                // 设置标题的年份和月份 2018年1月
+                this.$datePick.find('.header-date').text(this.date.getFullYear() + '年' + (this.date.getMonth() + 1) + '月')
+
+                // 拼接结构
+                let tp = ''
+                for (let i = 0; i < dateArr.length; i++) {
+                    if (i % 7 === 0) {
+                        tp = '<tr>' + tp
+                    }
+                    // 加class
+                    tp += '<td class="'
+                    if (dateArr[i].type === 'pre') {
+                        tp += 'pre-month'
+                    } else if (dateArr[i].type === 'cur') {
+                        tp += 'cur-month'
+                    } else {
+                        tp += 'next-month'
+                    }
+
+                    // 加当天时间的class
+                    if (this.getWholeTime(new Date()) === this.getWholeTime(dateArr[i].date)) {
+                        tp += ' cur-date'
+                    }
+                    tp += '"'
+                    // 加上自定义属性：当前时间 data-date
+                    tp += ' data-date="' + this.getWholeTime(dateArr[i].date) + '">'
+                    // 获取当前时间的天
+                    let date = dateArr[i].date.getDate() + ''
+                    tp += date + '</td>'
+                    // 结尾闭合
+                    if (i % 7 === 6) {
+                        tp = tp + '</tr>'
+                    }
+                }
+
+                this.$datePick.find('tbody').html(tp)
+            },
+            bind: function() {
+                let _this = this
+
+                // 点击input框显示日期框
+                this.$target.on('click',function () {
+                    _this.$datePick.show()
+                })
+
+                // 点击上一个月
+                this.$datePick.find('.pre').on('click',function () {
+                    let year = _this.date.getFullYear(),
+                        month = _this.date.getMonth() + 1,
+                        newMonth = month,
+                        newYear = year;
+                    console.log(newMonth)
+                    newMonth--
+                    if (newMonth < 1) {
+                        newMonth = 12
+                        newYear--
+                    }
+                    // console.log(newYear)
+                    _this.date.setMonth(newMonth-1)
+                    _this.date.setYear(newYear)
+                    // 重新渲染
+                    _this.setData()
+                })
+
+                // 点击下一个月
+                this.$datePick.find('.next').on('click',function () {
+                    let year = _this.date.getFullYear(),
+                        month = _this.date.getMonth() + 1,
+                        newMonth = month,
+                        newYear = year;
+
+                    newMonth++
+                    if (newMonth > 12) {
+                        newMonth -= 12
+                        newYear++
+                    }
+                    _this.date.setMonth(newMonth-1)
+                    _this.date.setYear(newYear)
+                    // 重新渲染
+                    _this.setData()
+                })
+
+
+                // 点击具体的日期 --- 事件代理的方式
+                this.$datePick.on('click','.cur-month',function () {
+                    console.log(11)
+                    _this.$target.val($(this).attr('data-date'))
+                    _this.$datePick.hide()
+                })
+
+            },
+            getFirstDay: function(date) { // 本月第一天
+                date.setDate(1) // 设置成第一天
+                return date // 返回第一天的时间
+            },
+            getLastDay: function(date) { // 本月最后一天
+                let year = date.getFullYear(),
+                    month = date.getMonth() + 1,
+                    newMonth = month++,
+                    newYear = year
+                // 判断month是不是第12月，如果是12月，加一后，year就+1
+                if (month >= 12) {
+                    newMonth -= 12
+                    newYear++
+                }
+
+                // 将时间设置成下个月的第一天
+                let newDate = new Date(newYear, newMonth, 1)
+                // 返回出下个月前一天的日期，也就是这个月最后一天的日期
+                return new Date(newDate.getTime() - 24 * 60 * 60 * 1000)
+            },
+            getWholeTime: function(date) { // 获取 年月日时间 2018/01/01
+                let year = date.getFullYear(),
+                    month = date.getMonth() + 1,
+                    day = date.getDate();
+                return year + '/' + this.toCompleted(month) + '/' + this.toCompleted(day)
+            },
+            toCompleted: function(n) { // 1 => '01'  11 => '11'
+                return (n + '').length === 1 ? ('0' + n) : ('' + n)
+            }
+        }
+
+        let datePick = new DatePick($('#date-start'))
+    </script>
+</body>
+
+</html>
