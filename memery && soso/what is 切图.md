@@ -17,7 +17,7 @@
     - 打开[网址](https://spritegen.website-performance.org/)
     - 先删除原本自己的图片
     - 将自己要合成雪碧图的图片拖进去合成就好啦
-    - 下载(download)  =>  SpriteSheet          
+    - 下载(download)  =>  SpriteSheet保存到本地          
     
 4. 如何把一张本地图片放在网上
     - 打开网站  https://sm.ms/
