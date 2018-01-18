@@ -3,9 +3,7 @@
     - 右击 “复制图层”
     - 文档 => "新建"
     - 图像 => “裁切”
-    - 保存：command + option + shift + s
-
-
+    - 保存：command + option + shift + s （这种保存方式 容量小）
 
 
 
