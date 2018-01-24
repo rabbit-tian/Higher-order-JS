@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        (function(doc, win, undefined) {
+            var docEl = doc.documentElement,
+                resizeEvt = 'orientationchange' in win ? 'orientationchange' : 'resize',
+                recalc = function() {
+                    var clientWidth = docEl.clientWidth;
+                    if (clientWidth === undefined) return;
+                    docEl.style.fontSize = 100 * (clientWidth / 750) + 'px';
+                };
+            if (doc.addEventListener === undefined) return;
+            win.addEventListener(resizeEvt, recalc, false);
+            doc.addEventListener('DOMContentLoaded', recalc, false)
+        })(document, window);
+    </script>
+    <style>
+        body,
+        dd,
+        dl,
+        dt,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        html,
+        li,
+        ol,
+        p,
+        ul {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            max-width: 7.5rem;
+            font-size: 0.3rem;
+            font-family: "arial,helvetica,sans-serif";
+        }
+
+        dd,
+        dl,
+        dt,
+        ul {
+            list-style: none;
+        }
+
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        .container {
+            padding: .2rem;
+        }
+
+        .header {
+            width: 100%;
+            height: .6rem;
+            line-height: .6rem;
+            text-align: center;
+            margin-bottom: .2rem;
+            border: .02rem solid #ccc;
+            border-radius: .1rem;
+        }
+
+        .news-box {
+            width: 100%;
+        }
+
+        .news-box li {
+            line-height: .8rem;
+            border-bottom: .02rem solid #ccc;
+            font-size: .3rem;
+        }
+        .load {
+            display: none;
+            text-align: center;
+        }
+        .load img {
+            width: .5rem;
+            height: .5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="load"><img src="img/loading.gif" alt=""></div>
+        <div class="header">新闻热点</div>
+        <ul class="news-box">
+            <li>习近平的“轻松时刻” 领航新征程</li>
+            <li>为新时代中国特色社会主义发展提供宪法保障</li>
+            <li>千年梦圆 新时代新气象新作为 2018北京两会</li>
+            <li>黑土地刷出新颜值 东北乡村振兴在路上 不忘初心</li>
+            <li>送件途中遇人溺水 快递小哥3次跳河救人 暖新闻</li>
+            <li>世界经济论坛年会开幕 聚焦国际合作应对挑战</li>
+            <li>20省2017年GDP数据：居民收入增长跑赢经济增速</li>
+            <li>多国发生霍乱病例 中国质检总局发文严防疫情传入</li>
+            <li>教育部部长：坚决防止幼儿园伤害幼儿事件发生</li>
+            <li>去年中国光伏产业规模稳步增长 东西部供需矛盾突出</li>
+            <li>全国地方预决算公开度排行榜，上海排名全国第一</li>
+            <li>日本新防卫指针草案曝光 将于年底前正式敲定</li>
+            <li>日外相或将携带“重大使命”首次访华 中外交部回应</li>
+            <li>搞事情？菲空军带记者赴黄岩岛巡逻 扬言每月3次</li>
+            <li>朝鲜通报艺术团赴韩演出日期 女子冰球队25日抵韩</li>
+            <li>日外相或将携带“重大使命”首次访华 中外交部回应</li>
+            <li>搞事情？菲空军带记者赴黄岩岛巡逻 扬言每月3次</li>
+            <li>朝鲜通报艺术团赴韩演出日期 女子冰球队25日抵韩</li>
+            <li>日外相或将携带“重大使命”首次访华 中外交部回应</li>
+            <li>搞事情？菲空军带记者赴黄岩岛巡逻 扬言每月3次</li>
+            <li>朝鲜通报艺术团赴韩演出日期 女子冰球队25日抵韩</li>
+        </ul>
+    </div>
+
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script>
+        let $container = $('.container')
+        // 手指按下
+        let start; // 按下的点
+        $container.on('touchstart',function () {
+            let touches = event.touches[0]
+            // console.log(touches)
+            start = {
+                x: touches.pageX,
+                y: touches.pageY
+            }
+        })
+
+        // 手指移动
+        let move;
+        $container.on('touchmove',function () {
+            let touches = event.touches[0]
+            // console.log(touches)
+            move = {
+                x: touches.pageX - start.x,
+                y: touches.pageY - start.y
+            }
+            // 防止横向位移
+            if (Math.abs(move.x) > Math.abs(move.y)) {
+                event.preventDefault()
+            }
+        })
+
+        // 手指抬起
+        $container.on('touchend',function (e) {
+            let endY = event.changedTouches[0].pageY
+            let range = endY - start.y
+            if (range > 20) {
+                $('.load').show()
+
+                $.ajax({
+                    url: 'https://www.easy-mock.com/mock/5a6845f5896b273e0d62509f/load-more/load-more#!method=get',
+                    method: 'get',
+                    dateType: 'json',
+                    success: function(data) {
+                        if (data.data.ret === 0) {
+                            if (Utils.isArray(data.data.dataArr)) {
+                                let news = data.data.dataArr
+                                let html = ''
+                                $(news).each(function (index,item) {
+                                    html += `<li>${item}${Math.floor(Math.random()*100)}</li>`
+                                })
+                                $('.news-box').prepend(html)
+                                $('.load').hide()
+                            }
+                        }else{
+                            console.warn('数据获取错误')
+                        }
+                    }
+                })
+            }
+        })
+
+
+
+
+
+
+
+
+
+
+        //工具函数
+        let Utils = {
+            // 判断是否是数组
+            isArray: function(arr) {
+                if (Array.isArray(arr))
+                    return !!arr.length
+            }
+        }
+    </script>
+</body>
+
+</html>
