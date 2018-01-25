@@ -148,11 +148,8 @@
                 success: function(data) {
                     if (data.data.ret === 0) {
                         if (Utils.isArray(data.data.dataArr)) {
-                            let news = data.data.dataArr
-                            let html = ''
-                            $(news).each(function (index,item) {
-                                html += `<li>${item}${Math.floor(Math.random()*100)}</li>`
-                            })
+                            let dataBack = data.data.dataArr
+                            let html = loadHtml (dataBack)
                             $(newsBox).append(html)
                         }
                     }else{
@@ -175,6 +172,15 @@
                 return true
             }
         }
+
+        // dom结构
+        function loadHtml (dataBack) {
+    let html = ''
+    $(dataBack).each(function (index,item) {
+        html += `<li>${item}${Math.floor(Math.random()*100)}</li>`
+    })
+    return html
+}
 
         //工具函数
         let Utils = {

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        (function(doc, win, undefined) {
+            var docEl = doc.documentElement,
+                resizeEvt = 'orientationchange' in win ? 'orientationchange' : 'resize',
+                recalc = function() {
+                    var clientWidth = docEl.clientWidth;
+                    if (clientWidth === undefined) return;
+                    docEl.style.fontSize = 100 * (clientWidth / 750) + 'px';
+                };
+            if (doc.addEventListener === undefined) return;
+            win.addEventListener(resizeEvt, recalc, false);
+            doc.addEventListener('DOMContentLoaded', recalc, false)
+        })(document, window);
+    </script>
+    <style>
+        body,
+        dd,
+        dl,
+        dt,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        html,
+        li,
+        ol,
+        p,
+        ul {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            max-width: 7.5rem;
+            font-size: 0.3rem;
+            font-family: "arial,helvetica,sans-serif";
+            color: #555;
+        }
+
+        dd,
+        dl,
+        dt,
+        ul {
+            list-style: none;
+        }
+        a{
+            text-decoration: none;
+            color: #555;
+        }
+
+        .clearfix:after {
+            content: '';
+            display: block;
+            clear: both;
+        }
+
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        header {
+            padding:.4rem;
+            border-bottom: .01rem solid #d8d9db;
+        }
+
+        .search-ct {
+            height: .8rem;
+            padding: .1rem .3rem 0 .3rem;
+            box-sizing: border-box;
+            border: .01rem solid #d8d9db;
+            border-radius: .4rem;
+        }
+
+        .search-ct img {
+            width: .3rem;
+            height: .3rem;
+            vertical-align: middle;
+            margin-right: .2rem;
+        }
+
+        .search-ct input {
+            width: 80%;
+            height: .5rem;
+            outline: none;
+            vertical-align: middle;
+        }
+
+        main {
+
+        }
+
+        main .sidebar {
+            float: left;
+        }
+
+        .sidebar ul li {
+            width: 1.6rem;
+            height: 1rem;
+            line-height: 1rem;
+            padding-left: .2rem;
+            box-sizing: border-box;
+            border-bottom: .01rem solid #ccc;
+            background-color: #f5f1ef;
+        }
+        .sidebar ul li.active{
+            background: #fff;
+        }
+        .panels-ct{
+            height: 11.6rem;
+            overflow: auto;
+        }
+
+        main .panels {
+            overflow: hidden;
+            padding: 0 .2rem;
+            box-sizing: border-box;
+            position: relative;
+        }
+        main .common{
+
+        }
+        main .common .sign{
+            padding: .2rem .1rem;
+            background-color: pink;
+        }
+        main .panels ul li{
+            height: 2rem;
+            line-height: 2rem;
+            border-bottom: .01rem solid #f5f1ef;
+        }
+
+    </style>
+
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div class="search-ct">
+                <img src="img/search.png" alt="">
+                <input type="text" value="快来点我吧">
+            </div>
+        </header>
+        <main class="clearfix">
+            <div class="sidebar">
+                <ul>
+                    <li class="active"><a href="#hot">热销</a></li>
+                    <li><a href="#water">水饺</a></li>
+                    <li><a href="#oil">煎饺</a></li>
+                    <li><a href="#cold">凉菜</a></li>
+                    <li><a href="#small">小份菜</a></li>
+                    <li><a href="#warm">热菜</a></li>
+                    <li><a href="#fresh">生鲜水饺</a></li>
+                    <li><a href="#soup">炖汤</a></li>
+                </ul>
+            </div>
+            <div class="panels-ct">
+                <div class="panels">
+                    <div class="common" id="hot">
+                        <div class="sign">热销</div>
+                        <ul>
+                            <li>热销热销热销11111</li>
+                            <li>热销热销热销22222</li>
+                            <li>热销热销热销33333</li>
+                        </ul>
+                    </div>
+                    <div class="common" id="water">
+                        <div class="sign">水饺</div>
+                        <ul>
+                            <li>巴沙鱼水饺11111</li>
+                            <li>巴沙鱼水饺22222</li>
+                            <li>巴沙鱼水饺33333</li>
+                        </ul>
+                    </div>
+                    <div class="common" id="oil">
+                        <div class="sign">煎饺</div>
+                        <ul>
+                            <li>煎饺煎饺煎饺11111</li>
+                            <li>煎饺煎饺煎饺22222</li>
+                            <li>煎饺煎饺煎饺33333</li>
+                        </ul>
+                    </div>
+                    <div class="common" id="cold">
+                        <div class="sign">凉菜</div>
+                        <ul>
+                            <li>凉菜凉菜凉菜11111</li>
+                            <li>凉菜凉菜凉菜22222</li>
+                            <li>凉菜凉菜凉菜33333</li>
+                        </ul>
+                    </div>
+                    <div class="common" id="small">
+                        <div class="sign">小份菜</div>
+                        <ul>
+                            <li>小份菜小份菜11111</li>
+                            <li>小份菜小份菜22222</li>
+                            <li>小份菜小份菜33333</li>
+                        </ul>
+                    </div>
+                    <div class="common" id="warm">
+                        <div class="sign">热菜</div>
+                        <ul>
+                            <li>热菜热菜热菜11111</li>
+                            <li>热菜热菜热菜22222</li>
+                            <li>热菜热菜热菜33333</li>
+                        </ul>
+                    </div>
+                    <div class="common" id="fresh">
+                        <div class="sign">生鲜水饺</div>
+                        <ul>
+                            <li>生鲜水饺11111</li>
+                            <li>生鲜水饺22222</li>
+                            <li>生鲜水饺33333</li>
+                        </ul>
+                    </div>
+                    <div class="common" id="soup">
+                        <div class="sign">炖汤</div>
+                        <ul>
+                            <li>炖汤炖汤炖汤11111</li>
+                            <li>炖汤炖汤炖汤22222</li>
+                            <li>炖汤炖汤炖汤33333</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+    </div>
+
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script>
+        let $sidebarBtns = $('.sidebar li')
+        let $commons = $('.common')
+
+        $sidebarBtns.click(function () {
+            $(this).addClass('active')
+                .siblings().removeClass('active')
+        })
+
+        let topRange = $commons.eq(0).offset().top
+        $('.panels-ct').scroll(function () {
+            $commons.each(function (index,item) {
+                if ($(item).offset().top <= topRange) {
+                    let indx = $(item).index()
+                    $sidebarBtns.eq(indx).addClass('active')
+                        .siblings().removeClass('active')
+                }
+            })
+        })
+
+
+
+    </script>
+</body>
+
+</html>
