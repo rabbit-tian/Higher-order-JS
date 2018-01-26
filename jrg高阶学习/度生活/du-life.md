@@ -20,7 +20,7 @@
 
 7. 移动版 轮播图
     - 和PC端大致相同
-    - 唯一的区别是：事件不同，移动端是手指滑动，用touch事件（touchStart，touchmove）
+    - 唯一的区别是：事件不同，移动端是手指滑动，用touch事件（touchStart，touchmove，touchend）
     - touch事件中：注意当横向距离大于纵向距离时，要阻止默认事件
 
       ```javascript
