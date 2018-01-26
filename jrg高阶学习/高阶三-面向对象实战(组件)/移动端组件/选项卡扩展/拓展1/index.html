@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html style="font-size: 54px;">
+
+<head lang="en">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
+    <meta charset="UTF-8">
+    <title>左右联动的Html5菜单，仿美团外卖菜单栏-www.srcfans.com</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100%;
+            font: 400 14px/22px Arial, "Microsoft YaHei" !important;
+            margin: 0 auto !important;
+        }
+
+        em,
+        footer,
+        h1,
+        h2,
+        h3,
+        h4,
+        input,
+        li,
+        mark,
+        nav,
+        ol,
+        p,
+        section,
+        span,
+        textarea,
+        ul {
+            margin: 0;
+            padding: 0;
+            font-weight: 400;
+            list-style: none;
+            font-style: normal;
+        }
+
+        a {
+            outline-style: none;
+            text-decoration: none;
+        }
+
+        .head_wrapper,
+        .wd_nav,
+        body {
+            max-width: 640px;
+        }
+
+        .index_nav {
+            position: fixed;
+            bottom: 0;
+            height: 50px;
+            width: 100%;
+            margin: 0 auto;
+            background-color: #f7f7f7;
+            z-index: 100;
+            text-align: center;
+            border-top: 1px solid #ccc;
+            -webkit-transition: opacity 200ms ease;
+            transition: opacity 200ms ease;
+        }
+
+        .wd_nav {
+            position: absolute;
+            bottom: 0;
+            height: 50px;
+            width: 100%;
+            margin: 0 auto;
+            background-color: #f7f7f7;
+            z-index: 100;
+            text-align: center;
+            border-top: 1px solid #ccc;
+        }
+
+        .index_nav .classify,
+        .index_nav .contact,
+        .index_nav .dynamic,
+        .index_nav .store {
+            width: 25%;
+            height: 100%;
+        }
+
+        .dynamic {
+            position: relative;
+        }
+
+        .classify,
+        .contact,
+        .dynamic,
+        .goshop,
+        .store {
+            float: left;
+            padding-top: 8px;
+            background-size: 23px;
+            background-position: center 6px;
+            background-repeat: no-repeat;
+            font-size: 10px;
+            line-height: 10px;
+        }
+
+        /* 去除loading */
+
+        .ui-loader-default {
+            display: none
+        }
+
+        .ui-mobile-viewport {
+            border: none;
+        }
+
+        .ui-page {
+            padding: 0;
+            margin: 0;
+            outline: 0
+        }
+
+        /* 菜单 */
+
+        #main_plane {
+            /* padding-bottom: 50px; */
+            overflow: hidden;
+        }
+
+        .menu {
+            color: #A8A9AD !important;
+        }
+
+        .menus {
+            width: 27%;
+            float: left;
+            border-right: 1px solid #f0f0f0;
+            background: #f7f7f7;
+            overflow-y: auto;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+            -webkit-transform: translate3d(0, 0, 0);
+        }
+
+        .all_list {
+            float: left;
+            background: #fff;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            -webkit-transform: translate3d(0, 0, 0);
+        }
+
+        .menus li {
+            line-height: 1rem;
+            font-size: 18px;
+            text-align: center;
+            color: #999;
+            position: relative;
+        }
+
+        .menus .active {
+            background: #fff;
+            color: #4BCC60 !important;
+            display: block;
+        }
+
+        .title.active {
+            color: #4BCC60 !important;
+        }
+
+        .menus .active:before {
+            content: "";
+            width: 5px;
+            height: 1rem;
+            background-color: #4BCC60 !important;
+            position: absolute;
+            left: -0%;
+            top: 0%;
+        }
+
+        .menus .active:after {
+            content: "";
+            width: 1px;
+            height: 1rem;
+            background-color: #fff;
+            position: absolute;
+            right: -1px;
+            top: 0%;
+        }
+
+        /* 列表 */
+
+        .title {
+            font-size: .35rem;
+            line-height: .8rem;
+            background: #f7f7f7;
+            padding-left: .5rem;
+            font-weight: bold;
+        }
+
+        .type li {
+            overflow: hidden;
+            margin: 0 .3rem;
+            padding: .3rem 0;
+            border-bottom: 1px solid #f0f0f0;
+            height: 2rem;
+        }
+
+        .type li div {
+            float: left;
+        }
+
+        .pic {
+            height: 2rem;
+            width: 30%;
+            margin-right: 1%;
+            padding-top: .01rem;
+            position: relative;
+        }
+
+        .pic img {
+            width: 100%;
+            height: auto;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+        }
+
+        .intro {
+            width: 69%;
+            padding-top: .3rem;
+            position: relative;
+        }
+
+        .intro p {
+            font-size: 14px;
+            line-height: .6rem;
+            height: 1.2rem;
+            color: #000;
+            display: -webkit-box;
+            /*设置display，将对象作为弹性伸缩盒子模型显示*/
+            -webkit-line-clamp: 2;
+            /*限制在一个块元素显示的文本的行数*/
+            -webkit-box-orient: vertical;
+            /*规定框的子元素应该被水平或垂直排列*/
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .eee {
+            color: #999;
+        }
+
+        .minus {
+            display: block;
+            width: 25px;
+            height: 25px;
+            position: absolute;
+            right: 1.2rem;
+            bottom: 0px;
+            z-index: 999;
+        }
+
+        .minu {
+            display: block;
+            width: 20px;
+            line-height: 20px;
+            text-align: center;
+            border-radius: 12px;
+            border: 2px solid #E3E3E3;
+            position: absolute;
+            right: 1.2rem;
+            bottom: 0px;
+            color: #4BCC60 !important;
+            font-weight: 700;
+            font-size: 20px;
+        }
+
+        /* 下标 */
+
+        .icon {
+            width: 22px;
+            height: 20px;
+            display: block;
+            margin: 0 auto 2px;
+            padding-bottom: 4px;
+            overflow: hidden;
+            background-size: 23px;
+        }
+
+        .icon img {
+            width: 100%;
+        }
+
+        .wd_nav a {
+            color: #A7A8AB;
+            font-size: 14px;
+        }
+
+        .classify a {
+            color: #4BCC60;
+        }
+
+        .rel {
+            position: relative;
+        }
+    </style>
+</head>
+
+<body class="" style="font-size: 12px;background:#fff">
+    <div id="main_plane">
+        <!-- 菜单 -->
+        <ul class="menus" style="padding-bottom: 50px;">
+            <li>
+                <a href="#l1" class="menu" onclick="aSkip($(this))">l1</a>
+            </li>
+            <li>
+                <a href="#l2" class="menu" onclick="aSkip($(this))">l2</a>
+            </li>
+            <li>
+                <a href="#l3" class="menu" onclick="aSkip($(this))">l3</a>
+            </li>
+        </ul>
+        <!-- 商品列表 -->
+        <div class="all_list" style="padding-bottom: 50px;">
+            <div class="type" id="l1">
+                <p class="title">l1</p>
+                <ul>
+                    <li>
+                        <a style="display:block;">
+                            <div class="pic rel">
+                                <img src="/jscode/img/201706/2.jpg">
+                            </div>
+                            <div class="intro">
+                                <p>商品1</p>
+                                <p style="color:red">￥128</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a style="display:block;">
+                            <div class="pic rel">
+                                <img src="/jscode/img/201706/2.jpg">
+                            </div>
+                            <div class="intro">
+                                <p>商品2</p>
+                                <p style="color:red">￥128</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a style="display:block;">
+                            <div class="pic rel">
+                                <img src="/jscode/img/201706/2.jpg">
+                            </div>
+                            <div class="intro">
+                                <p>商品3</p>
+                                <p style="color:red">￥128</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="type" id="l2">
+                <p class="title">l2</p>
+                <ul>
+                    <li>
+                        <a style="display:block;">
+                            <div class="pic rel">
+                                <img src="/jscode/img/201706/2.jpg">
+                            </div>
+                            <div class="intro">
+                                <p>商品1</p>
+                                <p style="color:red">￥128</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a style="display:block;">
+                            <div class="pic rel">
+                                <img src="/jscode/img/201706/2.jpg">
+                            </div>
+                            <div class="intro">
+                                <p>商品2</p>
+                                <p style="color:red">￥128</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a style="display:block;">
+                            <div class="pic rel">
+                                <img src="/jscode/img/201706/2.jpg">
+                            </div>
+                            <div class="intro">
+                                <p>商品3</p>
+                                <p style="color:red">￥128</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="type" id="l3">
+                <p class="title">l3</p>
+                <ul>
+                    <li>
+                        <a style="display:block;">
+                            <div class="pic rel">
+                                <img src="/jscode/img/201706/2.jpg">
+                            </div>
+                            <div class="intro">
+                                <p>商品1</p>
+                                <p style="color:red">￥128</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a style="display:block;">
+                            <div class="pic rel">
+                                <img src="/jscode/img/201706/2.jpg">
+                            </div>
+                            <div class="intro">
+                                <p>商品2</p>
+                                <p style="color:red">￥128</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a style="display:block;">
+                            <div class="pic rel">
+                                <img src="/jscode/img/201706/2.jpg">
+                            </div>
+                            <div class="intro">
+                                <p>商品3</p>
+                                <p style="color:red">￥128</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- 下标 -->
+        <!-- <footer class="index_nav" id="footerBtn">
+            <ul class="wd_nav">
+                <li class="classify for_gaq">
+                    <a class="ah" style="display:block">
+			        		 <span class="icon">
+			        		 	<img src="/jscode/img/201706/cart.png">
+			        		 </span> 全部分类
+                </a>
+                </li>
+                <li class="dynamic for_gaq">
+                    <a class="ah" style="display:block">
+				             <span class="icon">
+			        		 	<img src="/jscode/img/201706/cart.png">
+			        		 	<i id="end">a</i>
+			        		 </span> 购物车
+                </a>
+                </li>
+                <li class="contact for_gaq">
+                    <a class="ah" style="display:block">
+			            	 <span class="icon">
+			        		 	<img src="/jscode/img/201706/cart.png">
+			        		 </span>收货地址
+                </a>
+                </li>
+                <li class="store for_gaq">
+                    <a class="ah" style="display:block">
+				             <span class="icon">
+			        		 	<img src="/jscode/img/201706/cart.png">
+			        		 </span>我的订单
+                </a>
+                </li>
+            </ul>
+        </footer> -->
+    </div>
+</body>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script>
+    //设置各块面板的初始宽高
+    $(".all_list").focus();
+    var width = $("body").width();
+    width = parseInt(width) * 0.73 - 1 + "px";
+    $(".all_list").css("width", width);
+    $(".bottom_nav").css("width", $("body").width());
+    $(".menus").css("height", $(window).height() * 0.9);
+    $(".menus").css("max-height", $(window).height() * 0.9);
+    $(".all_list").css("max-height", $(window).height() * 0.9);
+    $(".pa_bo").css("height", $(window).height() * 0.7)
+    //防止在手机端时菜单栏下拉与主屏下拉冲突
+    $("body").css({
+        "height": "100%",
+        "overflow": "hidden"
+    });
+    $("html").css({
+        "height": "100%",
+        "overflow": "hidden"
+    });
+    //商品栏各个栏目的ID
+    var type = ["l1", "l2", "l3"];
+    //判断是否在滚动中
+    var ff = 0;
+    var timeId, timeId2;
+    //解决iPhone5 transform:不生效
+    if ($(window).width() > 321) {
+        $(".pic img").css("transform", "translate(-50%,-50%)");
+    } else {
+        $(".pic img").css("margin", "-50%");
+    }
+    //判断当前所在的位置为合适的栏目加上样式
+    timeId = window.setTimeout("skipHref()", 200);
+
+    function skipHref() {
+        if (ff == 1) {
+                
+        } else {
+            $.each(type, function(i) {
+                if ($("#" + type[i]).offset().top < $(window).height() * 0.1) {
+                    $(".menus li").removeClass("active");
+                    $(".menus a").removeClass("active");
+                    $("a[href=#" + type[i] + "]").parent().addClass("active");
+                    $("a[href=#" + type[i] + "]").addClass("active");
+                    var text = $("a[href=#" + type[i] + "]").text();
+                    $(".title").removeClass("active");
+                    $("p:contains(" + text + ")").addClass("active");
+                }
+            });
+            timeId = window.setTimeout("skipHref()", 200);
+        }
+        $(".all_list").focus();
+    }
+    /* 锚点跳转 */
+    var j = 0,
+        posL = [],
+        posO = {};
+
+    function aSkip(o) {
+        clearTimeout(timeId);
+        ff = 1;
+        timeId2 = window.setTimeout("isStop()", 200);
+        $(".menus li").removeClass("active");
+        $(".menus a").removeClass("active");
+        var text = $(o).text();
+        $(".title").removeClass("active");
+        $("p:contains(" + text + ")").addClass("active");
+        $(o).addClass("active");
+        $(o).parent().addClass("active");
+        //平滑跳转
+        if (j == 0) {
+            $.each(type, function(i, item) {
+                posO.id = "#" + type[i];
+                posO.top = $("#" + type[i]).offset().top + $(".all_list").scrollTop();
+                posL[i] = posO;
+                posO = {};
+            });
+            $.each(posL, function(i, item) {
+                if ($(o).attr("href") == item.id) {
+                    $(".all_list").animate({
+                        scrollTop: item.top
+                    }, 700);
+                }
+            });
+            j++;
+        } else {
+            $(".all_list").stop();
+            $.each(posL, function(i, item) {
+                if ($(o).attr("href") == item.id) {
+                    $(".all_list").animate({
+                        scrollTop: item.top
+                    }, 700);
+                }
+            });
+        }
+    };
+    //锚点连接后判断动画是否完成
+    function isStop() {
+        //alert($(".all_list").is(":animated"))
+        if ($(".all_list").is(":animated")) {
+            ff = 1;
+            timeId2 = window.setTimeout("isStop()", 200);
+        } else {
+            ff = 0;
+            clearTimeout(timeId2);
+        }
+    }
+    //左右联动
+    $(".all_list").on("scrollstop", function() {
+        if (ff == 0) {
+            console.log("?");
+            timeId = window.setTimeout("skipHref()", 200);
+        } else {
+            clearTimeout(timeId);
+        }
+    });
+</script>
+
+</html>

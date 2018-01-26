@@ -95,6 +95,7 @@
             width: 80%;
             height: .5rem;
             outline: none;
+            border: none;
             vertical-align: middle;
         }
 
@@ -110,13 +111,16 @@
             width: 1.6rem;
             height: 1rem;
             line-height: 1rem;
-            padding-left: .2rem;
+            text-align: center;
             box-sizing: border-box;
-            border-bottom: .01rem solid #ccc;
+            border-bottom: 1px solid #ccc;
             background-color: #f5f1ef;
         }
-        .sidebar ul li.active{
+        .sidebar ul li a.active{
             background: #fff;
+        }
+        .sidebar ul li a{
+            display: block;
         }
         .panels-ct{
             height: 11.6rem;
@@ -139,7 +143,7 @@
         main .panels ul li{
             height: 2rem;
             line-height: 2rem;
-            border-bottom: .01rem solid #f5f1ef;
+            border-bottom: 1px solid #f5f1ef;
         }
 
     </style>
@@ -157,7 +161,7 @@
         <main class="clearfix">
             <div class="sidebar">
                 <ul>
-                    <li class="active"><a href="#hot">热销</a></li>
+                    <li><a href="#hot"  class="active">热销</a></li>
                     <li><a href="#water">水饺</a></li>
                     <li><a href="#oil">煎饺</a></li>
                     <li><a href="#cold">凉菜</a></li>
@@ -241,12 +245,18 @@
 
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script>
-        let $sidebarBtns = $('.sidebar li')
+        let $sidebarBtns = $('.sidebar').find('a');
         let $commons = $('.common')
 
         $sidebarBtns.click(function () {
-            $(this).addClass('active')
-                .siblings().removeClass('active')
+            $sidebarBtns.each(function (index, item) {
+                $(item).css({
+                    background: 'rgb(245, 241, 239)'
+                })
+            })
+            $(this).css({
+                background: 'rgb(255, 255, 255)'
+            })
         })
 
         let topRange = $commons.eq(0).offset().top
