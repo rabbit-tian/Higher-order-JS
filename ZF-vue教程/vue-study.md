@@ -63,3 +63,30 @@
         console.log(newArr1) // [1, 2, 3, 4, 5, 6, 7, 8, 9]
     ```
 
+### 箭头函数 arrow
+1. 不具备 this，arguments，自己家没有就找上一级this
+2. 如何更改this： call，apply，bind
+3.  
+
+```javascript
+function a(b){
+    return b+1
+}
+// 改装成箭头函数
+let a = b => b+1
+
+
+function a(b) {
+    return function(c) {
+        return b + c
+    }
+}
+a(1)(2)
+// 改装成箭头函数
+let a = b => {
+    return c => b + c
+}
+a(1)(2)
+
+```
+
