@@ -133,3 +133,10 @@ a(1)(2)
 - 或者 npm init -y :一键生成（注意文件名不能是vue等）
 - npm init vue: 安装vue依赖
 
+### vue的创建过程 定义属性
+- Object.defineProperty
+
+### vue的双向数据绑定
+- 表单元素
+- vue的 指令 v-
+
