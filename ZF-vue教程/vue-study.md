@@ -136,6 +136,22 @@ a(1)(2)
 ### vue的创建过程 定义属性
 - Object.defineProperty
 
+```javascript
+let obj = {}
+Object.defineProperty(obj,'name',{
+    value:1, // 属性值
+    configurable: false, // 是否可删除
+    writable: false, // 是否可修改
+    enumerable: false, // 是否可枚举
+})
+// delete obj.name
+// obj.name = 1000
+// for(let key in obj){
+//     console.log(key)
+// }
+console.log(obj)
+```
+
 ### vue的双向数据绑定 mvvm
 - 表单元素 input checkbox select textarea radio
 - vue的 指令 v-：知识dom的行间属性，vue赋予这种指令一定的意义，来实现特殊的功能，所有属性要以 ”v-“ 开头
