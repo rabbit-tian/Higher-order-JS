@@ -137,6 +137,6 @@ a(1)(2)
 - Object.defineProperty
 
 ### vue的双向数据绑定
-- 表单元素
-- vue的 指令 v-
+- 表单元素 input checkbox select textarea radio
+- vue的 指令 v-：知识dom的行间属性，vue赋予这种指令一定的意义，来实现特殊的功能，所有属性要以 ”v-“ 开头
 
