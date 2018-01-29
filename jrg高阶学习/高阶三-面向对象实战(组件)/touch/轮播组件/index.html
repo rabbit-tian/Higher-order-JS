@@ -127,7 +127,7 @@
 
 <body>
     <div class="container">
-        <div class="carousel">
+        <div class="carousel" id="carousel">
             <ul class="img-ct">
                 <li><a href="#"><img src="img/img1.jpg"></a></li>
                 <li><a href="#"><img src="img/img2.jpg"></a></li>
@@ -145,8 +145,8 @@
     </div>
 
     <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="https://cdn.bootcss.com/touchjs/0.2.14/touch.min.js"></script>
     <script>
-        let $carousel = $('.carousel')
         let $imgCt = $('.img-ct')
         let $imgs = $imgCt.find('li')
         let $bullets = $('.bullet>li')
@@ -162,41 +162,50 @@
 
 
         // 手指按下事件
-        let start; // 按下的点
-        $carousel.on('touchstart', function(e) {
-            let touches = event.touches[0]
-            start = {
-                x: touches.pageX,
-                y: touches.pageY
-            }
+        // let start; // 按下的点
+        // $carousel.on('touchstart', function(e) {
+        //     let touches = event.touches[0]
+        //     start = {
+        //         x: touches.pageX,
+        //         y: touches.pageY
+        //     }
+        // })
+        //
+        // // 手指移动事件
+        // let delta; // 手指移动的距离
+        // $carousel.on('touchmove', function(e) {
+        //     let touches = event.touches[0]
+        //     delta = {
+        //         x: touches.pageX - start.x,
+        //         y: touches.pageY - start.y
+        //     }
+        //     // 防止纵向位移
+        //     if (Math.abs(delta.x) > Math.abs(delta.y)) {
+        //         event.preventDefault()
+        //     }
+        // })
+        //
+        //
+        // // 手指抬起事件
+        // $carousel.on('touchend', function(e) {
+        //     let endX = event.changedTouches[0].pageX
+        //     // 向右滑动
+        //     if (start.x - endX > 20) {
+        //         next ()
+        //     }
+        //     // 向左滑动
+        //     if (endX - start.x > 20) {
+        //         prev ()
+        //     }
+        // })
+
+        // 向左滑动
+        touch.on('#carousel','swipeleft',function () {
+            next ()
         })
-
-        // 手指移动事件
-        let delta; // 手指移动的距离
-        $carousel.on('touchmove', function(e) {
-            let touches = event.touches[0]
-            delta = {
-                x: touches.pageX - start.x,
-                y: touches.pageY - start.y
-            }
-            // 防止纵向位移
-            if (Math.abs(delta.x) > Math.abs(delta.y)) {
-                event.preventDefault()
-            }
-        })
-
-
-        // 手指抬起事件
-        $carousel.on('touchend', function(e) {
-            let endX = event.changedTouches[0].pageX
-            // 向右滑动
-            if (start.x - endX > 20) {
-                next ()
-            }
-            // 向左滑动
-            if (endX - start.x > 20) {
-                prev ()
-            }
+        // 向右滑动
+        touch.on('#carousel','swiperight',function () {
+            prev ()
         })
 
         // 自动播放
