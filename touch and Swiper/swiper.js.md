@@ -7,6 +7,7 @@ var mySwiper = new Swiper('.swiper-container', {
     direction: 'horizontal', // 滑动方向  vertical：垂直  horizontal:水平
     loop: true, // 是否循环滑动
     initialSlide: 1, // 默认显示从第二个面板开始滑动
+    speed: 100, // 设置滑动的速度
 
     // 如果需要分页器
     pagination: {
