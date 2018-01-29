@@ -8,6 +8,7 @@ var mySwiper = new Swiper('.swiper-container', {
     loop: true, // 是否循环滑动
     initialSlide: 1, // 默认显示从第二个面板开始滑动
     speed: 100, // 设置滑动的速度
+    autoplay: 1000, // 自动播放
 
     // 如果需要分页器
     pagination: {
@@ -26,5 +27,7 @@ var mySwiper = new Swiper('.swiper-container', {
     },
 })
 ```
+
+解决swiper不自动播放问题
 
 
