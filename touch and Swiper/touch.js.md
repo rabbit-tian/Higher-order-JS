@@ -3,7 +3,7 @@
 
 2. touch.js——使用教程
 http://blog.csdn.net/wangjiaohome/article/details/49364177
-3. 
+3. Zepto是Jquery的迷你版，简化版
 
 
 
