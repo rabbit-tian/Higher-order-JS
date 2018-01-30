@@ -164,8 +164,11 @@ console.log(obj)
     - 优点：由于页面会先加载dom，后加载vue，页面出现的一瞬间会有{{}}闪现，而v-text不会出现这种状况
     - 如果先加载vue，后加载dom，页面会出现白屏
 - v-for:循环，高效，复用原来的结构，循环谁，就在谁身上加 v-for 属性 
-- v-on:click= fn 
+- v-on:click= "fn" 或 @:click= "fn" 
     - 绑定事件 
+    - 函数放在 methods 里面，methods和data里面的数据都会放到vm上，所以，不要重名
+    - methods中的this指向：实例 vm
+    - @:click= "fn()":如果不传参数，则不要写括号，会自动传入事件源，如果写参数，要手动传入 $event 属性
 
 
 ### 数据的响应式变化 reactivity
