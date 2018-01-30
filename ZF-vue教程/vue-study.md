@@ -169,6 +169,7 @@ console.log(obj)
     - 函数放在 methods 里面，methods和data里面的数据都会放到vm上，所以，不要重名
     - methods中的this指向：实例 vm
     - @:click= "fn()":如果不传参数，则不要写括号，会自动传入事件源，如果写参数，要手动传入 $event 属性
+    - 键盘修饰符 ：modifiers  => @:click.enter= "fn"
 
 
 ### 数据的响应式变化 reactivity
