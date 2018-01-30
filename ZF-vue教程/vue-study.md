@@ -160,6 +160,8 @@ console.log(obj)
  
 ### vue的基础指令
 - v-model: 数据的双向绑定
+    - text：数据
+    - checkbox：布尔值是，多个选项时，需要value属性
 - v-text: 等同于 {{}}
     - 优点：由于页面会先加载dom，后加载vue，页面出现的一瞬间会有{{}}闪现，而v-text不会出现这种状况
     - 如果先加载vue，后加载dom，页面会出现白屏
@@ -175,4 +177,8 @@ console.log(obj)
 ### 数据的响应式变化 reactivity
 - 数据劫持：vue会循环data中的数据，一次增加getter和setter
 - 使用变量时，先要初始化，否则新加的属性不会导致页面刷新
+
+### vue 钩子函数 created
+- 在数据初始化后会调用，this指向vm实例
+- 专门用来发送ajax的方法
 
