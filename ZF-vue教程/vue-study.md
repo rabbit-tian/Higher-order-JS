@@ -163,6 +163,10 @@ console.log(obj)
 - v-text: 等同于 {{}}
     - 优点：由于页面会先加载dom，后加载vue，页面出现的一瞬间会有{{}}闪现，而v-text不会出现这种状况
     - 如果先加载vue，后加载dom，页面会出现白屏
+- v-for:循环，高效，复用原来的结构，循环谁，就在谁身上加 v-for 属性 
+- v-on:click= fn 
+    - 绑定事件 
+
 
 ### 数据的响应式变化 reactivity
 - 数据劫持：vue会循环data中的数据，一次增加getter和setter
