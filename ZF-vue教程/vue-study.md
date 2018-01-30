@@ -128,7 +128,7 @@ a(1)(2)
 - view 视图
 - viewModel 视图模式
 
-### 安装vue
+### 安装vue,初始化一个项目
 - npm init 初始化 产生一个package.json文件来描述项目依赖，不能大写，不能有特殊字符，不能中文，不能和安装包同名
 - 或者 npm init -y :一键生成（注意文件名不能是vue等）
 - npm init vue: 安装vue依赖
