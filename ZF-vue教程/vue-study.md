@@ -158,5 +158,7 @@ console.log(obj)
 - v-model: 实现数据的双向绑定，数据影响视图，视图也会影响数据 
 - value，selected，checked 属性，vue不识别
  
-
+### vue的基础指令
+- v-model: 数据的双向绑定
+- v-text: 等价于{{}}
 
