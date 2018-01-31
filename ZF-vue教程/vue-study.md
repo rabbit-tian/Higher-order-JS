@@ -237,3 +237,34 @@ computed: { // 计算属性：
 - v-enter-active
 - v-leave-active
 
+```javascript
+
+.tian-enter{
+    opacity: 0;
+}
+.tian-enter-active{
+    transition: 1s linear;
+}
+.tian-leave{
+    opacity: 1;
+}
+.tian-leave-active{
+    opacity: 0;
+    transition: 1s linear;
+}
+
+<transition name="tian">
+    <div v-show="flag" class="box"></div>
+</transition>
+```
+
+- 引入animate.css
+
+```javascript
+<link rel="stylesheet" href="./node_modules/animate.css/animate.css">
+
+<transition enter-active-class="animated fadeInLeft" leave-active-class="animated fadeOutRight">
+    <div v-show="flag" class="box"></div>
+</transition>
+```
+
