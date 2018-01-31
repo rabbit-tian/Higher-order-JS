@@ -186,6 +186,7 @@ console.log(obj)
 
 ### 计算属性 computed
 - 原理： Object.defineProperty()
+- 优点：数据会被缓存，如果依赖的数据没有发生变化，就不会重新执行，节省性能 
 
 ```javascript
 全选：<input type="checkbox" v-model="checkAll">
@@ -205,7 +206,17 @@ computed: { // 计算属性：
             // 根据全选的状态计算单选的状态
             this.products.forEach(item => item.isSelected = val)
         }
+    },
+    // 动态计算 总价值
+    sum: { // sum 的数据会被缓存，如果依赖的数据没有发生变化，就不会重新执行，节省性能 
+        get () {
+            return this.products.reduce((prev,next) => {
+                if (!next.isSelected) return prev; // 只计算勾选的价格
+                return prev + next.proPrice * next.proCount
+            },0)
+        }
     }
-},
+}
+
 ```
 
