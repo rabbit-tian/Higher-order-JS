@@ -216,7 +216,15 @@ computed: { // 计算属性：
             },0)
         }
     }
+    // 如果只有get方法的简写
+    sum() {
+        return this.products.reduce((prev, next) => {
+            if (!next.isSelected) return prev; // 只计算勾选的价格
+            return prev + next.proPrice * next.proCount
+        }, 0)
+    }
 }
+
 
 ```
 
