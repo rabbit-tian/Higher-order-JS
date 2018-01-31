@@ -183,3 +183,29 @@ console.log(obj)
 - 在数据初始化后会调用，this指向vm实例
 - 专门用来发送ajax的方法
 
+
+### 计算属性 computed
+- 原理： Object.defineProperty()
+
+```javascript
+全选：<input type="checkbox" v-model="checkAll">
+
+单选：<input type="checkbox" v-model="item.isSelected">
+
+computed: { // 计算属性：
+    // 动态计算 checkAll 的值
+    checkAll: {
+        get () { // 获取值
+            // 当页面加载时，要获取 checkAll的值，此时get函数被调用
+            // 根据单选的状态计算全选的状态
+            return this.products.every(item => item.isSelected)
+        },
+        set (val) { // 设置值
+            // 当点击全选按钮时，此时checkAll的值改变，调用了set函数
+            // 根据全选的状态计算单选的状态
+            this.products.forEach(item => item.isSelected = val)
+        }
+    }
+},
+```
+
