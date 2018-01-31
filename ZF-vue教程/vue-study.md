@@ -173,6 +173,8 @@ console.log(obj)
     - @:click= "fn()":如果不传参数，则不要写括号，会自动传入事件源，如果写参数，要手动传入 $event 属性
     - 键盘修饰符 ：modifiers  => @:click.enter= "fn"
 - :img  :name  和 v-bind 等同，动态绑定数据
+- v-if: 显示隐藏，操作dom，适合一开始就确认好状态
+- v-show: 显示隐藏，操作样式，适合频繁操作dom
 
 
 ### 数据的响应式变化 reactivity
