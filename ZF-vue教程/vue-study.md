@@ -230,3 +230,10 @@ computed: { // 计算属性：
 
 ```
 
+### 动画 transition
+- v-show
+- transition
+- v-enter
+- v-enter-active
+- v-leave-active
+
