@@ -176,6 +176,12 @@ console.log(obj)
 - v-if: 显示隐藏，操作dom，适合一开始就确认好状态
 - v-show: 显示隐藏，操作样式，适合频繁操作dom
 
+### v-bind 简写 ":"
+- 动态绑定“属性”
+- 图片 <img :src="变量" :width="变量">
+- :class 动态绑定样式
+    - 对象的形式 `<div class="a" :class="{b:flag,c:cut}">我是田甜啦</div>`
+    - 数组的形式 `<div class="a" :class="[class1,class2]">我是tian啦</div>` ,class1和class2后端返回的数据
 
 ### 数据的响应式变化 reactivity
 - 数据劫持：vue会循环data中的数据，一次增加getter和setter
