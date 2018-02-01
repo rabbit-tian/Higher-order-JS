@@ -279,7 +279,7 @@ computed: { // 计算属性：
 ### 事件 （冒泡，捕获）
 
 1. 冒泡
-    - @click.stop=""  : 阻止冒泡 
+    - @click.stop=""  : 阻止冒泡 （事件传播）
     - 原生阻止冒泡写法
         - stopPropagation()
         - cancelBubble = true
@@ -290,6 +290,17 @@ computed: { // 计算属性：
             <div @click="parent">parent
                 <div @click.stop="child">child
                     <div @click.stop="grandson">grandson</div>
+                </div>
+            </div>
+        </div>
+        ```
+    
+        ```
+        <div id="app">
+        <!-- 加了 @click.capture.stop ，此时 只会弹出 parent，原因：stop 阻止 事件传播，不再往下了-->
+            <div @click.capture.stop="parent">parent
+                <div @click.stop="child">child
+                    <div @click="grandson">grandson</div>
                 </div>
             </div>
         </div>
