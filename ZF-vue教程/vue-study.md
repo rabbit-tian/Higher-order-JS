@@ -277,5 +277,42 @@ computed: { // 计算属性：
 ```
 
 ### 事件 （冒泡，捕获）
-- 
+
+1. 冒泡
+    - @click.stop=""  : 阻止冒泡 
+    - 原生阻止冒泡写法
+        - stopPropagation()
+        - cancelBubble = true
+        - 冒泡：从里往外冒
+
+        ```
+        <div id="app">
+            <div @click="parent">parent
+                <div @click.stop="child">child
+                    <div @click.stop="grandson">grandson</div>
+                </div>
+            </div>
+        </div>
+        ```
+
+2. 捕获
+    - @click.capture="parent"  : 捕获
+    - 代替 addEventListener('click',fn)
+    - 点击 孙子，先执行向内捕获阶段，然后再向外冒泡(不包括捕获对象)
+    
+    ```
+    <div id="app">
+        <!-- 点击grandson： 先 parent(捕获) => grandson(冒泡) => child(冒泡)-->
+        <div @click.capture="parent">parent
+            <div @click="child">child
+                <div @click="grandson">grandson</div>
+            </div>
+        </div>
+    </div>
+    ``` 
+
+3. 阻止默认行为
+    - @click.prevent="parent"  : 阻止默认行为
+    - 
+
 
