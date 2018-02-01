@@ -176,12 +176,49 @@ console.log(obj)
 - v-if: 显示隐藏，操作dom，适合一开始就确认好状态
 - v-show: 显示隐藏，操作样式，适合频繁操作dom
 
+### 自定义指令
+1. dierctives
+
+```
+<div id="app">
+<!--v- 开头-->
+    <button v-color="flag">change color</button>
+</div>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        directives: {
+            // v-color 而来的 函数名
+            color (el,bindings) {
+                console.log(arguments)
+                el.style.backgroundColor = bindings.value
+            }
+        },
+        data: {
+            flag: 'red'
+        },
+    })
+</script>
+```
+
 ### v-bind 简写 ":"
 - 动态绑定“属性”
 - 图片 <img :src="变量" :width="变量">
 - :class 动态绑定样式
     - 对象的形式 `<div class="a" :class="{b:flag,c:cut}">我是田甜啦</div>`
     - 数组的形式 `<div class="a" :class="[class1,class2]">我是tian啦</div>` ,class1和class2后端返回的数据
+- :style 动态添加行间样式
+    
+    ```
+    <div id="app">
+        <!-- :style  动态添加行间样式 -->
+        <!-- 对象的形式 -->
+        <div :style="{background: 'pink',color: 'red'}">我是田甜啦</div>
+        <!-- 数组的形式 -->
+        <div :style="[sty1,sty2,{fontSize: '50px'}]">我是tian啦</div>
+    </div>
+    ```
 
 ### 数据的响应式变化 reactivity
 - 数据劫持：vue会循环data中的数据，一次增加getter和setter
@@ -454,4 +491,9 @@ computed: { // 计算属性：
     <input type="text" :key="Math.random()">
 </template>
 ```
+
+### 实现单页开发的方式
+1. 通过 hash 记录跳转的路径 (可以产生历史管理)
+2. 浏览器自带的历史管理的方法 history (history.pushState()) 可能会导致 404错误
+3. 开发时使用hash的方式，上线时 使用 history
 
