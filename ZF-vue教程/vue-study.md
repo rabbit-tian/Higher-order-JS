@@ -268,3 +268,14 @@ computed: { // 计算属性：
 </transition>
 ```
 
+- 一组动画
+
+```javascript
+<transition-group enter-active-class="animated fadeInLeft" leave-active-class="animated fadeOutRight">
+    <div v-for="(item,index) in newArr" :key="index">{{item}}</div>
+</transition-group>
+```
+
+### 事件 （冒泡，捕获）
+- 
+
