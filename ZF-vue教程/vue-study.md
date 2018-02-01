@@ -417,4 +417,35 @@ computed: { // 计算属性：
 </script>
 ```
 
+### template 标签
+- 包裹元素使用
+- v-show 不支持template，v-if 支持
+
+```
+<!-- template 用v-show不生效 -->
+<template v-if="flag">
+    <div>tian</div>
+    <div>tian</div>
+    <div>tian</div>
+    <div>tian</div>
+</template>
+
+<div v-else>yang</div>
+```
+
+### key值的作用
+- 默认情况下切换DOM的时候，相同的结构会被复用，如果不需要复用，要加key值做标识
+
+```
+<!-- 注册登录框转换 -->
+<button @click="cut=!cut">点我啊</button>
+<template v-if="cut">
+    <label>注册</label>
+    <input type="text" :key="Math.random()">
+</template>
+<template v-else>
+    <label>登录</label>
+    <input type="text" :key="Math.random()">
+</template>
+```
 
