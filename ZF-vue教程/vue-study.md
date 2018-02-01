@@ -188,7 +188,10 @@ console.log(obj)
 
 ### 计算属性 computed
 - 原理： Object.defineProperty()
-- 优点：数据会被缓存，如果依赖的数据没有发生变化，就不会重新执行，节省性能 
+- 优点：数据会被缓存，如果依赖的数据（归vue管理的数据，可以响应式变化的）没有发生变化，就不会重新执行，节省性能
+- 两部分组成： get 和 set（不能只写set，必须要有get）
+- set: 一般通过js赋值影响其他人，或者表单元素设置值得时候会调用set
+- 缺点： 不支持异步
 
 ```javascript
 全选：<input type="checkbox" v-model="checkAll">
@@ -355,6 +358,31 @@ computed: { // 计算属性：
             </div>
         </div>
     </div>
+```
+
+### 过滤器
+- 放在 Vue上，可供多个实例使用，并且要放在最上面
+
+```
+<div id="app1">
+    {{'tian' | my(data)}}
+</div>
+<div id="app2">
+    {{'tian' | my(data)}}
+</div>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+// 放在 Vue上，可供多个实例使用，并且要放在最上面
+    Vue.filter('my',data => {
+        return data+'heihei'
+    })
+    new Vue({
+        el: '#app1',
+    })
+    new Vue({
+        el: '#app2',
+    })
+</script>
 ```
 
 
