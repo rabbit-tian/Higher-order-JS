@@ -324,6 +324,31 @@ computed: { // 计算属性：
 
 3. 阻止默认行为
     - @click.prevent="parent"  : 阻止默认行为
-    - 
+4. @click.once="parent"
+    - 事件只会触发一次
+    
+```
+<div id="app">
+        <!-- once: 只会触发一次 -->
+        <div @click="parent">parent
+            <div @click.once="child">child
+                <div @click="grandson">grandson</div>
+            </div>
+        </div>
+    </div>
+```
+
+5. @click.self="parent": 只有点击自己时才会触发
+    
+```
+<div id="app">
+        <!-- .self: 只有点击自己时才会触发 -->
+        <div @click.self="parent">parent
+            <div @click.once="child">child
+                <div @click="grandson">grandson</div>
+            </div>
+        </div>
+    </div>
+```
 
 
