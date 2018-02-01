@@ -324,6 +324,12 @@ computed: { // 计算属性：
 
 3. 阻止默认行为
     - @click.prevent="parent"  : 阻止默认行为
+    - 防止a标签跳转
+    
+    ```
+    <a href="https://www.baidu.com/" @click.prevent="parent">parent</a>
+    ```
+    
 4. @click.once="parent"
     - 事件只会触发一次
     
