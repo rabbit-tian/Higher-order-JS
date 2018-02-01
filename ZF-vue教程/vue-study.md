@@ -185,13 +185,45 @@ console.log(obj)
 - 在数据初始化后会调用，this指向vm实例
 - 专门用来发送ajax的方法
 
+### watch
+1. 优点: 支持异步，其余和computed一样
+2. 如果不需要异步，一般用 computed
+
+```
+    <div id="app">
+        <input type="text" v-model="info"> {{msg}}
+    </div>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+    <script>
+        let vm = new Vue({
+            el: '#app',
+            watch: {
+                // 根据 获取输入框的内容来 算出错误信息
+                // 支持异步
+                // info要和input中的一样
+                info (newVal,oldVal) {
+                    setTimeout( () =>{
+                        if (newVal.length <3) {
+                            return this.msg = '名字太短'
+                        }
+                        if (newVal.length >6) {
+                            return this.msg = '名字太长'
+                        }
+                    },1000)
+                }
+            },
+            data: {info:'', msg: ''}
+
+        })
+    </script>
+```
 
 ### 计算属性 computed
 - 原理： Object.defineProperty()
 - 优点：数据会被缓存，如果依赖的数据（归vue管理的数据，可以响应式变化的）没有发生变化，就不会重新执行，节省性能
 - 两部分组成： get 和 set（不能只写set，必须要有get）
 - set: 一般通过js赋值影响其他人，或者表单元素设置值得时候会调用set
-- 缺点： 不支持异步
+- 缺点： 不支持异步  
 
 ```javascript
 全选：<input type="checkbox" v-model="checkAll">
