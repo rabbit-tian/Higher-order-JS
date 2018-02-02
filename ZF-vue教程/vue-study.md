@@ -494,6 +494,18 @@ computed: { // 计算属性：
 
 ### 实现单页开发的方式
 1. 通过 hash 记录跳转的路径 (可以产生历史管理)
+    - 在a标签上加锚点 `<a href="#/all">全部</a>`
+    - 监控hash值的变化，实现单页开发
+        - `this.hash = window.location.hash.slice(2) || 'all'` :页面一刷新先获取hash值
+        - hashchange: hash一变化就发生的事件
+            this.hash = window.loca
+        
+        ```
+        window.addEventListener('hashchange', () => {// hashchange: hash一变化就发生的事件
+            this.hash = window.location.hash.slice(2)
+        })
+        ```
+    
 2. 浏览器自带的历史管理的方法 history (history.pushState()) 可能会导致 404错误
 3. 开发时使用hash的方式，上线时 使用 history
 
@@ -526,4 +538,6 @@ computed: { // 计算属性：
         }
     },
     ```
+
+    
 
