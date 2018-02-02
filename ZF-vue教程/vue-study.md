@@ -539,5 +539,14 @@ computed: { // 计算属性：
     },
     ```
 
-    
+### 生命周期: 钩子函数
+1. 就是回调函数，只是起了个名字而已，不需过多理解
+2. 根实例初始化时会被调用
+3. 生命周期有哪些方法
+    - beforeCreate : 出生前
+    - created: 出生后
+    - beforeMount: 数据编译好前，数据挂载前
+    - mounted: 数据挂载后
+    - beforeUpdate: 数据更新前
+    - updated: 数据更新后
 
