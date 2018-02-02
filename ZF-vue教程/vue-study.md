@@ -543,10 +543,14 @@ computed: { // 计算属性：
 1. 就是回调函数，只是起了个名字而已，不需过多理解
 2. 根实例初始化时会被调用
 3. 生命周期有哪些方法
-    - beforeCreate : 出生前
-    - created: 出生后
-    - beforeMount: 数据编译好前，数据挂载前
-    - mounted: 数据挂载后
+    - beforeCreate : 出生前，一些内部方法，不会用到
+    - created: 出生后，获取ajax，做一些初始化操作
+    - 挂载元素el 和 模板template
+    - beforeMount: 数据编译好前，数据挂载前，数据和模板编译
+    - mounted: 数据挂载后，可以拿到真实dom
     - beforeUpdate: 数据更新前
-    - updated: 数据更新后
+    - updated: 数据更新后（这两个可以用 watch 替代）
+    - 调用 vm.$destroy(),触发以下两个方法
+    - beforeDestroy : 数据销毁前，可以清楚定时器，解绑事件
+    - destroyed: 数据销毁后
 
