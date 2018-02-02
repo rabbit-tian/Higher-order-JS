@@ -510,4 +510,20 @@ computed: { // 计算属性：
     // 理由：如果不用 JSON.parse() 转化，得到的是一个字符串，我们需要的是对象
     JSON.parse(localStorage.getItem('a'))
     ```
+    
+- 通过钩子函数 created 拿到 localStorage 的数据，渲染到页面上
+        
+    ```
+    created(){ // 页面刷新时，将 localStorage中的数据提取出来渲染到页面上
+        // 当localStorage中没有数据时，走 this.todos
+        this.todos = JSON.parse(localStorage.getItem('data')) || this.todos
+    },
+    watch: { // 监控 数据变化，存储在localStorage中
+        todos: {
+            handler () {
+                localStorage.setItem('data',JSON.stringify(this.todos))
+            },deep:true
+        }
+    },
+    ```
 
