@@ -497,3 +497,17 @@ computed: { // 计算属性：
 2. 浏览器自带的历史管理的方法 history (history.pushState()) 可能会导致 404错误
 3. 开发时使用hash的方式，上线时 使用 history
 
+### localStorage : 本地存储
+- 通过watch监听，只要发生变化就存储在本地，而不需要计算，所有不用computed
+- localStorage.setItem() 和localStorage.getItem()
+    
+    ```
+    // 存储值 {"a":1}
+    // 理由：如果不用 JSON.stringify() 转化，会转化成 [object Object]
+    localStorage.setItem(JSON.stringify('a',{"a":1})) 
+    
+    // 提取值 {"a":1}
+    // 理由：如果不用 JSON.parse() 转化，得到的是一个字符串，我们需要的是对象
+    JSON.parse(localStorage.getItem('a'))
+    ```
+
