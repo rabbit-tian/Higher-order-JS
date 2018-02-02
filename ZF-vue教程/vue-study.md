@@ -546,11 +546,19 @@ computed: { // 计算属性：
     - beforeCreate : 出生前，一些内部方法，不会用到
     - created: 出生后，获取ajax，做一些初始化操作
     - 挂载元素el 和 模板template
-    - beforeMount: 数据编译好前，数据挂载前，数据和模板编译
+    - beforeMount: 数据挂载前，挂载：数据和模板编译好后放到页面上 
     - mounted: 数据挂载后，可以拿到真实dom
     - beforeUpdate: 数据更新前
     - updated: 数据更新后（这两个可以用 watch 替代）
     - 调用 vm.$destroy(),触发以下两个方法
     - beforeDestroy : 数据销毁前，可以清楚定时器，解绑事件
     - destroyed: 数据销毁后
+
+4. this.$属性
+    - this.$data: vm上数据
+    - this.$watch: 监控
+    - this.$el: 当前el元素
+    - this.$set: 后加的属性实现响应化
+    - this.$options: vm 上的所有属性
+    - this.$nextTick: 异步方法，等待渲染dom完成后获取vm
 
