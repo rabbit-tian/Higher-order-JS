@@ -691,4 +691,15 @@ computed: { // 计算属性：
         })
         </script>
         ```
+9. sync 语法糖
+    
+    ```
+    <!-- :m.sync: 语法糖  自定义事件用 update:m 代替 -->
+    <child :m.sync="money"></child>
+    
+    getMoney () {
+        this.$emit('update:m',800) // 触发自己的自定义事件，继而触发父级的thinks事件通知父级改数据（方法时父亲的，属性时当前组件的）
+    }
+    ```
+
 
