@@ -648,3 +648,47 @@ computed: { // 计算属性：
     girl.emit('失恋','我','你')
     ```
 
+8. emit: 发布订阅  this.$emit()
+    - 子级使用父级的数据，再通过发布订阅 通知父级修改数据，进而达到更新自己的数据
+    - 在父级身上绑定事件 `thinks()`
+    - 在子级身上 创建自定义事件来绑定 ` @child-msg="thinks"`，再通过自身事件`@click="getMoney"` `getMoney () {this.$emit('child-msg',800) }` 触发 自定义事件`child-msg`并传递需要的参数, 进而触发父级事件，来改变数据，从而更新自己的数据
+         
+        ```
+        <div id="app">
+            父亲: {{money}}
+        
+            <!-- 通过props继承拿到父亲的数据，绑定到自己身上 -->
+            <!-- 儿子绑定自定义事件来 接收父亲绑定的things事件 -->
+            <child :m="money" @child-msg="thinks"></child>
+        </div>
+        
+        <script src="./node_modules/vue/dist/vue.js"></script>
+        <script>
+        // 父亲绑定一些事件，儿子触发这个事件，将参数传递过去，“单向数据流”
+        // 如果儿子想改数据，必须要通知父亲修改，父亲数据刷新，儿子数据就会刷新
+        
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                money: 400
+            },
+            methods: {
+                thinks (val) {
+                    this.money = val
+                }
+            },
+            components: { // 子组件
+                child: {
+                    props: ['m'],
+                    template: '<div>儿子: {{m}}  <button @click="getMoney">要钱</button></div>',
+                    methods: {
+                        getMoney () {
+                            this.$emit('child-msg',800) // 触发自己的自定义事件，继而触发父级的thinks事件通知父级改数据（方法时父亲的，属性时当前组件的）
+                        }
+                    }
+                }
+            }
+        })
+        </script>
+        ```
+
