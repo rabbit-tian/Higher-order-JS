@@ -701,5 +701,37 @@ computed: { // 计算属性：
         this.$emit('update:m',800) // 触发自己的自定义事件，继而触发父级的thinks事件通知父级改数据（方法时父亲的，属性时当前组件的）
     }
     ```
+10. 插槽 slot
+    - 如果组件 modal中没有内容，默认走slot里，如果有，忽略 slot里的内容  默认：default-
+    - slot里有名字：填入对应内容，渲染
+    
+    ```
+    <div id="app">
+        <modal><p slot="content">这是内容</p><h3 slot="title">这是标题</h3></modal>
+    </div>
+    
+    <template id="dialog">
+        <div>
+            <!-- 如果组件 modal中没有内容，默认走slot里，如果有，忽略 slot里的内容  默认：default-->
+            <slot name="default">这是默认标题</slot>
+    
+            <!-- 规定好名字，填入对应内容 -->
+            <slot name="title"></slot>
+            <slot name="content"></slot>
+        </div>
+    </template>
 
+    // 组件
+    let modal = {
+        template: '#dialog'
+    }
+
+    let vm = new Vue({
+        el: '#app',
+        data: {},
+        components: {
+            modal
+        }
+    })
+    ```
 
