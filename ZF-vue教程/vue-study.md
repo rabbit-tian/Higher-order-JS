@@ -582,5 +582,69 @@ computed: { // 计算属性：
     - 更容易被管理和维护
 
 3. 自定义标签：vue会把他看成一个组件（出去div,span,a,section等）
-4.   
+4. 组件名: 不要中间大写，多个单词用 “-” 连接  如：my-name,  html中用 my-name，js中转驼峰 myName
+5. 全局组件写法
+    
+    ```
+    <div id="app">
+        <my-name>tian</my-name>
+    </div>
+    
+    // 1. 组件名：html中：用 “-”连接 my-name，js中：改成驼峰 myName
+    Vue.component('myName',{ // 一个对象可以看成是一个组件
+        template: '<div>{{msg}}</div>', // 绑定动态数据
+        data () { // 组件中的数据必须是函数类型，“返回”一个实例作为组件的数据
+            return {msg: '我很美'}
+        }
+    })
+    ```
+6. 局部组件 scope-component
+7. 订阅发布
+
+    ```
+    // 发布: emit  订阅：on
+    // 构造函数 girl
+    function Girl () {
+        // 将可以订阅的事件放在对象中
+        this._event = {}
+    }
+    
+    // 在原型上绑定 订阅 和 发布
+    Girl.prototype.on = function (eventName,callback) {
+        if (this._event[eventName]) { // 没有定义过
+            this._event[eventName].push(callback)
+        }else{ // 定义过了
+            this._event[eventName] = [callback]
+        }
+    }
+    Girl.prototype.emit = function (eventName,...args) {
+        // 执行回调函数
+        if (this._event[eventName]) {
+            this._event[eventName].forEach(cal => {
+                cal(...args)
+            })
+        }
+    }
+    
+    let girl = new Girl()
+    
+    // callback
+    function cry (who) {
+        console.log(who+'哭')
+    }
+    function buy (who) {
+        console.log(who+'买') 
+    }
+    function eat (who) {
+        console.log(who+'吃')
+    }
+    
+    // 订阅 on
+    girl.on('失恋',cry)
+    girl.on('失恋',buy)
+    girl.on('失恋',eat)
+    
+    // 发布 emit
+    girl.emit('失恋','我','你')
+    ```
 
