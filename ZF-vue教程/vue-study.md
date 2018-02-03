@@ -701,7 +701,8 @@ computed: { // 计算属性：
         this.$emit('update:m',800) // 触发自己的自定义事件，继而触发父级的thinks事件通知父级改数据（方法时父亲的，属性时当前组件的）
     }
     ```
-10. 插槽 slot
+10. 插槽 slot 
+    - 作用：定制模板
     - 如果组件 modal中没有内容，默认走slot里，如果有，忽略 slot里的内容  默认：default-
     - slot里有名字：填入对应内容，渲染
     
@@ -733,5 +734,43 @@ computed: { // 计算属性：
             modal
         }
     })
+    ```
+
+11. 父级使用子级的数据和方法 通过 ref : 拿到真实的子级dom元素，然后进行操作
+    
+    ```
+    <div id="app">
+        <loading ref="load"></loading>
+    </div>
+    
+    <script src="./node_modules/vue/dist/vue.js"></script>
+    <script src="./node_modules/axios/dist/axios.js"></script>
+    <script>
+
+    let loading = {
+        data () {
+            return {
+                flag:true
+            }
+        },
+        template: '<div v-show="flag">加载中。。。</div>',
+        methods: {
+            hide () {
+                this.flag = false
+            }
+        }
+    }
+
+    let vm = new Vue({
+        el: '#app',
+        components: {
+            loading
+        },
+        mounted () {
+            console.log(this.$refs.load)
+            this.$refs.load.hide()
+        }
+    })
+    </script>
     ```
 
