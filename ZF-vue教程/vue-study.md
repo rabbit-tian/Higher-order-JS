@@ -561,6 +561,7 @@ computed: { // 计算属性：
     - this.$set: 后加的属性实现响应化
     - this.$options: vm 上的所有属性
     - this.$nextTick: 异步方法，等待渲染dom完成后获取vm
+        - 如果想在 mounted 中拿到 内容，最好加一个 `this.$nextTick(() => {})` 一步的方法
     - this.$refs:拿到真实的dom方法,
         -  `<p ref="myp">{{a}}</p>`
         -  `this.$refs.myp`
