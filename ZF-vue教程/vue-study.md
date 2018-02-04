@@ -775,3 +775,50 @@ computed: { // 计算属性：
     </script>
     ```
 
+
+12. keep-alive ： 缓存标签
+    - 两个模板组件切换，每次切换，都会销毁一次组件，造成性能消耗， 解决办法： keep-alive 标签包一下
+    - 路由使用机制： 缓存
+        
+    ```
+    <div id="app">
+    <!-- value属性：如果不加显示 true或者false -->
+    <input type="radio" v-model="radio" value="home"> home
+    <input type="radio" v-model="radio" value="list"> list
+
+    <!-- 两个模板组件切换 -->
+    <!-- 每次切换，都会销毁一次组件，造成性能消耗， 解决办法： keep-alive 标签包一下 -->
+    <!-- 路由使用机制： 缓存 -->
+    <keep-alive name="flag">
+        <component :is="radio"></component>
+    </keep-alive>
+</div>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script src="./node_modules/axios/dist/axios.js"></script>
+<script>
+
+    let home = {
+        template: '<div>home</div>',
+        beforeDestroy () {
+            console.log('销毁')
+        }
+    }
+    let list = {
+        template: '<div>list</div>',
+        beforeDestroy () {
+            console.log('销毁')
+        }
+    }
+
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            radio: 'home'
+        },
+        components: {
+            home,list
+        },
+    })
+</script>
+    ```
+
