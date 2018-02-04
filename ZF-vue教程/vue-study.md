@@ -565,6 +565,7 @@ computed: { // 计算属性：
         -  `<p ref="myp">{{a}}</p>`
         -  `this.$refs.myp`
         -  this.$refs如果不是v-for元素，只能获取一个元素
+        -  `this.$refs.myp.$el.innerHTML` : 获取 元素的 html内容
 
 ### 组件开发 
 1. 分类
