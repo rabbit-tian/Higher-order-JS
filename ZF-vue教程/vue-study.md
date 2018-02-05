@@ -1024,9 +1024,26 @@ let article = {
 ```
 
 ### vue-cli: vue脚手架
-- `sudo npm install vue-cli -g`
-- `vue init webpack <项目名>` ：用 vue 初始化一个webpack项目
-- npm install
-- npm run dev (运行)
+
+- 工具：npm i vue-cli -g
+
+- 命令行中 vue -v
+出现版本号安装成功
+
+- vue init webpack project(项目名称)
+
+- cd进入project
+
+- 先安装模块 npm i
+
+- 启动项目 npm run dev
+
+### 模块
+- node 模块规范: commonjs
+- cmd amd require
+- esmodule es6的模块
+    - 如何定义模块（一个js就是一个模块）
+    - 如何导出模块
+    - 如何使用模块
 
 
