@@ -1002,4 +1002,25 @@ let article = {
 }
 ```
 
+### 路由 + 动画
+
+```
+<div id="app">
+    <router-link to="/home">home</router-link>
+    <router-link to="/list">list</router-link>
+
+    <!-- 动画+路由 -->
+    <transition
+        enter-active-class="animated fadeIn"
+        leave-active-class="animated fadeOut"
+    >
+        <!-- 缓存：router-view  谁需要就给谁加 -->
+        <keep-alive>
+            <router-view class="active"></router-view>
+        </keep-alive>
+    </transition>
+    
+</div>
+```
+
 
