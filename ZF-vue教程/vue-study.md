@@ -884,6 +884,7 @@ computed: { // 计算属性：
 
  <div id="app">
      <!-- router-view:是全局组件，可以直接使用 -->
+     <!-- 作用： 显示视图 -->
     <router-view></router-view>
     <!-- 跳转链接 -->
     <!-- to: 必须加路径  tag: 修改标签名 -->
