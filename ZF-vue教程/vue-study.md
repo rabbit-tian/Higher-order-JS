@@ -849,5 +849,31 @@ computed: { // 计算属性：
 
 14. 组件的循环
     - 组件的循环，要加key    
+    
+    ```
+    <!-- 组件的循环，要加key值 -->
+    <panel type="article.type" @say-title="parentFn" v-for="(article,index) in articles" :key="index">
+        <!-- <span v-html="article.title">: 解析html -->
+        <div slot="title"><span v-html="article.title"></span></div>
+        <div slot="content">内容：
+            {{article.content}}
+        </div>
+        <!-- 先判断作者是不是存在 用v-if 如果存在就渲染 -->
+        <div slot="footer" v-if="article.author">{{article.author}}</div>
+    </panel>
+    ```
 
+    
+15. eventBus-实现多层级组件的传递 
+    - 依赖: 依赖发布订阅
+    - 创建第三方实例，实现事件的交互
+
+    
+### vue 路由
+- 访问不同的路径，就可以返回不同的结果
+- single page application 单页面应用
+
+
+### 多页面 
+- single page application 单页面应用
 
