@@ -873,6 +873,47 @@ computed: { // 计算属性：
 - 访问不同的路径，就可以返回不同的结果
 - single page application 单页面应用
 
+```
+<body>
+<!--
+    1. 前后端分离，后端只负责提供数据接口，
+    2. 跳转是前端实现的
+    3. 开发时：hash 模式，开发时使用hash，不会导致404，但不支持seo(搜索引擎优化)，搜索引擎找不到hash后面的值
+    4. 上线时采用：h5 的 history.pushState
+ -->
+
+ <div id="app">
+     <!-- router-view:是全局组件，可以直接使用 -->
+    <router-view></router-view>
+ </div>
+
+ <script src="./node_modules/vue/dist/vue.js"></script>
+ <script src="./node_modules/vue-router/dist/vue-router.js"></script>
+ <script src="./node_modules/axios/dist/axios.js"></script>
+ <script>
+    // 页面
+    let home = {template: '<div>首页</div>'}
+    let list = {template: '<div>列表页</div>'}
+
+    // VueRouter:引入vue-rputer ,自带VueRouter 类
+    let routes = [ // 路由的映射表，配置路径和组件的关系
+        {path: '/home',component:home}, // 配置的关系就是页面级组件
+        {path: '/list',component:list} // 路径必须加 “/”
+    ]
+    let router = new VueRouter({
+        routes
+    })
+
+    // 实例
+    let vm = new Vue({
+        el: '#app',
+        router, // 路由
+    })
+
+</script>
+</body>
+```
+
 
 ### 多页面 
 - single page application 单页面应用
