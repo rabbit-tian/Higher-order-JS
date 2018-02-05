@@ -885,6 +885,10 @@ computed: { // 计算属性：
  <div id="app">
      <!-- router-view:是全局组件，可以直接使用 -->
     <router-view></router-view>
+    <!-- 跳转链接 -->
+    <!-- to: 必须加路径  tag: 修改标签名 -->
+    <router-link to="/home" tag="button">首页</router-link>
+    <router-link to="/list" tag="button">列表页</router-link>
  </div>
 
  <script src="./node_modules/vue/dist/vue.js"></script>
@@ -914,7 +918,7 @@ computed: { // 计算属性：
 </body>
 ```
 
+### vue 路由-编程式导航
+- 
 
-### 多页面 
-- single page application 单页面应用
 
