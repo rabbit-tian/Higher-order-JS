@@ -836,5 +836,15 @@ computed: { // 计算属性：
         }
     }
     ```
+    - 子组件不能擅自修改从父组件拿到的props里的数据，
+    - 子组件可以通过 data () {},或者 computed () {},修改从父组件拿到的数据
+        
+    ```
+    computed: {
+        color () {
+            return 'panel-' + this.type
+        }
+    },
+    ```
 
 
