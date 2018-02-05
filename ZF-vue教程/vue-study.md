@@ -1023,4 +1023,10 @@ let article = {
 </div>
 ```
 
+### vue-cli: vue脚手架
+- `sudo npm install vue-cli -g`
+- `vue init webpack <项目名>` ：用 vue 初始化一个webpack项目
+- npm install
+- npm run dev (运行)
+
 
