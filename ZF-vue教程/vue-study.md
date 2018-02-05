@@ -920,6 +920,73 @@ computed: { // 计算属性：
 ```
 
 ### vue 路由-编程式导航
-- 
+- `this.$router.push('/list')` , 跳转到 列表页，有历史路径 ['/home','/list',...]
+- `this.$router.go(-1)`, 返回到 首页
 
+### vue 路由-嵌套路由
+- 父级路由和孩子路由 都要有 视图渲染 `<router-view></router-view>`
+- children中 路径 永远不加 /，如果带，表示是一级路由
+    
+```
+<div id="app">
+    <router-link to="/home">首页</router-link>
+    <router-link to="/detail">详情页</router-link>
+    <router-view></router-view>
+</div>
+
+<template id="detail">
+    <div>
+        <router-link to="/detail/profile">个人中心</router-link>
+        <router-link to="/detail/about">关于我</router-link>
+        <router-view></router-view>
+    </div>
+</template>
+
+// 路由模板
+let home = {
+    template: '<div>首页</div>'
+}
+let detail = {
+    template: '#detail'
+}
+let profile = {
+    template: '<div>个人中心</div>'
+}
+let about = {
+    template: '<div>关于我</div>'
+}
+
+let routes = [{
+        path: '',
+        component: home
+    },
+    {
+        path: '/home',
+        component: home
+    },
+    {
+        path: '/detail',
+        component: detail,
+        children: [ // children中 路径 永远不加 /，如果带，表示是一级路由
+            {
+                path: 'profile',
+                component: profile
+            },
+            {
+                path: 'about',
+                component: about
+            },
+        ]
+    }
+]
+
+let router = new VueRouter({
+    routes
+})
+
+let vm = new Vue({
+    el: '#app',
+    router
+})
+```
 
