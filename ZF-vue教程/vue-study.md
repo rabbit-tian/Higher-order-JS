@@ -824,3 +824,17 @@ computed: { // 计算属性：
 </script>
     ```
 
+13. props：使用 Prop 传递数据
+    - 父组件的数据需要通过 prop 才能下发到子组件中
+    
+    ```
+    props: {
+        //  父传子的属性
+        type: {
+            type:[String],
+            default: 'default' // 默认传 default
+        }
+    }
+    ```
+
+
