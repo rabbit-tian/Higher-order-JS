@@ -989,4 +989,17 @@ let vm = new Vue({
     router
 })
 ```
+### vue 路由-参数变化，请求ajax
+
+```
+let article = {
+    template: '<div>第 {{$route.params.c}} 篇文章</div>',
+    watch : {
+        $route () { // 路由中的params一变化，就请求ajax
+            alert('请求ajax')
+        }
+    }
+}
+```
+
 
