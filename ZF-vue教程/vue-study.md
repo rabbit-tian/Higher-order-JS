@@ -1110,6 +1110,8 @@ console.log(str, str2)
 - 初始化：npm init -y 
 - 安装依赖
 `npm install webpack webpack-dev-server babel-core babel-loader babel-preset-es2015 babel-preset-stage-0 css-loader style-loader less less-loader file-loader url-loader html-webpack-plugin --save-dev`
+- 安装 vue vue-loader(解析 .vue文件) vue-template-compiler （解析vue模板）
+- 安装路由 vue-router
 - 配置文件 `webpack.config.js`
     - 原码路径：src文件
     - 入口文件: main.js
@@ -1124,4 +1126,5 @@ console.log(str, str2)
     "dev": "webpack-dev-server"
     ```
 - 在 .vue 的文件中写 vue
+
 
