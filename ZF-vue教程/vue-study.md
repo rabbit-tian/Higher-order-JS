@@ -1095,3 +1095,7 @@ console.log(str, str2)
 - 在js中写 图片需要import，或者是线上地址
 
 
+### 解析html插件
+- 插件的作用，以我们自己的html作为模板，将打包的结果自动引入到html中，产出到dist文件目录下
+- npm install html-webpack-plugin --save-dev
+
