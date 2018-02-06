@@ -1043,7 +1043,25 @@ let article = {
 - cmd amd require
 - esmodule es6的模块
     - 如何定义模块（一个js就是一个模块）
-    - 如何导出模块
-    - 如何使用模块
+    - 如何导出模块（export）
+    - 如何使用模块（import）
+
+```
+//首先开启服务器（anywhere 8860）
+// type="module"
+<script src="./main.js" type="module"></script>
+
+
+// 导出 (a.js 文件)
+export let str = 'tian';
+export let str2 = 'yang';
+
+// 引入使用 (main.js 文件)
+// 如果是文件模块，要加 './',  如果是第三方模块，不加 './'
+// 从另一个文件中 解构出来使用
+// import： 具有声明功能，
+import {str，str2} from './a.js';
+console.log(str, str2)
+```
 
 
