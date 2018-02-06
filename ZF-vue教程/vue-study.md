@@ -1106,3 +1106,22 @@ console.log(str, str2)
 - vue-loader:  解析 .vue文件的
 - vue-template--compiler 用来解析vue模板的
 
+### vue文件配置
+- 初始化：npm init -y 
+- 安装依赖
+`npm install webpack webpack-dev-server babel-core babel-loader babel-preset-es2015 babel-preset-stage-0 css-loader style-loader less less-loader file-loader url-loader html-webpack-plugin --save-dev`
+- 配置文件 `webpack.config.js`
+    - 原码路径：src文件
+    - 入口文件: main.js
+    - 出口文件：bundle.js (任意取)
+    - 配置依赖模块 module
+    - plugin：html模板
+
+- package.json: 配置打包的命令
+    
+    ```
+    "build": "webpack",
+    "dev": "webpack-dev-server"
+    ```
+- 
+
