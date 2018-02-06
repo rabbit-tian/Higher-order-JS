@@ -1123,5 +1123,5 @@ console.log(str, str2)
     "build": "webpack",
     "dev": "webpack-dev-server"
     ```
-- 
+- 在 .vue 的文件中写 vue
 
