@@ -1099,3 +1099,7 @@ console.log(str, str2)
 - 插件的作用，以我们自己的html作为模板，将打包的结果自动引入到html中，产出到dist文件目录下
 - npm install html-webpack-plugin --save-dev
 
+### webpack 的开发服务器
+- webpack-dev-server:可以帮我们启动一个端口号，代码更新时，自动打包，代码有变化，就重新执行
+
+
