@@ -1100,6 +1100,9 @@ console.log(str, str2)
 - npm install html-webpack-plugin --save-dev
 
 ### webpack 的开发服务器
-- webpack-dev-server:可以帮我们启动一个端口号，代码更新时，自动打包，代码有变化，就重新执行
+- webpack-dev-server --save-dev  :可以帮我们启动一个端口号，代码更新时，自动打包，代码有变化，就重新执行
 
+### 安装 vue vue-loader vue-template--compiler
+- vue-loader:  解析 .vue文件的
+- vue-template--compiler 用来解析vue模板的
 
