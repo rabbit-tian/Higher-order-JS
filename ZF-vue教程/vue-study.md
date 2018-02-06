@@ -1077,5 +1077,21 @@ console.log(str, str2)
 ### babelz转义es6 -> es5
 - babel核心包：npm install babel-core --save-dev
 - babel翻译官,解析语法: npm install babel-loader --save-dev
+- 让翻译官拥有解析es6的功能 npm install babel-preset-es2015 --save-dev
+- 让翻译官拥有解析es7 的功能 npm install babel-preset-stage-0 --save-dev
+
+### 解析css样式
+- npm install css-loader style-loader --save-dev
+- css-loader: 将css解析成模块，将解析的内容插到style标签内（style-loader）
+
+### less,sass,stylus(预处理语言)
+- less-loader  less css-loader style-loader
+- sass-loader
+- stylus-loader
+
+### 解析图片
+- file-loader
+- url-loader: 依赖于file-loader，
+- 在js中写 图片需要import，或者是线上地址
 
 
