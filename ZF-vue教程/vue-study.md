@@ -1067,3 +1067,15 @@ console.log(str, str2)
 ```
 
 
+### webpack 解析模块
+- 先下载webpack
+- npm init -y
+- npm install webpack --save-dev (生产环境)
+- 安装webpack最好不要再全局，否者可能导致webpack的版本差异
+- 在package.json 中配置一个脚本 ，这个脚本的命令式webpack，会去当前的node_modules下 找bin对相应的webpack名字，让其执行，执行的就是bin/webpack.js，webpack.js 需要当前目录下有个名字叫webpack.config.js文件，我们通过npm run build执行的目录是当前文件的目录，所以会去当前目录下去吓着
+
+### babelz转义es6 -> es5
+- babel核心包：npm install babel-core --save-dev
+- babel翻译官,解析语法: npm install babel-loader --save-dev
+
+
