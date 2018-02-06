@@ -1060,6 +1060,8 @@ export let str2 = 'yang';
 // 如果是文件模块，要加 './',  如果是第三方模块，不加 './'
 // 从另一个文件中 解构出来使用
 // import： 具有声明功能，
+
+// console.log(str) // import 命令具有提升效果
 import {str，str2} from './a.js';
 console.log(str, str2)
 ```
