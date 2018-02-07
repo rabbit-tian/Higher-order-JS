@@ -1125,6 +1125,28 @@ console.log(str, str2)
     "build": "webpack",
     "dev": "webpack-dev-server"
     ```
-- 在 .vue 的文件中写 vue
 
+### vue-cli   vue 脚手架
+- npm install vue-cli -g
+- vue init webpack vue-book : 生成文件夹
+- 进入 vue-book 文件
+- 初始化安装依赖: npm install
+
+### vue-cli 项目
+- components：页面级组件
+- base: 基础组件，页面的某一部分
+- api： 接口文件
+- mock: 后台服务文件
+
+
+### 阿里字体图标
+- 搜索后加入购物车
+- 引入线上地址
+
+```
+<!-- 图标使用 -->
+<i class="iconfont icon-home"></i>
+```
+
+### vue 小练习
 
