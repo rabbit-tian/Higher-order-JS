@@ -1178,5 +1178,7 @@ console.log(str, str2)
     
 ### list 列表页
 - 删除功能
-- 详情页跳转  `{path: '/detail/:bid',component: Detail},`  依赖:路径参数
+- 详情页跳转  
+    - 依赖:路径参数：`{path: '/detail/:bid',component: Detail,name:'detail'},,`  
+    - 动态绑定:`:to="{name:'detail',params:{bid:book.bookId}}"`
 
