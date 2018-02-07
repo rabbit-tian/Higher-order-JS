@@ -1149,4 +1149,12 @@ console.log(str, str2)
 ```
 
 ### vue 小练习
+- App.vue：根组件
+- main.js： 入口文件，一般引入 根组件和路由，不做其他操作
+- components文件: 页面级组件  Home,Add,List.Collect
+- 路由router： 引入Home,Add,List.Collect组件，配置路由
+- 在 App.vue 中渲染路由 `<router-view></router-view> <router-link to="/home"></router-link>`
+- base文件: 
+    - 底部tab切换组件: 把tab切换（首页，列表...）,抽到Tab组件内，方便复用
+    - 头部head导航组件： 
 
