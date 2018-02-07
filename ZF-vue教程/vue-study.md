@@ -1157,6 +1157,20 @@ console.log(str, str2)
 - base文件: 
     - 底部tab切换组件: 把tab切换（首页，列表...）,抽到Tab组件内，方便复用
     - 头部head导航组件：每个页面级组件引入注册，使用就可以了
-- 轮播图组件 `npm install vue-awesome-swiper --save`
-
+- 轮播图组件 
+    - 安装插件`npm install vue-awesome-swiper --save`
+    - 复制粘贴代码
+    - 引入`import VueAwesomeSwiper from 'vue-awesome-swiper'` 和 `import 'swiper/dist/css/swiper.css'`
+    - 使用 `Vue.use(VueAwesomeSwiper, /* { default global options } */)`
+    - 在主页Home 中引入使用
+    - api： 后台，返回数据
+    
+### 热门图书的功能
+- api数据接口
+- 在哪个组件应用这个api：如果是基础组件需要这些数据，在这个组件的父级中调用这个方法，将数据传递给基础组件
+- 写一个基础组件
+    - 创建一个 .vue 文件
+    - 在需要使用这个组件的父级中引用这个组件
+    - 在组件中注册
+    - 以标签的形式引入
 
