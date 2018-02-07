@@ -1156,5 +1156,7 @@ console.log(str, str2)
 - 在 App.vue 中渲染路由 `<router-view></router-view> <router-link to="/home"></router-link>`
 - base文件: 
     - 底部tab切换组件: 把tab切换（首页，列表...）,抽到Tab组件内，方便复用
-    - 头部head导航组件： 
+    - 头部head导航组件：每个页面级组件引入注册，使用就可以了
+- 轮播图组件 `npm install vue-awesome-swiper --save`
+
 
