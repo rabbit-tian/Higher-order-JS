@@ -1181,4 +1181,7 @@ console.log(str, str2)
 - 详情页跳转  
     - 依赖:路径参数：`{path: '/detail/:bid',component: Detail,name:'detail'},,`  
     - 动态绑定:`:to="{name:'detail',params:{bid:book.bookId}}"`
+- 判断 对象是否为空
+    - `Object.keys({}).length` :转化为数组后再判断
+
 
