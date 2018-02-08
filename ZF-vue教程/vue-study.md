@@ -1240,6 +1240,24 @@ console.log(str, str2)
 
 ### 下拉刷新
 - github 上插件: vue-pull-refresh
-- 
+
+### 图片懒加载
+- github 上插件: vue-lazyload
+- 使用步骤
+    - `npm install vue-lazyload -D`
+    - main.js 中 ，引入插件
+    
+    ```
+    import VueLazyload from 'vue-lazyload' //图片懒加载
+
+    Vue.use(VueLazyload, {//图片懒加载
+      preLoad: 1.3,
+      error: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1518092973370&di=360b9985c4106bde48a51dc90d61d5fd&imgtype=0&src=http%3A%2F%2Fimg01.taopic.com%2F160312%2F267851-16031210562321.jpg',
+      loading: 'http://img.lanrentuku.com/img/allimg/1212/5-121204193R0-50.gif',
+      attempt: 1
+    })
+    ```
+    - list组件中: 把img的src换成 v-lazy
+    `<img v-lazy="book.bookCover">`
 
 
