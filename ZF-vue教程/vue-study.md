@@ -1183,5 +1183,7 @@ console.log(str, str2)
     - 动态绑定:`:to="{name:'detail',params:{bid:book.bookId}}"`
 - 判断 对象是否为空
     - `Object.keys({}).length` :转化为数组后再判断
-
+- 详情页 detail
+    - 查看 
+    - 修改
 
