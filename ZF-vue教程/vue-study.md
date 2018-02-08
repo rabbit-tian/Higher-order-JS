@@ -1198,5 +1198,9 @@ console.log(str, str2)
         })
         ```
     - 添加页 add
-    - 实现loading效果
+    - 实现loading组件
+        - axios 如何同时完成多个接口
+    `axios.all([getSliders(),getHotBooks()])`
+        - css3 网上代码
+        - home页缓存 :路由源信息 keep-alive
 
