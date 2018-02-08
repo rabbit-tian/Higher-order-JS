@@ -1186,4 +1186,16 @@ console.log(str, str2)
 - 详情页 detail
     - 查看 
     - 修改
+    - map:用新值替换旧值
+            
+        ```
+        book = book.map(item => {
+            if (item.bookId === id) {
+                return this.books[0] // 替换成新的
+            }else {
+                return item // 其他原封不动返回
+            }
+        })
+        ```
+    - 
 
