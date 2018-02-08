@@ -1261,3 +1261,19 @@ console.log(str, str2)
     `<img v-lazy="book.bookCover">`
 
 
+### 项目优化
+- 代码分隔  coding split
+    - 点一个页面，加载一个页面，而不是都加载了
+    - 路有中不用引入 `import Home from '../components/Home.vue';`
+    - 只要这样配置 
+    
+        ```
+        {
+            path: '/home',
+            component: () => import('../components/Home.vue'),
+            // 路由源信息 meta  如何取：this.$route.meta.keepAlive
+            meta: {keepAlive:true}
+        },
+        ```
+        
+
