@@ -1198,9 +1198,39 @@ console.log(str, str2)
         })
         ```
     - 添加页 add
-    - 实现loading组件
+    - 实现loading组件  及 页面缓存
         - axios 如何同时完成多个接口
     `axios.all([getSliders(),getHotBooks()])`
         - css3 网上代码
         - home页缓存 :路由源信息 keep-alive
+                        
+            ```
+            // 路由：
+            routes: [
+                {
+                    path: '/home',
+                    component: Home,
+                    // 路由源信息 meta  如何取：this.$route.meta.keepAlive
+                    meta: {keepAlive:true}
+                },
+            ]
+            
+            // 路由显示页：App.vue
+            <template>
+                <div id="app">
+                    <!-- 使用路由 -->
+                    <!-- keep-alive:需要缓存的 $route.meta.keepAlive:是不是需要缓存的布尔值-->
+                    <keep-alive>
+                        <router-view v-if="$route.meta.keepAlive"></router-view>
+                    </keep-alive>
+                
+                    <!-- 正常的访问走这边：不需要缓存的 -->
+                    <router-view v-if="!$route.meta.keepAlive"></router-view>
+                
+                    <Tab></Tab>
+                </div>
+            </template>
+            ```
+
+    - 
 
