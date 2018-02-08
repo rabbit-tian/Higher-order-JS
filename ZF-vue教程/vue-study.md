@@ -1183,54 +1183,55 @@ console.log(str, str2)
     - 动态绑定:`:to="{name:'detail',params:{bid:book.bookId}}"`
 - 判断 对象是否为空
     - `Object.keys({}).length` :转化为数组后再判断
-- 详情页 detail
-    - 查看 
-    - 修改
-    - map:用新值替换旧值
-            
+### 详情页 detail
+- 查看 
+- 修改
+- map:用新值替换旧值
+        
+    ```
+    book = book.map(item => {
+        if (item.bookId === id) {
+            return this.books[0] // 替换成新的
+        }else {
+            return item // 其他原封不动返回
+        }
+    })
+    ```
+- 添加页 add
+### 实现loading组件  及 页面缓存
+    - axios 如何同时完成多个接口
+`axios.all([getSliders(),getHotBooks()])`
+    - loading组件：css3 网上代码
+    - home页缓存 :路由源信息 keep-alive
+                    
         ```
-        book = book.map(item => {
-            if (item.bookId === id) {
-                return this.books[0] // 替换成新的
-            }else {
-                return item // 其他原封不动返回
-            }
-        })
-        ```
-    - 添加页 add
-    - 实现loading组件  及 页面缓存
-        - axios 如何同时完成多个接口
-    `axios.all([getSliders(),getHotBooks()])`
-        - css3 网上代码
-        - home页缓存 :路由源信息 keep-alive
-                        
-            ```
-            // 路由：
-            routes: [
-                {
-                    path: '/home',
-                    component: Home,
-                    // 路由源信息 meta  如何取：this.$route.meta.keepAlive
-                    meta: {keepAlive:true}
-                },
-            ]
+        // 路由：
+        routes: [
+            {
+                path: '/home',
+                component: Home,
+                // 路由源信息 meta  如何取：this.$route.meta.keepAlive
+                meta: {keepAlive:true}
+            },
+        ]
+        
+        // 路由显示页：App.vue
+        <template>
+            <div id="app">
+                <!-- 使用路由 -->
+                <!-- keep-alive:需要缓存的 $route.meta.keepAlive:是不是需要缓存的布尔值-->
+                <keep-alive>
+                    <router-view v-if="$route.meta.keepAlive"></router-view>
+                </keep-alive>
             
-            // 路由显示页：App.vue
-            <template>
-                <div id="app">
-                    <!-- 使用路由 -->
-                    <!-- keep-alive:需要缓存的 $route.meta.keepAlive:是不是需要缓存的布尔值-->
-                    <keep-alive>
-                        <router-view v-if="$route.meta.keepAlive"></router-view>
-                    </keep-alive>
-                
-                    <!-- 正常的访问走这边：不需要缓存的 -->
-                    <router-view v-if="!$route.meta.keepAlive"></router-view>
-                
-                    <Tab></Tab>
-                </div>
-            </template>
-            ```
+                <!-- 正常的访问走这边：不需要缓存的 -->
+                <router-view v-if="!$route.meta.keepAlive"></router-view>
+            
+                <Tab></Tab>
+            </div>
+        </template>
+        ```
 
-    - 
+### 下拉加载
+- 
 
