@@ -1232,10 +1232,13 @@ console.log(str, str2)
         </template>
         ```
 
-### 上拉拉加载
+### 上拉加载
 - 默认每次给5条，前端告诉后台要从第几条开始加载
 - 后台返回 还要告诉前端 是否有更多的数据 
 - 不断往数组中加数组的方法 `this.books = [...this.books,...books]`
 - 滚动高度(scrollTop + 元素可见高度(clientHeight) + 20 > 元素的总高度(scrollHeight))
+
+### 下拉刷新
+- github 上插件: vue-pull-refresh
 
 
