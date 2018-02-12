@@ -1276,4 +1276,8 @@ console.log(str, str2)
         },
         ```
         
+### 打包发布项目
+- npm run build
+- 
+
 
