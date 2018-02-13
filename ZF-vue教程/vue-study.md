@@ -1240,6 +1240,7 @@ console.log(str, str2)
 
 ### 下拉刷新
 - github 上插件: vue-pull-refresh
+- 根据插件复制粘贴套用
 
 ### 图片懒加载
 - github 上插件: vue-lazyload
