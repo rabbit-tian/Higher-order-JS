@@ -1237,6 +1237,7 @@ console.log(str, str2)
 - 后台返回 还要告诉前端 是否有更多的数据 
 - 不断往数组中加数组的方法 `this.books = [...this.books,...books]`
 - 滚动高度(scrollTop + 元素可见高度(clientHeight) + 20 > 元素的总高度(scrollHeight))
+- +20:提前一点请求数据，提高用户体验
 
 ### 下拉刷新
 - github 上插件: vue-pull-refresh
