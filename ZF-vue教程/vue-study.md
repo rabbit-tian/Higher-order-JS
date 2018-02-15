@@ -1,8 +1,9 @@
 ### 数组的方法
 1. slice:不改变原数组
 
-
 ### forEach,for in,for,for of 的区别
+# 都不会改变原数组
+
 1. for: 编程式
 2. forEach: 
     - 声明式（不关心如何实现）
@@ -1278,8 +1279,5 @@ console.log(str, str2)
         },
         ```
         
-### 打包发布项目
-- npm run build
-- 
 
 
