@@ -67,7 +67,7 @@ function func() {
     fun是window中的。
     相当于
     window.fun = function(){}
-    因此this指向window
+    因此，this指向window
 */
 
 ```
