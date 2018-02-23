@@ -57,16 +57,16 @@ john.sayHi() // "John:hi!"
 
 ```javascript
 
-func() 
-function func() { 
+fn() 
+function fn() { 
   alert(this) // [object Window]
 }
 
 /*
-    var fun= function(){}
-    fun是window中的。
+    var fn= function(){}
+    fn是window中的。
     相当于
-    window.fun = function(){}
+    window.fn = function(){}
     因此，this指向window
 */
 
