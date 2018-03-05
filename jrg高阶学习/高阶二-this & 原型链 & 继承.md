@@ -55,7 +55,7 @@ john.sayHi() // "John:hi!"
 
 ### 问题3： 以下代码输出什么,为什么?
 
-```javascript
+```javascript**
 
 fn() 
 function fn() { 
